@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        .info{
+            margin: 50px;
+            overflow-wrap: break-word;
+        }
+        .hide_view{
+            display: none !important;
+        }
+    </style>
+    <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.0/firebase-messaging.js"></script>
+
+    <script src="./libs/localforage.min.js"></script>
+    <script src="./libs/jquery/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+
+<div class="info " id="form_div">
+    <form class='userFormBlock' name='userForm' id='userForm'>
+        <div class='form__item'>url:<input name='url' class='emitBlockForm_name' type='text' size='40' value='' id="cfg_url"></div>
+        <div class='form__item'>jwt:<input name='jwt' class='emitBlockForm_name' type='text' size='40' value='' id="cfg_jwt"></div>
+
+        <div class='form__item'>apiKey:<input name='apiKey' class='emitBlockForm_name' type='text' size='40' value='' id="cfg_apiKey"></div>
+        <div class='form__item'>authDomain:<input name='authDomain' class='emitBlockForm_name' type='text' size='40' value='' id="cfg_authDomain"></div>
+        <div class='form__item'>databaseURL:<input name='databaseURL' class='emitBlockForm_name' type='text' size='40' value='' id="cfg_databaseURL"></div>
+        <div class='form__item'>projectId:<input name='projectId' class='emitBlockForm_name' type='text' size='40' value='' id="cfg_projectId"></div>
+        <div class='form__item'>storageBucket:<input name='storageBucket' class='emitBlockForm_name' type='text' size='40' value='' id="cfg_storageBucket"></div>
+        <div class='form__item'>messagingSenderId:<input name='messagingSenderId' class='emitBlockForm_name' type='text' size='40' value='' id="cfg_messagingSenderId"></div>
+        <div class='form__item'>appId:<input name='appId' class='emitBlockForm_name' type='text' size='40' value='' id="cfg_appId"></div>
+        <div class='form__item'>measurementId:<input name='measurementId' class='emitBlockForm_name' type='text' size='40' value='' id="cfg_measurementId"></div>
+
+        <div class='form__item'><input type='button' value='save' class='btn_save buttons' id='btn_save'></div>
+    </form>
+</div>
+
+<div class="info " id="form_info">
+        <div class='form__item' id="info_config"></div>
+
+        <div class='form__item'><input type='button' value='edit' class='btn_edit buttons' id='btn_edit'></div>
+        <div class='form__item'><input type='button' value='send' class='btn_send buttons' id='btn_send'></div>
+</div>
+
+
+
+<div class="info" id="info_t_fb"></div>
+<div class="info" id="info_t_fcm"></div>
+<div class="info" id="info_res"></div>
+<div class="info" id="info_msg"></div>
+
+<script src="main.js"></script>
+
+</body>
+</html>
