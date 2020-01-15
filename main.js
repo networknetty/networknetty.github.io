@@ -168,7 +168,7 @@ window.onload = function () {
     }
 
     let callBackend = function (){
-        let body = { data:{token_fire:tk_fb, fcm:tk_fcm}, action:'login_fire_base_token' };
+        let body = { data:{token:tk_fb}, action:'login' };//, fcm:tk_fcm
         fetch(
             _config.url+'/login',
                 {
