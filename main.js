@@ -249,8 +249,8 @@ window.onload = function () {
         log_sock_console('add listen key:'+key);
 
         socket.on(key, (data) => {
-            console.log(key + ' listen data:'+data);
-            log_sock_console(' -- '+key + ' listen data:'+data);
+            console.log(key + ' listen data:'+JSON.stringify(data));
+            log_sock_console(' -- '+key + ' listen data:'+JSON.stringify(data));
         });
     }
 
