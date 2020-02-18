@@ -225,13 +225,14 @@ window.onload = function () {
     let sockOpen = function () {
         socket = io(_config.sock);
         socket.on('connect', () => {
-            console.log('connect socket');
-            console.log(socket.id);
+            console.log(' -- connect socket.id:'+socket.id);
+            log_sock_console(' -- connect socket.id:'+socket.id);
             openedSock();
         });
         socket.on('disconnect', () => {
             closedSock();
             console.log('disconnect socket');
+            log_sock_console(' -- disconnect socket');
             socket.open();
         });
     };
@@ -246,8 +247,16 @@ window.onload = function () {
 
         socket.on(key, (data) => {
             console.log(key + ' listen data:'+data);
+            log_sock_console(' -- '+key + ' listen data:'+data);
         });
-    };
+    }
+
+    function log_sock_console(msg) {
+        let div = document.createElement('div');
+        div.className = 'info_sock_console__item';
+        div.innerHTML = "<div>"+msg+"</div>";
+        info_sock.appendChild(div);
+    }
 
     function onEmitMsg() {
 
@@ -257,22 +266,5 @@ window.onload = function () {
         let body = formmsg.get('body');
 
         socket.emit(msg, body);
-
-        // setLocalObject(_configkey, _config);
-
-        // $('#form_div').addClass('hide_view');
-        // $('#form_info').removeClass('hide_view');
-
-        // $('#info_config').html('url: '+_config.url+' <br> ' +
-        //     'sock: '+_config.sock +' <br> ' +
-        //     'apiKey: '+_config.apiKey +' <br> ' +
-        //     'authDomain: '+_config.authDomain +' <br> ' +
-        //     'databaseURL: '+_config.databaseURL +' <br> ' +
-        //     'projectId: '+_config.projectId +' <br> ' +
-        //     'storageBucket: '+_config.storageBucket +' <br> ' +
-        //     'messagingSenderId: '+_config.messagingSenderId +' <br> ' +
-        //     'appId: '+_config.appId +' <br> ' +
-        //     'measurementId: '+_config.measurementId
-        // );
     }
 };
