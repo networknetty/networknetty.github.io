@@ -18,12 +18,15 @@
 
     <script src="./libs/localforage.min.js"></script>
     <script src="./libs/jquery/jquery-3.2.1.min.js"></script>
+    <script src="./libs/socket.io.js"></script>
 </head>
 <body>
 
-<div class="info " id="form_div">
+<div class="info" id="form_div">
     <form class='userFormBlock' name='userForm' id='userForm'>
         <div class='form__item'>url:<input name='url' class='emitBlockForm_name' type='text' size='40' value='' id="cfg_url"></div>
+        <div class='form__item'>sock:<input name='sock' class='emitBlockForm_name' type='text' size='40' value='' id="cfg_sock"></div>
+
         <div class='form__item'>jwt:<input name='jwt' class='emitBlockForm_name' type='text' size='40' value='' id="cfg_jwt"></div>
 
         <div class='form__item'>apiKey:<input name='apiKey' class='emitBlockForm_name' type='text' size='40' value='' id="cfg_apiKey"></div>
@@ -39,19 +42,31 @@
     </form>
 </div>
 
-<div class="info " id="form_info">
+<div class="info" id="form_info">
         <div class='form__item' id="info_config"></div>
 
         <div class='form__item'><input type='button' value='edit' class='btn_edit buttons' id='btn_edit'></div>
         <div class='form__item'><input type='button' value='send' class='btn_send buttons' id='btn_send'></div>
 </div>
 
-
-
 <div class="info" id="info_t_fb"></div>
 <div class="info" id="info_t_fcm"></div>
 <div class="info" id="info_res"></div>
 <div class="info" id="info_msg"></div>
+
+<div class="sock_block" id="sock_block">
+    <div class='form__item'><input type='button' value='connect' class='btn_connect_sock buttons' id='btn_connect_sock'></div>
+    <form class='sockFormBlock' name='sockForm' id='sockForm'>
+        <div class='form__item'>msg:<input name='msg' class='emitBlockForm_name' type='text' size='40' value='' id="sockMsg"></div>
+        <div class='form__item'>body:<input name='body' class='emitBlockForm_name' type='text' size='40' value='' id="sockBody"></div>
+        <div class='form__item'><input type='button' value='emit' class='btn_emit_sock buttons' id='btn_emit_sock'></div>
+    </form>
+    <form class='sockFormBlock' name='sockListen' id='sockListen'>
+        <div class='form__item'>msg:<input name='key' class='emitBlockForm_name' type='text' size='40' value='' id="sockKeyListen"></div>
+        <div class='form__item'><input type='button' value='emit' class='btn_listen_sock buttons' id='btn_listen_sock'></div>
+    </form>
+</div>
+<div class='form__item' id="info_sock"></div>
 
 <script src="main.js"></script>
 
