@@ -178,8 +178,6 @@ window.onload = function () {
 
         $('#form_div').removeClass('hide_view');
         $('#form_info').addClass('hide_view');
-
-
     }
 
     let callBackend = function (){
@@ -223,6 +221,9 @@ window.onload = function () {
 
     let socket;
     let sockOpen = function () {
+
+        $('.btn_connect_sock').addClass('hide_view');
+
         socket = io(_config.sock);
         socket.on('connect', () => {
             console.log(' -- connect socket.id:'+socket.id);
@@ -244,6 +245,8 @@ window.onload = function () {
     function onAddListenSock() {
         let formmsglisten = new FormData(  document.getElementById("sockListen")  );
         let key = formmsglisten.get('key');
+
+        log_sock_console('add listen key:'+key);
 
         socket.on(key, (data) => {
             console.log(key + ' listen data:'+data);
