@@ -99,7 +99,7 @@ window.onload = function () {
 
     function onSend() {
 
-        $('.buttons').addClass('hide_view');
+        $('.buttons_cfg').addClass('hide_view');
 
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('firebase-messaging-sw.js').then(function(registration) {
