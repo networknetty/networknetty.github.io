@@ -7,6 +7,7 @@ window.onload = function () {
     }
 
     let _configkey = "config";
+    let userID = "";
 
     let setLocalObject = function(key, value) {
         window.localStorage.setItem(key, JSON.stringify(value));
@@ -202,6 +203,21 @@ window.onload = function () {
                                 let bodyStr = JSON.stringify(body);
                                 info_res.innerHTML = "response.body:   "+bodyStr;
 
+                                userID = body.id;
+
+                                $('#info_config').html('url: '+_config.url+' <br> ' +
+                                    'sock: '+_config.sock +' <br> ' +
+                                    'apiKey: '+_config.apiKey +' <br> ' +
+                                    'authDomain: '+_config.authDomain +' <br> ' +
+                                    'databaseURL: '+_config.databaseURL +' <br> ' +
+                                    'projectId: '+_config.projectId +' <br> ' +
+                                    'storageBucket: '+_config.storageBucket +' <br> ' +
+                                    'messagingSenderId: '+_config.messagingSenderId +' <br> ' +
+                                    'appId: '+_config.appId +' <br> ' +
+                                    'measurementId: '+_config.measurementId +' <br> ' +
+                                    'user: '+userID
+                                );
+
                                 sockActivated();
                             });
                     } else { alert("error HTTP: " + response.status);}
@@ -229,12 +245,22 @@ window.onload = function () {
             console.log(' -- connect socket.id:'+socket.id);
             log_sock_console(' -- connect socket.id:'+socket.id);
             openedSock();
+
+            socket.emit('login', userID);
         });
         socket.on('disconnect', () => {
             closedSock();
             console.log('disconnect socket');
             log_sock_console(' -- disconnect socket');
             socket.open();
+        });
+
+        socket.on('login', (msg) => {
+            log_sock_console(' -- login socket msg:'+msg);
+        });
+
+        socket.on('temp', (data) => {
+            log_sock_console(' -- temp listen data:'+JSON.stringify(data));
         });
     };
 
