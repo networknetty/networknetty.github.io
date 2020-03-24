@@ -9,6 +9,67 @@ window.onload = function () {
     let _configkey = "config";
     let userID = "";
 
+    let openFile = function () {
+        let fileInput;
+        fileInput = document.createElement("input");
+        fileInput.type='file';
+        fileInput.style.display='none';
+        fileInput.onchange = function(e) {
+            let file = e.target.files[0];
+            if (!file) { return; }
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                let parseNode = JSON.parse(e.target.result);
+                if(parseNode.list){
+                    _config.list = parseNode.list;
+                    _config.current_list_item = 0;
+                }
+                if(parseNode.jwt) _config.jwt = parseNode.jwt;
+                if(parseNode.apiKey) _config.apiKey = parseNode.apiKey;
+                if(parseNode.authDomain) _config.authDomain = parseNode.authDomain;
+                if(parseNode.databaseURL) _config.databaseURL = parseNode.databaseURL;
+                if(parseNode.projectId) _config.projectId = parseNode.projectId;
+                if(parseNode.storageBucket) _config.storageBucket = parseNode.storageBucket;
+                if(parseNode.messagingSenderId) _config.messagingSenderId = parseNode.messagingSenderId;
+                if(parseNode.appId) _config.appId = parseNode.appId;
+                if(parseNode.measurementId) _config.measurementId = parseNode.measurementId;
+
+                document.body.removeChild(fileInput);
+
+                setLocalObject(_configkey, _config);
+                changeList();
+            };
+            reader.readAsText(file)
+        };
+        document.body.appendChild(fileInput);
+        let eventMouse = document.createEvent("MouseEvents");
+        eventMouse.initMouseEvent("click", true, false, window, 0,
+            0, 0, 0, 0, false, false,
+            false, false, 0, null);
+        fileInput.dispatchEvent(eventMouse);
+    };
+    $('#btn_open_cfg').on('click', openFile);
+    $('#btn_return').on('click', onReturn);
+    function onReturn() {
+        $('#form_div').addClass('hide_view');
+        $('#form_info').removeClass('hide_view');
+    }
+
+    $('#list_current').on('change', changeCurrentList);
+    function changeList(){
+        let list = "";
+        for(let i=0; i<_config.list.length; i++){
+            list += "<option value="+i+">"+_config.list[i].name+"</option>";
+        }
+        $('#list_current').html(list);
+        document.getElementById("list_current").selectedIndex = _config.current_list_item;
+    }
+    function changeCurrentList(e){
+        _config.current_list_item = Number.parseInt(this.value);
+        setLocalObject(_configkey, _config);
+        updateCurrentInfoBlockAboutConfig();
+    }
+
     let setLocalObject = function(key, value) {
         window.localStorage.setItem(key, JSON.stringify(value));
 
@@ -27,14 +88,25 @@ window.onload = function () {
 
     let _config = getLocalObject(_configkey);
     if(_config == null){
-        _config = { url:"http://localhost:3000", sock:"", jwt:"", apiKey: "", authDomain: "", databaseURL: "",
-            projectId: "",  storageBucket: "", messagingSenderId: "", appId: "", measurementId: "", user:"" };
+        _config = { list:[{name:"none", url:"none", sock:"none"}], current_list_item:0, jwt:"none", apiKey: "none",
+            authDomain: "none", databaseURL: "none", projectId: "none",  storageBucket: "none",
+            messagingSenderId: "none", appId: "none", measurementId: "none" };
         setLocalObject(_configkey, _config);
         onConfigEdit();
     }else{
-        $('#form_div').addClass('hide_view');
-        $('#info_config').html('url: '+_config.url+' <br> ' +
-            'sock: '+_config.sock +' <br> ' +
+        if(_config.list[_config.current_list_item].url === "none"){
+            onConfigEdit();
+        }else{
+            $('#form_div').addClass('hide_view');
+            updateCurrentInfoBlockAboutConfig();
+        }
+    }
+
+    function updateCurrentInfoBlockAboutConfig(){
+        $('.info_config').html(
+            'name: '+_config.list[_config.current_list_item].name+' <br> ' +
+            'url: '+_config.list[_config.current_list_item].url+' <br> ' +
+            'sock: '+_config.list[_config.current_list_item].sock +' <br> ' +
             'apiKey: '+_config.apiKey +' <br> ' +
             'authDomain: '+_config.authDomain +' <br> ' +
             'databaseURL: '+_config.databaseURL +' <br> ' +
@@ -42,8 +114,7 @@ window.onload = function () {
             'storageBucket: '+_config.storageBucket +' <br> ' +
             'messagingSenderId: '+_config.messagingSenderId +' <br> ' +
             'appId: '+_config.appId +' <br> ' +
-            'measurementId: '+_config.measurementId +' <br> ' +
-            'user: '+_config.user
+            'measurementId: '+_config.measurementId
         );
     }
 
@@ -59,42 +130,6 @@ window.onload = function () {
 
     let tk_fb;
     let tk_fcm;
-
-    $('.btn_save').on('click', onConfigSave);
-
-    function onConfigSave() {
-
-        let formdt = new FormData(  document.getElementById("userForm")  );
-
-        _config.url = formdt.get('url');
-        _config.sock = formdt.get('sock');
-        _config.jwt = formdt.get('jwt');
-        _config.apiKey = formdt.get('apiKey');
-        _config.authDomain = formdt.get('authDomain');
-        _config.databaseURL = formdt.get('databaseURL');
-        _config.projectId = formdt.get('projectId');
-        _config.storageBucket = formdt.get('storageBucket');
-        _config.messagingSenderId = formdt.get('messagingSenderId');
-        _config.appId = formdt.get('appId');
-        _config.measurementId = formdt.get('measurementId');
-
-        setLocalObject(_configkey, _config);
-
-        $('#form_div').addClass('hide_view');
-        $('#form_info').removeClass('hide_view');
-
-        $('#info_config').html('url: '+_config.url+' <br> ' +
-            'sock: '+_config.sock +' <br> ' +
-            'apiKey: '+_config.apiKey +' <br> ' +
-            'authDomain: '+_config.authDomain +' <br> ' +
-            'databaseURL: '+_config.databaseURL +' <br> ' +
-            'projectId: '+_config.projectId +' <br> ' +
-            'storageBucket: '+_config.storageBucket +' <br> ' +
-            'messagingSenderId: '+_config.messagingSenderId +' <br> ' +
-            'appId: '+_config.appId +' <br> ' +
-            'measurementId: '+_config.measurementId
-        );
-    }
 
     $('.btn_send').on('click', onSend);
 
@@ -165,18 +200,7 @@ window.onload = function () {
     $('.btn_edit').on('click', onConfigEdit);
 
     function onConfigEdit() {
-        $("#cfg_url").val(_config.url);
-        $("#cfg_sock").val(_config.sock);
-        $("#cfg_jwt").val(_config.jwt);
-        $("#cfg_apiKey").val(_config.apiKey);
-        $("#cfg_authDomain").val(_config.authDomain);
-        $("#cfg_databaseURL").val(_config.databaseURL);
-        $("#cfg_projectId").val(_config.projectId);
-        $("#cfg_storageBucket").val(_config.storageBucket);
-        $("#cfg_messagingSenderId").val(_config.messagingSenderId);
-        $("#cfg_appId").val(_config.appId);
-        $("#cfg_measurementId").val(_config.measurementId);
-
+        changeList();
         $('#form_div').removeClass('hide_view');
         $('#form_info').addClass('hide_view');
     }
@@ -184,7 +208,8 @@ window.onload = function () {
     let callBackend = function (){
         let body = { data:{token:tk_fb}, action:'login' };//, fcm:tk_fcm
         fetch(
-            _config.url+'/login',
+            // _config.url+'/login',
+            _config.list[_config.current_list_item].url+'/login',
                 {
                     method: 'POST',
                     headers: {
@@ -199,24 +224,14 @@ window.onload = function () {
                         response.json()
                             .then( function (body) {
 
-
                                 let bodyStr = JSON.stringify(body);
                                 info_res.innerHTML = "response.body:   "+bodyStr;
 
-                                userID = body.id;
+                                userID = body.data.id;
 
-                                $('#info_config').html('url: '+_config.url+' <br> ' +
-                                    'sock: '+_config.sock +' <br> ' +
-                                    'apiKey: '+_config.apiKey +' <br> ' +
-                                    'authDomain: '+_config.authDomain +' <br> ' +
-                                    'databaseURL: '+_config.databaseURL +' <br> ' +
-                                    'projectId: '+_config.projectId +' <br> ' +
-                                    'storageBucket: '+_config.storageBucket +' <br> ' +
-                                    'messagingSenderId: '+_config.messagingSenderId +' <br> ' +
-                                    'appId: '+_config.appId +' <br> ' +
-                                    'measurementId: '+_config.measurementId +' <br> ' +
-                                    'user: '+userID
-                                );
+                                console.log("user id:"+userID);
+
+                                updateCurrentInfoBlockAboutConfig();
 
                                 sockActivated();
                             });
@@ -240,7 +255,8 @@ window.onload = function () {
 
         $('.btn_connect_sock').addClass('hide_view');
 
-        socket = io(_config.sock);
+        // socket = io(_config.sock);
+        socket = io(_config.list[_config.current_list_item].sock);
         socket.on('connect', () => {
             console.log(' -- connect socket.id:'+socket.id);
             log_sock_console(' -- connect socket.id:'+socket.id);

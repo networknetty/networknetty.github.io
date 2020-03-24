@@ -31,26 +31,15 @@
 
 <div class="info" id="form_div">
     <form class='userFormBlock' name='userForm' id='userForm'>
-        <div class='form__item'>url:<input name='url' class='emitBlockForm_name' type='text' size='40' value='' id="cfg_url"></div>
-        <div class='form__item'>sock:<input name='sock' class='emitBlockForm_name' type='text' size='40' value='' id="cfg_sock"></div>
-
-        <div class='form__item'>jwt:<input name='jwt' class='emitBlockForm_name' type='text' size='40' value='' id="cfg_jwt"></div>
-
-        <div class='form__item'>apiKey:<input name='apiKey' class='emitBlockForm_name' type='text' size='40' value='' id="cfg_apiKey"></div>
-        <div class='form__item'>authDomain:<input name='authDomain' class='emitBlockForm_name' type='text' size='40' value='' id="cfg_authDomain"></div>
-        <div class='form__item'>databaseURL:<input name='databaseURL' class='emitBlockForm_name' type='text' size='40' value='' id="cfg_databaseURL"></div>
-        <div class='form__item'>projectId:<input name='projectId' class='emitBlockForm_name' type='text' size='40' value='' id="cfg_projectId"></div>
-        <div class='form__item'>storageBucket:<input name='storageBucket' class='emitBlockForm_name' type='text' size='40' value='' id="cfg_storageBucket"></div>
-        <div class='form__item'>messagingSenderId:<input name='messagingSenderId' class='emitBlockForm_name' type='text' size='40' value='' id="cfg_messagingSenderId"></div>
-        <div class='form__item'>appId:<input name='appId' class='emitBlockForm_name' type='text' size='40' value='' id="cfg_appId"></div>
-        <div class='form__item'>measurementId:<input name='measurementId' class='emitBlockForm_name' type='text' size='40' value='' id="cfg_measurementId"></div>
-
-        <div class='form__item'><input type='button' value='save' class='btn_save buttons buttons_cfg' id='btn_save'></div>
+        <select id="list_current"></select>
+        <div class='form__item info_config'></div>
+        <div class='form__item'><input type='button' value='open config' class='btn_open_cfg buttons' id='btn_open_cfg'></div>
+        <div class='form__item'><input type='button' value='return' class='btn_return buttons' id='btn_return'></div>
     </form>
 </div>
 
 <div class="info" id="form_info">
-        <div class='form__item' id="info_config"></div>
+        <div class='form__item info_config' id="info_config"></div>
 
         <div class='form__item'><input type='button' value='edit' class='btn_edit buttons buttons_cfg' id='btn_edit'></div>
         <div class='form__item'><input type='button' value='send' class='btn_send buttons buttons_cfg' id='btn_send'></div>
