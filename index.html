@@ -18,6 +18,13 @@
             height: 50vh;
             overflow-y: scroll;
         }
+        .txt, input, body, .form__item, select, textarea, .buttons{
+            min-width: 100px;
+            min-height: 50px;
+            font-size: 30px;
+            margin: 0px 0px 10px 0px;
+        }
+
     </style>
     <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
@@ -54,12 +61,12 @@
     <div class='form__item'><input type='button' value='-> fcm' class='btn_fcm buttons' id='btn_fcm'></div>
     <div class='form__item'><input type='button' value='connect' class='btn_connect_sock buttons' id='btn_connect_sock'></div>
     <form class='sockFormBlock' name='sockForm' id='sockForm'>
-        <div class='form__item'>msg:<input name='msg' class='emitBlockForm_name' type='text' size='40' value='' id="sockMsg"></div>
-        <div class='form__item'>body:<textarea  name='body' class='emitBlockForm_name' type='text' size='40' value='' id="sockBody"></textarea></div>
+        <div class='form__item'><span class="txt">msg:</span><input name='msg' class='emitBlockForm_name' type='text' size='40' value='' id="sockMsg"></div>
+        <div class='form__item'><span class="txt">body:</span><textarea  name='body' class='emitBlockForm_name' type='text' size='40' value='' id="sockBody"></textarea></div>
         <div class='form__item'><input type='button' value='emit' class='btn_emit_sock buttons' id='btn_emit_sock'></div>
     </form>
     <form class='sockFormBlock' name='sockListen' id='sockListen'>
-        <div class='form__item'>msg:<input name='key' class='emitBlockForm_name' type='text' size='40' value='' id="sockKeyListen"></div>
+        <div class='form__item'><span class="txt">msg:</span><input name='key' class='emitBlockForm_name' type='text' size='40' value='' id="sockKeyListen"></div>
         <div class='form__item'><input type='button' value='listen' class='btn_listen_sock buttons' id='btn_listen_sock'></div>
     </form>
 </div>
