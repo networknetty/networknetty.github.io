@@ -206,39 +206,58 @@ window.onload = function () {
         $('#form_info').addClass('hide_view');
     }
 
-    let callBackend = function (){
-        let body = { data:{token:tk_fb}, action:'login' };//, fcm:tk_fcm
+    function call(endpoint, body, callback){
         fetch(
-            // _config.url+'/login',
-            _config.list[_config.current_list_item].url+'/login',
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type' : 'application/json',
-                        'jwt': _config.jwt
-                    },
+            _config.list[_config.current_list_item].url+endpoint,
+            {
+                    method: 'POST', headers: { 'Content-Type' : 'application/json', 'jwt': _config.jwt },
                     body: JSON.stringify(body)
                 }
             )
             .then( function (response) {
                     if (response.ok) {
                         response.json()
-                            .then( function (body) {
-
-                                let bodyStr = JSON.stringify(body);
-                                info_res.innerHTML = "response.body:   "+bodyStr;
-
-                                userID = body.data.id;
-
-                                console.log("user id:"+userID);
-
-                                updateCurrentInfoBlockAboutConfig();
-
-                                sockActivated();
-                            });
-                    } else { alert("error HTTP: " + response.status);}
+                            .then( function (body) { callback(body); });
+                    }
+                    else {
+                        // alert("error HTTP: " + response.status);
+                        callback(null, response.status);
+                    }
                 }
             );
+    }
+
+    $('#btn_fcm').addClass('hide_view');
+    $('.btn_fcm').on('click', callFcm);
+    function callFcm(){
+        $('#btn_fcm').addClass('hide_view');
+        function loginBack(body, error){
+            if(body != null){
+                console.log("call fcm status:"+body.status);
+            }else{
+                console.log('error call fcm:'+error);
+            }
+        }
+        call('/fcm', { from:userID, data:{token:tk_fcm}, action:'add_token' }, loginBack);
+    }
+
+    let callBackend = function (){
+        function loginBack(body, error){
+            if(body != null){
+                let bodyStr = JSON.stringify(body);
+                info_res.innerHTML = "response.body:   "+bodyStr;
+                userID = body.data.id;
+                console.log("user id:"+userID);
+                updateCurrentInfoBlockAboutConfig();
+                sockActivated();
+                if(body.data.fcm == null || body.data.fcm !== tk_fcm){
+                    $('#btn_fcm').removeClass('hide_view');
+                }
+            }else{
+                console.log('error login:'+error);
+            }
+        }
+        call('/login', { data:{token:tk_fb}, action:'login' }, loginBack);
     };
 
     let sockActivated = function () {
