@@ -284,20 +284,22 @@ window.onload = function () {
 
             socket.emit('login', userID);
         });
+        log_sock_console(' -- listen connect');
         socket.on('disconnect', () => {
             closedSock();
             console.log('disconnect socket');
             log_sock_console(' -- disconnect socket');
             socket.open();
         });
-
+        log_sock_console(' -- listen disconnect');
         socket.on('login', (msg) => {
             log_sock_console(' -- login socket msg:'+msg);
         });
-
+        log_sock_console(' -- listen login');
         socket.on('temp', (data) => {
             log_sock_console(' -- temp listen data:'+JSON.stringify(data));
         });
+        log_sock_console(' -- listen temp');
     };
 
     $('.btn_connect_sock').on('click', sockOpen);
