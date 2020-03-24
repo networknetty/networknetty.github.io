@@ -38,6 +38,7 @@ window.onload = function () {
 
                 setLocalObject(_configkey, _config);
                 changeList();
+                updateCurrentInfoBlockAboutConfig();
             };
             reader.readAsText(file)
         };
