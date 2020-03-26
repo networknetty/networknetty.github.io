@@ -285,7 +285,7 @@ window.onload = function () {
             openedSock();
             socket.emit('login', userID);
         });
-        log_sock_console(' -- listen connect');
+        log_sock_console(' ~ listen connect');
         socket.on('disconnect', () => {
             closedSock();
             console.log('disconnect socket');
@@ -293,27 +293,28 @@ window.onload = function () {
             // socket.open();
             $('.btn_connect_sock').removeClass('hide_view');
         });
-        socket.on('logout', () => {
+        log_sock_console(' ~ listen disconnect');
+        socket.on('logout', (msg) => {
             closedSock();
             console.log('logout socket');
-            log_sock_console(' -- logout socket');
+            log_sock_console(' -- logout socket msg:'+msg);
             $('.btn_connect_sock').removeClass('hide_view');
         });
-        log_sock_console(' -- listen disconnect');
+        log_sock_console(' ~ listen logout');
         socket.on('login', (msg) => {
             log_sock_console(' -- login socket msg:'+msg);
         });
-        log_sock_console(' -- listen login');
+        log_sock_console(' ~ listen login');
         socket.on('temp', (data) => {
             log_sock_console(' -- temp listen data:'+JSON.stringify(data));
         });
-        log_sock_console(' -- listen temp');
+        log_sock_console(' ~ listen temp');
 
         for(let i=0; i<_config.listen.length; i++){
             socket.on(_config.listen[i], (data) => {
                 log_sock_console(' -- '+_config.listen[i]+' listen data:'+JSON.stringify(data));
             });
-            log_sock_console(' -- listen '+_config.listen[i]);
+            log_sock_console(' ~ listen '+_config.listen[i]);
         }
     };
 
@@ -330,7 +331,7 @@ window.onload = function () {
         let formmsglisten = new FormData(  document.getElementById("sockListen")  );
         let key = formmsglisten.get('key');
 
-        log_sock_console('add listen key:'+key);
+        log_sock_console(' ~ add listen key:'+key);
 
         socket.on(key, (data) => {
             console.log(key + ' listen data:'+JSON.stringify(data));
