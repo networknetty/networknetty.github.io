@@ -33,6 +33,7 @@ window.onload = function () {
                 if(parseNode.messagingSenderId) _config.messagingSenderId = parseNode.messagingSenderId;
                 if(parseNode.appId) _config.appId = parseNode.appId;
                 if(parseNode.measurementId) _config.measurementId = parseNode.measurementId;
+                if(parseNode.listen) _config.listen = parseNode.listen;
 
                 document.body.removeChild(fileInput);
 
@@ -91,7 +92,7 @@ window.onload = function () {
     if(_config == null){
         _config = { list:[{name:"none", url:"none", sock:"none"}], current_list_item:0, jwt:"none", apiKey: "none",
             authDomain: "none", databaseURL: "none", projectId: "none",  storageBucket: "none",
-            messagingSenderId: "none", appId: "none", measurementId: "none" };
+            messagingSenderId: "none", appId: "none", measurementId: "none", listen:[] };
         setLocalObject(_configkey, _config);
         onConfigEdit();
     }else{
@@ -274,6 +275,7 @@ window.onload = function () {
     let sockOpen = function () {
 
         $('.btn_connect_sock').addClass('hide_view');
+        $('.btn_connect_sock').on('click', sockReOpen);
 
         // socket = io(_config.sock);
         socket = io(_config.list[_config.current_list_item].sock);
@@ -281,7 +283,6 @@ window.onload = function () {
             console.log(' -- connect socket.id:'+socket.id);
             log_sock_console(' -- connect socket.id:'+socket.id);
             openedSock();
-
             socket.emit('login', userID);
         });
         log_sock_console(' -- listen connect');
@@ -289,7 +290,14 @@ window.onload = function () {
             closedSock();
             console.log('disconnect socket');
             log_sock_console(' -- disconnect socket');
-            socket.open();
+            // socket.open();
+            $('.btn_connect_sock').removeClass('hide_view');
+        });
+        socket.on('logout', () => {
+            closedSock();
+            console.log('logout socket');
+            log_sock_console(' -- logout socket');
+            $('.btn_connect_sock').removeClass('hide_view');
         });
         log_sock_console(' -- listen disconnect');
         socket.on('login', (msg) => {
@@ -300,6 +308,18 @@ window.onload = function () {
             log_sock_console(' -- temp listen data:'+JSON.stringify(data));
         });
         log_sock_console(' -- listen temp');
+
+        for(let i=0; i<_config.listen.length; i++){
+            socket.on(_config.listen[i], (data) => {
+                log_sock_console(' -- '+_config.listen[i]+' listen data:'+JSON.stringify(data));
+            });
+            log_sock_console(' -- listen '+_config.listen[i]);
+        }
+    };
+
+    let sockReOpen = function(){
+        $('.btn_connect_sock').addClass('hide_view');
+        socket.open();
     };
 
     $('.btn_connect_sock').on('click', sockOpen);
