@@ -346,6 +346,12 @@ window.onload = function () {
         info_sock.appendChild(div);
     }
 
+    function log_sock_console_clear() {
+        $('#info_sock').empty();
+    }
+
+    $('#btn_clear').on('click', log_sock_console_clear);
+
     function onEmitMsg() {
 
         let formmsg = new FormData(  document.getElementById("sockForm")  );
