@@ -25,14 +25,7 @@ window.onload = function () {
                     _config.current_list_item = 0;
                 }
                 if(parseNode.jwt) _config.jwt = parseNode.jwt;
-                if(parseNode.apiKey) _config.apiKey = parseNode.apiKey;
-                if(parseNode.authDomain) _config.authDomain = parseNode.authDomain;
-                if(parseNode.databaseURL) _config.databaseURL = parseNode.databaseURL;
-                if(parseNode.projectId) _config.projectId = parseNode.projectId;
-                if(parseNode.storageBucket) _config.storageBucket = parseNode.storageBucket;
-                if(parseNode.messagingSenderId) _config.messagingSenderId = parseNode.messagingSenderId;
-                if(parseNode.appId) _config.appId = parseNode.appId;
-                if(parseNode.measurementId) _config.measurementId = parseNode.measurementId;
+                if(parseNode.web) _config.web = parseNode.web;
                 if(parseNode.listen) _config.listen = parseNode.listen;
 
                 document.body.removeChild(fileInput);
@@ -90,9 +83,7 @@ window.onload = function () {
 
     let _config = getLocalObject(_configkey);
     if(_config == null){
-        _config = { list:[{name:"none", url:"none", sock:"none"}], current_list_item:0, jwt:"none", apiKey: "none",
-            authDomain: "none", databaseURL: "none", projectId: "none",  storageBucket: "none",
-            messagingSenderId: "none", appId: "none", measurementId: "none", listen:[] };
+        _config = { list:[{name:"none", url:"none", sock:"none"}], current_list_item:0, jwt:"none", web:{}, listen:[]};
         setLocalObject(_configkey, _config);
         onConfigEdit();
     }else{
@@ -108,15 +99,7 @@ window.onload = function () {
         $('.info_config').html(
             'name: '+_config.list[_config.current_list_item].name+' <br> ' +
             'url: '+_config.list[_config.current_list_item].url+' <br> ' +
-            'sock: '+_config.list[_config.current_list_item].sock +' <br> ' +
-            'apiKey: '+_config.apiKey +' <br> ' +
-            'authDomain: '+_config.authDomain +' <br> ' +
-            'databaseURL: '+_config.databaseURL +' <br> ' +
-            'projectId: '+_config.projectId +' <br> ' +
-            'storageBucket: '+_config.storageBucket +' <br> ' +
-            'messagingSenderId: '+_config.messagingSenderId +' <br> ' +
-            'appId: '+_config.appId +' <br> ' +
-            'measurementId: '+_config.measurementId
+            'sock: '+_config.list[_config.current_list_item].sock +' <br> '
         );
     }
 
@@ -148,18 +131,7 @@ window.onload = function () {
             console.log('browser service worker not sup');
         }
 
-        firebase.initializeApp(
-            {
-                apiKey: _config.apiKey,
-                authDomain: _config.authDomain,
-                databaseURL: _config.databaseURL,
-                projectId: _config.projectId,
-                storageBucket: _config.storageBucket,
-                messagingSenderId: _config.messagingSenderId,
-                appId: _config.appId,
-                measurementId: _config.measurementId
-            }
-        );
+        firebase.initializeApp(_config.web);
 
         let messaging = firebase.messaging();
 
