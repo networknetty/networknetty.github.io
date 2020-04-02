@@ -168,7 +168,10 @@ window.onload = function () {
                             }
                         );
                 }
-            ).catch(function(error) {console.log('error: ', error);});
+            ).catch(
+                function(error) {
+                    console.log('error: ', error);
+                });
     }
 
     $('.btn_edit').on('click', onConfigEdit);
