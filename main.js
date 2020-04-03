@@ -184,7 +184,8 @@ window.onload = function () {
                 function(result) {
                     let user = result.user;
                     // tk_fb = user.ma.toString();
-                    tk_fb = result.credential.accessToken;
+                    // tk_fb = result.credential.accessToken;
+                    tk_fb = result.credential.idToken;
                     info_t_fb.innerHTML = "token firebase:   "+tk_fb;
 
                     messaging.getToken()
