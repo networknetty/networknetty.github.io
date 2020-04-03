@@ -182,8 +182,9 @@ window.onload = function () {
         firebase.auth().signInWithPopup(provider)
             .then(
                 function(result) {
-                    var user = result.user;
-                    tk_fb = user.ma.toString();
+                    let user = result.user;
+                    // tk_fb = user.ma.toString();
+                    tk_fb = result.credential.accessToken;
                     info_t_fb.innerHTML = "token firebase:   "+tk_fb;
 
                     messaging.getToken()
