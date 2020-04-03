@@ -152,26 +152,49 @@ window.onload = function () {
 
         var provider = new firebase.auth.GoogleAuthProvider();
 
-        firebase.auth().signInWithPopup(provider)
-            .then(
-                function(result) {
-                    var user = result.user;
-                    tk_fb = user.ma.toString();
-                    info_t_fb.innerHTML = "token firebase:   "+tk_fb;
 
-                    messaging.getToken()
-                        .then(
-                            (tok)=>{
-                                tk_fcm = tok;
-                                info_t_fcm.innerHTML = 'token fcm:   '+tk_fcm;
-                                callBackend();
-                            }
-                        );
-                }
-            ).catch(
-                function(error) {
-                    console.log('error: ', error);
-                });
+        firebase.auth().getRedirectResult().then(function(result) {
+            if (result.credential) {
+                // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+                var token = result.credential.accessToken;
+                // ...
+            }
+            // The signed-in user info.
+            var user = result.user;
+
+            console.log('test ok');
+        }).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // The email of the user's account used.
+            var email = error.email;
+            // The firebase.auth.AuthCredential type that was used.
+            var credential = error.credential;
+            // ...
+            console.log('test ko');
+        });
+
+        // firebase.auth().signInWithPopup(provider)
+        //     .then(
+        //         function(result) {
+        //             var user = result.user;
+        //             tk_fb = user.ma.toString();
+        //             info_t_fb.innerHTML = "token firebase:   "+tk_fb;
+        //
+        //             messaging.getToken()
+        //                 .then(
+        //                     (tok)=>{
+        //                         tk_fcm = tok;
+        //                         info_t_fcm.innerHTML = 'token fcm:   '+tk_fcm;
+        //                         callBackend();
+        //                     }
+        //                 );
+        //         }
+        //     ).catch(
+        //         function(error) {
+        //             console.log('error: ', error);
+        //         });
     }
 
     $('.btn_edit').on('click', onConfigEdit);
