@@ -150,9 +150,7 @@ window.onload = function () {
             new Notification(payload.notification.title, payload.notification);
         });
 
-        var provider = new firebase.auth.GoogleAuthProvider();
 
-        firebase.auth().signInWithRedirect(provider);
         firebase.auth().getRedirectResult().then(function(result) {
             if (result.credential) {
                 // This gives you a Facebook Access Token. You can use it to access the Facebook API.
@@ -174,6 +172,13 @@ window.onload = function () {
             // ...
             console.log('test ko');
         });
+
+        // var provider = new firebase.auth.GoogleAuthProvider();
+        // provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+        var provider = new firebase.auth.OAuthProvider('google.com');
+
+        firebase.auth().signInWithRedirect(provider);
+
 
         // firebase.auth().signInWithPopup(provider)
         //     .then(
