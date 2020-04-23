@@ -1,0 +1,262 @@
+
+html {
+    min-height: 100%;
+    max-width: 1920px;
+    min-width: 320px;
+    position: relative;
+    margin: 0 auto;
+    font-family: "TT Norms", Impact, Charcoal, sans-serif;
+}
+.hide_view{
+    display: none !important;
+}
+#info_sock{
+    border: 1px solid;
+    margin: 8px;
+    padding: 8px;
+    height: 90vh;
+    overflow-y: scroll;
+}
+
+select, input, .buttons, .button_toggle{
+    min-width: 5vw;
+    min-height: 3vw;
+    font-size: 20px;
+}
+
+.buttons, .button_toggle{
+    text-transform: uppercase;
+    font-family: "TT Norms Bold";
+}
+
+.rest_model_block{
+    display: flex;
+    margin: 2vh 0 10vh 0;
+}
+.block_title{
+    text-transform: uppercase;
+    font-size: 2.2vw;
+    text-align: center;
+    font-family: "TT Norms Bold";
+}
+.rest_model_block_item_content{
+    border: 1px red solid;
+    overflow-y: scroll;
+    height: 80vh;
+}
+.main_rest_item{
+    border: 1px red solid;
+    overflow-y: scroll;
+    position: absolute;
+    background-color: white;
+    width: 48vw;
+    height: 18vh;
+    margin: 3.6vw 0 0 8px;
+}
+#rest_block{
+    margin-top: 20vh;
+    height: 60vh;
+}
+
+
+.rest_model_block_item{
+    width: 50%;
+    margin: 8px;
+}
+
+.model_item{
+    border: 1px red solid;
+    margin: 8px;
+    padding: 8px;
+    background-color: darkgrey;
+}
+.model_item_name{
+    display: block;
+    text-align: center;
+    border-bottom: blue solid;
+    margin: 10px 0;
+    text-transform: uppercase;
+    font-family: "TT Norms Bold";
+}
+
+.list_title{
+    text-transform: uppercase;
+}
+
+.notification_block {
+    width: 50vw;
+    height: 50vh;
+    position: fixed;
+    background-color: bisque;
+    border: 1px solid;
+    margin: 25vh 25vw;
+    z-index: 100;
+    overflow-wrap: break-word;
+}
+
+.notification_text{
+    text-transform: uppercase;
+}
+
+.notification_text_info{
+}
+
+.rest_info{
+    overflow-y: hidden;
+    border: 1px solid red;
+    padding: 4px;
+}
+.block_toggle{
+    overflow-y: hidden;
+    border: 1px solid red;
+    padding: 4px;
+    background-color: white;
+    overflow-wrap: break-word;
+}
+.buttons_block{
+    display: flex;
+    justify-content: space-around
+}
+
+.info{
+    margin-bottom: 20px;
+    display: flex;
+    margin-top: 20px;
+    justify-content: space-between;
+    width: 100%;
+    overflow-wrap: break-word;
+    border: 1px solid green;
+}
+.main_form_block_info{
+    margin: auto 8px;
+}
+.main_form_block{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.info .buttons_block{
+    margin: auto 2vw auto auto;
+}
+#list_current{
+    margin: auto;
+}
+
+
+.info_actions_block{
+    display: flex;
+}
+
+.item_header, .item_model_header{
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: blue solid;
+}
+.item_header{
+    border-bottom: green solid;
+}
+.item_title{
+    margin: auto;
+    text-transform: uppercase;
+    font-family: "TT Norms Bold";
+}
+
+#socket_console_block{
+    overflow-wrap: break-word;
+}
+
+@media only screen and (max-width: 720px) {
+
+    #list_current{
+
+    }
+    .main_form_block_info{
+
+    }
+
+    .info .buttons_block{
+        flex-flow: column;
+    }
+
+    .info{
+        margin: 0px;
+    }
+    #info_config{
+
+    }
+
+    .block_title{
+        font-size: 22px;
+    }
+
+    .rest_model_block{
+        flex-flow: column;
+    }
+    .rest_model_block_item{
+        width: 80vw;
+        margin: 10px auto;
+    }
+    .main_rest_item{
+        width: 80vw;
+        margin: 5vh 0 0 50vw;
+        left: -42vw;
+    }
+
+
+    .rest_model_block_item_content{
+        height: auto;
+        max-height: 80vh;
+    }
+
+
+}
+
+@media only screen and (min-width: 1400px) {
+    .block_title{
+        font-size: 24px;
+        height: 4vh;
+        z-index: -100;
+    }
+    section {
+        width: 50%;
+    }
+    section>.block_title{
+        position: absolute;
+        width: 50%;
+        margin-top: 4vh;
+    }
+    section>.buttons_block{
+        height: 12vh;
+    }
+    section>.buttons_block>.buttons{
+        margin: auto;
+    }
+    .base_block_content{
+        display: flex;
+        margin-top: -120px;
+    }
+
+    .rest_model_block{
+        margin: 0;
+    }
+    .rest_model_block_item{
+        width: 48%;
+    }
+    .main_rest_item{
+        width: 24vw;
+        margin: 5vh 0 0 8px;
+    }
+    #section_0{
+        margin-top: 12vh;
+    }
+    .info{
+        width: 50%;
+    }
+    select, input, .buttons, .button_toggle{
+        min-width: 3vw;
+        min-height: 2vw;
+        font-size: 20px;
+    }
+}
+

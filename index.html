@@ -3,29 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <style type="text/css">
-        .info{
-            margin: 50px;
-            overflow-wrap: break-word;
-        }
-        .hide_view{
-            display: none !important;
-        }
-        #info_sock{
-            border: 1px solid;
-            margin: 10px;
-            padding: 10px;
-            height: 90vh;
-            overflow-y: scroll;
-        }
-        .txt, input, body, .form__item, select, textarea, .buttons{
-            min-width: 100px;
-            min-height: 50px;
-            font-size: 30px;
-            margin: 0px 0px 10px 0px;
-        }
-
-    </style>
+    <link rel="stylesheet" type="text/css" href="css/fonts.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
     <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-messaging.js"></script>
@@ -36,46 +15,97 @@
 </head>
 <body>
 
+<div class="notification_block" id="notification_block">ahtung!!! notification!!!</div>
+
 <div class="info" id="form_div">
-    <form class='userFormBlock' name='userForm' id='userForm'>
-        <select id="list_current"></select>
-        <div class='form__item info_config'></div>
-        <div class='form__item'><input type='button' value='open config' class='btn_open_cfg buttons' id='btn_open_cfg'></div>
-        <div class='form__item'><input type='button' value='return' class='btn_return buttons' id='btn_return'></div>
+    <form class='main_form_block' name='userForm' id='userForm'>
+
+        <div class='main_form_block_info'></div>
+
+        <div class="info_actions_block">
+            <select id="list_current"></select>
+            <div class="buttons_block">
+                <input type='button' value='return' class='btn_return buttons' id='btn_return'>
+                <input type='button' value='file' class='btn_open_cfg buttons' id='btn_open_cfg'>
+            </div>
+        </div>
+
     </form>
 </div>
 
 <div class="info" id="form_info">
-        <div class='form__item info_config' id="info_config"></div>
+    <div class='main_form_block_info' id="info_config"></div>
 
-        <div class='form__item'><input type='button' value='edit' class='btn_edit buttons buttons_cfg' id='btn_edit'></div>
-        <div class='form__item'><input type='button' value='send' class='btn_send buttons buttons_cfg' id='btn_send'></div>
+    <div class="buttons_block">
+        <input type='button' value='edit' class='btn_edit buttons buttons_cfg' id='btn_edit'>
+        <input type='button' value='send' class='btn_send buttons buttons_cfg' id='btn_send'>
+    </div>
+
 </div>
 
-<div class="info" id="info_t_fb"></div>
-<div class="info" id="info_t_fcm"></div>
-<div class="info" id="info_res"></div>
-<div class="info" id="info_msg"></div>
 
-<div class="sock_block" id="sock_block">
-    <div class='form__item'><input type='button' value='-> fcm' class='btn_fcm buttons' id='btn_fcm'></div>
-    <div class='form__item'><input type='button' value='connect' class='btn_connect_sock buttons' id='btn_connect_sock'></div>
-    <form class='sockFormBlock' name='sockForm' id='sockForm'>
-        <div class='form__item'><span class="txt">msg:</span><input name='msg' class='emitBlockForm_name' type='text' size='40' value='' id="sockMsg"></div>
-        <div class='form__item'><span class="txt">body:</span><textarea  name='body' class='emitBlockForm_name' type='text' size='40' value='' id="sockBody"></textarea></div>
-        <div class='form__item'><input type='button' value='emit' class='btn_emit_sock buttons' id='btn_emit_sock'></div>
-    </form>
-    <form class='sockFormBlock' name='sockListen' id='sockListen'>
-        <div class='form__item'><span class="txt">msg:</span><input name='key' class='emitBlockForm_name' type='text' size='40' value='' id="sockKeyListen"></div>
-        <div class='form__item'><input type='button' value='listen' class='btn_listen_sock buttons' id='btn_listen_sock'></div>
-        <div class='form__item'><input type='button' value='clear' class='btn_clear buttons' id='btn_clear'></div>
-    </form>
-</div>
-<div class='form__item' id="info_sock">
-    <div class="info_sock_console__item">socket info:</div>
+<div class="base_block_content">
+
+    <section class="" id="section_0">
+        <div class="rest_model_block" id="rest_model_block">
+
+            <div class="rest_model_block_item">
+                <div class="block_title">rest</div>
+
+                <div class="rest_block rest_model_block_item_content" id="rest_block"></div>
+            </div>
+
+            <div class="rest_model_block_item">
+                <div class="block_title">models</div>
+                <div class="model_block rest_model_block_item_content" id="model_block">
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section class="">
+        <div class="block_title">socket</div>
+
+        <div class="buttons_block">
+            <input type='button' value='connect' class='btn_connect_sock buttons' id='btn_connect_sock'>
+            <input type='button' value='clear' class='btn_clear_socket_console buttons' id='btn_clear_socket_console'>
+        </div>
+
+        <div class="rest_model_block" id="socket_block">
+
+            <div class="rest_model_block_item">
+                <div class="block_title">socket models</div>
+
+                <div class="rest_model_block_item_content" id="socket_emit_block"></div>
+            </div>
+            <div class="rest_model_block_item">
+                <div class="block_title">console</div>
+
+                <div class="rest_model_block_item_content" id="socket_console_block"></div>
+            </div>
+
+        </div>
+    </section>
+
 </div>
 
-<script src="main.js"></script>
+<script src="js/notification.js"></script>
+<script src="js/util/util.js"></script>
+<script src="js/models/components.js"></script>
+<script src="js/models/mix_models.js"></script>
+<script src="js/models/main_rest_model.js"></script>
+<script src="js/models/base.js"></script>
+<script src="js/config.js"></script>
+<script src="js/console.js"></script>
+<script src="js/rests/rest.js"></script>
+<script src="js/rests/rests_list.js"></script>
+<script src="js/sockets/socket_emit_model.js"></script>
+<script src="js/sockets/socket_listen_model.js"></script>
+<script src="js/sock.js"></script>
+<script src="js/fb.js"></script>
+<script src="js/context.js"></script>
 
 </body>
 </html>
