@@ -1,6 +1,7 @@
 
 
-function initListenersBody(vo){
+function initListenersBody(context, vo){
+    let _context = context;
     let _vo = vo;
     _vo.contextVO.listen_component.listen_map = {};
     let _checkCallListener = function(trigger, value) {
@@ -54,6 +55,9 @@ function initListenersBody(vo){
             }
             _vo.contextVO.updateVO();
         }
+        else if(trigger === 'full_self'){
+            _context.rest_list[_vo.contextVO.oneItemUpdate].contextVO.modelCallUpdate(_vo.id, oneItemUpdateBack);
+        }
         else if(_vo[trigger] != null){
 
             if(value == null)
@@ -73,6 +77,15 @@ function initListenersBody(vo){
         }
         else{
             console.log('main_rest_vo handler trigger('+trigger+') error');
+        }
+    };
+
+    let oneItemUpdateBack = function(body, error){
+        console.log('oneItemUpdateBack rest name:'+_vo.contextVO.name);
+        console.log('oneItemUpdateBack body: '+JSON.stringify(body));
+
+        if(body != null){
+            _vo.contextVO.dispatchEvent('full', body.data)
         }
     };
 }

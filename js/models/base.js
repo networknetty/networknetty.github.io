@@ -76,7 +76,7 @@ function create_model(context, name, baseVO) {
         }
     };
 
-    initListenersBody(_baseVO);
+    initListenersBody(_context, _baseVO);
 
     _baseVO.contextVO.init = function () {
         initEventListeners(_context, _baseVO);

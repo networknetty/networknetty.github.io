@@ -88,7 +88,7 @@ function createMainRestVO(context, vo) {
         _context.models.base.contextVO.list_component.updateLists();
     };
 
-    initListenersBody(_context.models.base);
+    initListenersBody(_context, _context.models.base);
 
     _context.models.base.contextVO.init = function () {
         initEventListeners(_context, _context.models.base);
