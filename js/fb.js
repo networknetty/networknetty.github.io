@@ -25,10 +25,10 @@ function init_fb(context) {
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('firebase-messaging-sw.js').then(function(registration) {
             }).catch(function(error) {
-                console.log('error reg service worker:', error);
+                _context.log.error('error reg service worker:', error);
             });
         } else {
-            console.log('browser service worker not sup');
+            _context.log.error('browser service worker not sup');
         }
 
         firebase.initializeApp(_context.config.web);
@@ -38,11 +38,11 @@ function init_fb(context) {
         messaging.requestPermission()
             .then(
                 function () {
-                    console.log("Notification permission granted");
+                    _context.log.debug("Notification permission granted");
                     return messaging.getToken();
                 }
             )
-            .catch( function (err) { console.log("Unable to get permission to notify.", err); } );
+            .catch( function (err) { _context.log.error("Unable to get permission to notify.", err); } );
 
         messaging.onMessage((payload) => {
             // let msg = JSON.stringify(payload);
@@ -69,7 +69,7 @@ function init_fb(context) {
                 }
             ).catch(
             function(error) {
-                console.log('error: ', error);
+                _context.log.error('error: ', error);
             });
     }
 

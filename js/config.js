@@ -5,7 +5,7 @@ function init_config(context) {
     let _context = context;
 
     if (!window.localStorage) {
-        console.log("!window.localStorage");
+        _context.log.debug("!window.localStorage");
     }
 
     let _config_key = "config";
@@ -83,7 +83,7 @@ function init_config(context) {
         localforage.setItem(key, value)
             .then(function (value) {})
             .catch(function (error) {
-                console.log('localforage.setItem err: '+error);
+                _context.log.error('localforage.setItem err: '+error);
             });
     };
 

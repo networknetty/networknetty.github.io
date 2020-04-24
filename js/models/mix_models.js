@@ -45,7 +45,7 @@ function create_mix_model(context, name, baseVO) {
         let value = this.value;
         let selectedIndex = this.selectedIndex;
 
-        console.log("debug dispatchList item_ name:"+_context.models.base.contextVO.name +
+        _context.log.debug("debug dispatchList item_ name:"+_context.models.base.contextVO.name +
             " value: "+value+" selectedIndex: "+selectedIndex);
 
         if(_baseVO.contextVO.arrKeys.length > 0){
@@ -60,17 +60,17 @@ function create_mix_model(context, name, baseVO) {
             }
         }
 
-        console.log("debug dispatchList after value: "+value+" selectedIndex: "+selectedIndex);
+        _context.log.debug("debug dispatchList after value: "+value+" selectedIndex: "+selectedIndex);
         _baseVO.contextVO.list_component.setIndex(_baseVO.contextVO.name, selectedIndex);
         _baseVO.contextVO.dispatchEvent('current', value);
     };
 
-    createListComponent(_baseVO, obj);
+    createListComponent(_context, _baseVO, obj);
 /////////////////////////////////////////////////////
 
     _baseVO.contextVO.stringify = function (){
 
-        console.log('debug stringify name:'+_baseVO.contextVO.name);
+        _context.log.debug('debug stringify name:'+_baseVO.contextVO.name);
 
         let str = "<div class='item_model_header'>";
         str += "<input type='button' value='i' class='button_toggle' id='btn_mix_vo_info_"+_baseVO.contextVO.name+"'>";
@@ -116,7 +116,7 @@ function create_mix_model(context, name, baseVO) {
     let _checkCallListener = function (trigger, value) {
         if(_baseVO.contextVO.listen_component.listen_map[trigger] != null){
             for(let i=0; i<_baseVO.contextVO.listen_component.listen_map[trigger].length; i++){
-                console.log('_baseVO.contextVO.listen_component.listen_map[trigger] trigger('+trigger+') debug');
+                _context.log.debug('_baseVO.contextVO.listen_component.listen_map[trigger] trigger('+trigger+') debug');
                 if(_baseVO.contextVO.listen_component.listen_map[trigger][i].trigger.length === 1){
                     _baseVO.contextVO.listen_component.listen_map[trigger][i].func(
                         _baseVO.contextVO.listen_component.listen_map[trigger][i].key[0],
@@ -202,8 +202,8 @@ function create_mix_model(context, name, baseVO) {
     };
 
     let oneItemAddBack = function(body, error){
-        console.log('oneItemAddBack rest name:'+_baseVO.contextVO.name);
-        console.log('oneItemAddBack body: '+JSON.stringify(body));
+        _context.log.debug('oneItemAddBack rest name:'+_baseVO.contextVO.name);
+        _context.log.socketIn('oneItemAddBack body: '+JSON.stringify(body));
 
         if(body != null){
 
@@ -220,8 +220,8 @@ function create_mix_model(context, name, baseVO) {
         }
     };
     let oneItemUpdateBack = function(body, error){
-        console.log('oneItemUpdateBack rest name:'+_baseVO.contextVO.name);
-        console.log('oneItemUpdateBack body: '+JSON.stringify(body));
+        _context.log.debug('oneItemUpdateBack rest name:'+_baseVO.contextVO.name);
+        _context.log.socketIn('oneItemUpdateBack body: '+JSON.stringify(body));
 
         if(body != null){
 
@@ -236,7 +236,7 @@ function create_mix_model(context, name, baseVO) {
     };
 
     _baseVO.contextVO.dispatchEvent = function (trigger, value){
-        console.log('mix vo:'+_baseVO.contextVO.name+' handler update trigger: '+trigger+' value: '+
+        _context.log.debug('mix vo:'+_baseVO.contextVO.name+' handler update trigger: '+trigger+' value: '+
             (typeof value === 'object' ? JSON.stringify(value) : value));
 
         if(trigger === 'full'){
@@ -278,7 +278,7 @@ function create_mix_model(context, name, baseVO) {
     };
     /////////////////////////////////////////////////////////////////////////////////////
     _baseVO.contextVO.updateVO = function () {
-        console.log("debug mix_model updateVO name: "+_baseVO.contextVO.name);
+        _context.log.debug("debug mix_model updateVO name: "+_baseVO.contextVO.name);
         let vo = document.getElementById(_baseVO.contextVO.divID);
         vo.innerHTML = _baseVO.contextVO.stringify();
         _baseVO.contextVO.list_component.updateLists();
@@ -305,7 +305,7 @@ function init_mix_models(context) {
     for(let name_model in context.config.mix_models){
         context.mix_models[name_model] = create_mix_model(context, name_model, context.config.mix_models[name_model]);
     }
-    console.log('init mix_models done');
+    context.log.debug('init mix_models done');
 }
 
 function activated_mix_models(context) {

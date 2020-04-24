@@ -34,7 +34,7 @@ function create_model(context, name, baseVO) {
 
     _baseVO.contextVO.stringify = function (){
 
-        console.log('debug stringify name:'+_baseVO.contextVO.name);
+        _context.log.debug('debug stringify name:'+_baseVO.contextVO.name);
 
 
         let str = "<div class='item_model_header'>";
@@ -66,7 +66,7 @@ function create_model(context, name, baseVO) {
     };
     /////////////////////////////////////////////////////////////////////////////////////
     _baseVO.contextVO.updateVO = function () {
-        console.log("debug model updateVO name: "+_baseVO.contextVO.name);
+        _context.log.debug("debug model updateVO name: "+_baseVO.contextVO.name);
         let vo = document.getElementById(_baseVO.contextVO.divID);
         vo.innerHTML = _baseVO.contextVO.stringify();
 
@@ -97,7 +97,7 @@ function init_models(context) {
         if(name_model !== "base")
             _context.models[name_model] = create_model(_context, name_model, _context.config.models[name_model]);
     }
-    console.log('init models done');
+    _context.log.debug('init models done');
 }
 
 function activated_models(context) {

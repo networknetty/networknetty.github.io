@@ -39,7 +39,7 @@ function create_rest(context, name, baseVO, group_id) {
 
     _baseVO.contextVO.stringify = function () {
 
-        console.log('debug stringify name:'+_baseVO.contextVO.name);
+        _context.log.debug('debug stringify name:'+_baseVO.contextVO.name);
 
         let str = "<div class='item_model_header'>";
         str += "<input type='button' value='i' class='button_toggle' id='btn_rest_info_"+_baseVO.contextVO.name+"'>";
@@ -68,7 +68,7 @@ function create_rest(context, name, baseVO, group_id) {
 
 
     _baseVO.contextVO.dispatchEvent = function (trigger, value){
-        console.log('rest:'+_baseVO.contextVO.name+' handler update key: '+trigger+' value: '+value);
+        _context.log.debug('rest:'+_baseVO.contextVO.name+' handler update key: '+trigger+' value: '+value);
 
         if(trigger === 'start'){
             _baseVO.contextVO.onButtonClick();
@@ -78,15 +78,15 @@ function create_rest(context, name, baseVO, group_id) {
                 _baseVO.contextVO.updateVO();
             }
             else{
-                console.log('main_rest_vo handler trigger('+trigger+') error');
+                _context.log.debug('main_rest_vo handler trigger('+trigger+') error');
             }
         }
 
     };
 
     _baseVO.contextVO.respBack = function (body, error) {
-        console.log('respBack rest name:'+_baseVO.contextVO.name);
-        console.log('respBack body: '+JSON.stringify(body));
+        _context.log.debug('respBack rest name:'+_baseVO.contextVO.name);
+        _context.log.socketIn('respBack body: '+JSON.stringify(body));
 
         if(body != null && body.status === 'ok' && _baseVO.setter != null){
 
@@ -105,7 +105,7 @@ function create_rest(context, name, baseVO, group_id) {
     };
 
     _baseVO.contextVO.onButtonClick = function () {
-        console.log('call rest name:'+_baseVO.contextVO.name);
+        _context.log.socketOut('call rest name:'+_baseVO.contextVO.name);
 
         let data = {};
 
@@ -137,14 +137,14 @@ function create_rest(context, name, baseVO, group_id) {
         };
 
         if(_baseVO.data_form != null){
-            console.log('-----debug call form data:'+JSON.stringify(bd));
+            _context.log.debug('-----debug call form data:'+JSON.stringify(bd));
         }
 
         _context.callRest( _baseVO.endpoint, bd, _baseVO.contextVO.respBack );
     };
 
     _baseVO.contextVO.modelCallUpdate = function (data, callBack) {
-        console.log('model call update rest name:'+_baseVO.contextVO.name+' data: '+data);
+        _context.log.socketOut('model call update rest name:'+_baseVO.contextVO.name+' data: '+data);
 
         let id_data = {};
         for(let field in _baseVO.data){
@@ -172,7 +172,7 @@ function create_rest(context, name, baseVO, group_id) {
 
     _baseVO.contextVO.updateVO = function () {
 
-        console.log("debug rest updateVO name: "+_baseVO.contextVO.name);
+        _context.log.debug("debug rest updateVO name: "+_baseVO.contextVO.name);
         let vo = document.getElementById(_baseVO.contextVO.divID);
         vo.innerHTML = _baseVO.contextVO.stringify();
 
@@ -235,7 +235,7 @@ function init_rests_with_group(context) {
         init_group(_context, rest_list_group_name, block)
     }
 
-    console.log('init rests with group done');
+    _context.log.debug('init rests with group done');
 }
 
 

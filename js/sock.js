@@ -12,36 +12,33 @@ function init_sock(context) {
 
         socket = io(_context.config.list[_context.config.current_list_item].sock);
         socket.on('connect', () => {
-            console.log(' << connect socket.id:'+socket.id);
-            _context.socket_log(' << connect socket.id:'+socket.id);
+            _context.log.socketIn(' << connect socket.id:'+socket.id);
             _context.sock.active = true;
             $('.socket_buttons').removeClass('hide_view');
-            if(_context.sock.login === true){
+            // if(_context.sock.login === true){
                 _context.sock.login = false;
                 _context.socket_models_emit.login.contextVO.onButtonClick();
-            }
+            // }
         });
-        _context.socket_log(' ~ listen connect');
+        _context.log.debug(' ~ listen connect');
         socket.on('disconnect', () => {
-            console.log(' << disconnect socket');
-            _context.socket_log(' << disconnect socket');
+            _context.log.socketIn(' << disconnect socket');
             // socket.open();
             $('.btn_connect_sock').removeClass('hide_view');
             $('.socket_buttons').addClass('hide_view');
             _context.sock.active = false;
             // _context.sock.login = false;
         });
-        _context.socket_log(' ~ listen disconnect');
+        _context.log.debug(' ~ listen disconnect');
         socket.on('logout', (msg) => {
-            console.log(' << logout socket');
-            _context.socket_log(' << logout socket msg:'+msg);
+            _context.log.socketIn(' << logout socket msg:'+msg);
             $('.btn_connect_sock').removeClass('hide_view');
 
 
         });
-        _context.socket_log(' ~ listen logout');
+        _context.log.debug(' ~ listen logout');
         socket.on('login', (msg) => {
-            _context.socket_log(' << login socket msg:'+msg);
+            _context.log.socketIn(' << login socket msg:'+msg);
             if(msg === "ok"){
                 _context.sock.login = true;
             }
@@ -49,11 +46,11 @@ function init_sock(context) {
                 _context.socket_models_emit.login.contextVO.onButtonClick();
             }
         });
-        _context.socket_log(' ~ listen login');
+        _context.log.debug(' ~ listen login');
         socket.on('temp', (data) => {
-            _context.socket_log(' << temp listen data:'+JSON.stringify(data));
+            _context.log.socketIn(' << temp listen data:'+JSON.stringify(data));
         });
-        _context.socket_log(' ~ listen temp');
+        _context.log.debug(' ~ listen temp');
 
         activated_socket_listen_models(_context);
     };
@@ -69,12 +66,12 @@ function init_sock(context) {
 
     let addEventListener = function(msg, func){
         socket.on(msg, func);
-        _context.socket_log(' ~ listen '+msg);
+        _context.log.debug(' ~ listen '+msg);
     };
 
     let emitMessage = function(msg, body){
         socket.emit(msg, body);
-        _context.socket_log(' >> emit msg: '+msg+' body: '+JSON.stringify(body));
+        _context.log.socketOut(' >> emit msg: '+msg+' body: '+JSON.stringify(body));
     };
 
     let externalConnect = function(){

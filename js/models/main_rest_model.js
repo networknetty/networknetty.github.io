@@ -28,12 +28,12 @@ function createMainRestVO(context, vo) {
     _context.models.base.contextVO.block.appendChild(div);
 
 /////////////////////////////////////////////////////
-    createListComponent(_context.models.base, {
+    createListComponent(_context, _context.models.base, {
             pets : function (e) {
                 let value = this.value;
                 let selectedIndex = this.selectedIndex;
 
-                console.log("debug dispatchList pets name:"+_context.models.base.contextVO.name +
+                _context.log.debug("debug dispatchList pets name:"+_context.models.base.contextVO.name +
                     " value: "+value+" selectedIndex: "+selectedIndex);
 
                 if(_context.models.base.pets.length > 0){
@@ -43,7 +43,7 @@ function createMainRestVO(context, vo) {
                         value = _context.models.base.pets[0];
                 }
 
-                console.log("debug dispatchList after value: "+value+" selectedIndex: "+selectedIndex);
+                _context.log.debug("debug dispatchList after value: "+value+" selectedIndex: "+selectedIndex);
 
                 _context.models.base.contextVO.list_component.setIndex('pets', selectedIndex);
                 // _context.models.base.currentPetIx = Number.parseInt(this.value);
@@ -55,7 +55,7 @@ function createMainRestVO(context, vo) {
 
     _context.models.base.contextVO.stringify = function () {
 
-        console.log('debug stringify name:'+_context.models.base.contextVO.name);
+        _context.log.debug('debug stringify name:'+_context.models.base.contextVO.name);
 
         let str = '<span class="model_item_name">'+_context.models.base.contextVO.name+'</span>';
 
@@ -82,7 +82,7 @@ function createMainRestVO(context, vo) {
     };
 
     _context.models.base.contextVO.updateVO = function (){
-        console.log("debug main updateVO name: "+_context.models.base.contextVO.name);
+        _context.log.debug("debug main updateVO name: "+_context.models.base.contextVO.name);
         let vo = document.getElementById(_context.models.base.contextVO.divID);
         vo.innerHTML = _context.models.base.contextVO.stringify();
         _context.models.base.contextVO.list_component.updateLists();

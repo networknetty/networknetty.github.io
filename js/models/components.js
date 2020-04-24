@@ -7,7 +7,7 @@ function initListenersBody(context, vo){
     let _checkCallListener = function(trigger, value) {
         if(_vo.contextVO.listen_component.listen_map[trigger] != null){
             for(let i=0; i<_vo.contextVO.listen_component.listen_map[trigger].length; i++){
-                console.log('_vo.contextVO.listen_component.listen_map[trigger] trigger('+trigger+') debug');
+                _context.log.debug('_vo.contextVO.listen_component.listen_map[trigger] trigger('+trigger+') debug');
                 if(_vo.contextVO.listen_component.listen_map[trigger][i].trigger.length === 1){
                         _vo.contextVO.listen_component.listen_map[trigger][i].func(
                             _vo.contextVO.listen_component.listen_map[trigger][i].key[0],
@@ -43,7 +43,7 @@ function initListenersBody(context, vo){
 
     _vo.contextVO.dispatchEvent = function (trigger, value){
 
-        console.log('_vo:'+_vo.contextVO.name+' handler update key: '+trigger+' value: '+
+        _context.log.debug('_vo:'+_vo.contextVO.name+' handler update key: '+trigger+' value: '+
             (typeof value === 'object' ? JSON.stringify(value) : value));
 
         if(trigger === 'full'){
@@ -76,13 +76,13 @@ function initListenersBody(context, vo){
             }
         }
         else{
-            console.log('main_rest_vo handler trigger('+trigger+') error');
+            _context.log.debug('main_rest_vo handler trigger('+trigger+') error');
         }
     };
 
     let oneItemUpdateBack = function(body, error){
-        console.log('oneItemUpdateBack rest name:'+_vo.contextVO.name);
-        console.log('oneItemUpdateBack body: '+JSON.stringify(body));
+        _context.log.debug('oneItemUpdateBack rest name:'+_vo.contextVO.name);
+        _context.log.socketIn('oneItemUpdateBack body: '+JSON.stringify(body));
 
         if(body != null){
             _vo.contextVO.dispatchEvent('full', body.data)
@@ -103,7 +103,8 @@ function initEventListeners(context, vo){
 }
 
 
-function createListComponent(vo, dispatchList) {
+function createListComponent(context, vo, dispatchList) {
+    let _context = context;
     let _vo = vo;
     vo.contextVO.list_component.dispatchList = dispatchList;
     vo.contextVO.list_component.wait_lists = {};
@@ -124,10 +125,10 @@ function createListComponent(vo, dispatchList) {
     };
 
     vo.contextVO.list_component.updateLists = function () {
-        console.log("debug updateLists name: "+_vo.contextVO.name);
+        _context.log.debug("debug updateLists name: "+_vo.contextVO.name);
         for(let id in _vo.contextVO.list_component.wait_lists){
             let wait_obj = _vo.contextVO.list_component.wait_lists[id];
-            console.log("debug updateLists $('#'+id) id: "+id+" name: "+wait_obj.name);
+            _context.log.debug("debug updateLists $('#'+id) id: "+id+" name: "+wait_obj.name);
             $('#'+id).html(wait_obj.items);
             if(_vo.contextVO.list_component.current[wait_obj.name] == null)
                 _vo.contextVO.list_component.current[wait_obj.name] = 0;

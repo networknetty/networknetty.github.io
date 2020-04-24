@@ -166,6 +166,25 @@ select, input, .buttons, .button_toggle{
     overflow-wrap: break-word;
 }
 
+.info_sock_console__item{
+
+}
+.console_item_sock_out{
+    color: aqua;
+}
+.console_item_sock_in{
+    color: violet;
+}
+.console_item_error{
+    color: red;
+}
+.console_item_debug{
+    color: green;
+}
+.console_item_else{
+    color: black;
+}
+
 @media only screen and (max-width: 720px) {
 
     #list_current{

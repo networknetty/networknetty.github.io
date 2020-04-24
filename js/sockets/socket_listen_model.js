@@ -34,7 +34,7 @@ function create_socket_listen_model(context, name, baseVO) {
 
     _baseVO.contextVO.stringify = function (){
 
-        console.log('debug stringify name:'+_baseVO.contextVO.name);
+        _context.log.debug('debug stringify name:'+_baseVO.contextVO.name);
 
 
         let str = '<div class="item_header">';
@@ -56,7 +56,7 @@ function create_socket_listen_model(context, name, baseVO) {
     };
 
     _baseVO.contextVO.updateVO = function () {
-        console.log("debug model updateVO name: "+_baseVO.contextVO.name);
+        _context.log.debug("debug model updateVO name: "+_baseVO.contextVO.name);
         let vo = document.getElementById(_baseVO.contextVO.divID);
         vo.innerHTML = _baseVO.contextVO.stringify();
 
@@ -67,7 +67,7 @@ function create_socket_listen_model(context, name, baseVO) {
             _toggle_info(2, true);
         }
         if(_baseVO.contextVO.last_hide === true){
-            _toggle_info(2, true);
+            _toggle_last(2, true);
         }
     };
 
@@ -79,14 +79,14 @@ function create_socket_listen_model(context, name, baseVO) {
             for(let field in node.if){
                 if(node.if[field].param === "==="){
                     if(data[field] !== _context.models[node.if[field].type][node.if[field].name_vo]){
-                        console.log('----debug socket activate_action if node: '+JSON.stringify(node.if)+' context: '+
+                        _context.log.debug('----debug socket activate_action if node: '+JSON.stringify(node.if)+' context: '+
                             _context.models[node.if[field].type][node.if[field].name_vo]);
                         return;
                     }
                 }
                 else if(node.if[field].param === "array_exists"){
                     if( data[field].indexOf(_context.models[node.if[field].type][node.if[field].name_vo]) < 0 ){
-                        console.log('----debug socket activate_action if node: '+JSON.stringify(node.if)+' context: '+
+                        _context.log.debug('----debug socket activate_action if node: '+JSON.stringify(node.if)+' context: '+
                             _context.models[node.if[field].type][node.if[field].name_vo]);
                         return;
                     }
@@ -103,7 +103,7 @@ function create_socket_listen_model(context, name, baseVO) {
     };
 
     let socketHandler = function(data){
-        _context.socket_log(' << socket handler('+_baseVO.contextVO.name+') data:'+JSON.stringify(data));
+        _context.socketIn(' << socket handler('+_baseVO.contextVO.name+') data:'+JSON.stringify(data));
 
         if(_baseVO.actions[data.action] != null){
 
@@ -161,7 +161,7 @@ function init_socket_listen_models(context) {
         _context.socket_models_listen[name_model] = create_socket_listen_model(_context, name_model,
             _context.config.socket_models_listen[name_model]);
     }
-    console.log('init socket_models done');
+    _context.log.debug('init socket_models done');
 }
 
 function activated_socket_listen_models(context) {

@@ -33,8 +33,7 @@ function create_socket_model(context, name, baseVO) {
 
     _baseVO.contextVO.stringify = function (){
 
-        console.log('debug stringify name:'+_baseVO.contextVO.name);
-
+        _context.log.debug('debug stringify name:'+_baseVO.contextVO.name);
 
         let str = "<div class='item_model_header'>";
 
@@ -59,7 +58,7 @@ function create_socket_model(context, name, baseVO) {
     };
 
     _baseVO.contextVO.updateVO = function () {
-        console.log("debug model updateVO name: "+_baseVO.contextVO.name);
+        _context.log.debug("debug model updateVO name: "+_baseVO.contextVO.name);
         let vo = document.getElementById(_baseVO.contextVO.divID);
         vo.innerHTML = _baseVO.contextVO.stringify();
         $('#btn_sock_'+_baseVO.contextVO.name).on('click', _baseVO.contextVO.onButtonClick);
@@ -87,7 +86,7 @@ function init_socket_models(context) {
         _context.socket_models_emit[name_model] = create_socket_model(_context, name_model,
             _context.config.socket_models_emit[name_model]);
     }
-    console.log('init socket_models done');
+    _context.log.debug('init socket_models done');
 }
 
 function activated_socket_models(context) {
