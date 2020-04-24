@@ -68,11 +68,6 @@
     <section class="">
         <div class="block_title">socket</div>
 
-        <div class="buttons_block">
-            <input type='button' value='connect' class='btn_connect_sock buttons' id='btn_connect_sock'>
-            <input type='button' value='clear' class='btn_clear_socket_console buttons' id='btn_clear_socket_console'>
-        </div>
-
         <div class="rest_model_block" id="socket_block">
 
             <div class="rest_model_block_item">
@@ -83,7 +78,16 @@
             <div class="rest_model_block_item">
                 <div class="block_title">console</div>
 
-                <div class="rest_model_block_item_content" id="socket_console_block"></div>
+                <div class="rest_model_block_item_content" id="socket_console_block">
+
+                    <div class="console_buttons">
+                        <input type='button' value='connect' class='buttons' id='btn_connect_sock'>
+                        <input type='button' value='clear' class='buttons' id='btn_clear_socket_console'>
+                        <input type='button' value='debug' class='buttons' id='btn_toggle_debug_socket_console'>
+                    </div>
+
+                </div>
+
             </div>
 
         </div>

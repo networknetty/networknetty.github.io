@@ -166,6 +166,11 @@ select, input, .buttons, .button_toggle{
     overflow-wrap: break-word;
 }
 
+
+.console_buttons{
+    position: absolute;
+    right: 36px;
+}
 .info_sock_console__item{
 
 }
@@ -186,13 +191,6 @@ select, input, .buttons, .button_toggle{
 }
 
 @media only screen and (max-width: 720px) {
-
-    #list_current{
-
-    }
-    .main_form_block_info{
-
-    }
 
     .info .buttons_block{
         flex-flow: column;
@@ -222,12 +220,10 @@ select, input, .buttons, .button_toggle{
         left: -42vw;
     }
 
-
     .rest_model_block_item_content{
         height: auto;
         max-height: 80vh;
     }
-
 
 }
 
@@ -239,11 +235,12 @@ select, input, .buttons, .button_toggle{
     }
     section {
         width: 50%;
+        margin-top: 12vh;
     }
     section>.block_title{
         position: absolute;
         width: 50%;
-        margin-top: 4vh;
+        margin-top: -5vh;
     }
     section>.buttons_block{
         height: 12vh;
@@ -266,9 +263,7 @@ select, input, .buttons, .button_toggle{
         width: 24vw;
         margin: 5vh 0 0 8px;
     }
-    #section_0{
-        margin-top: 12vh;
-    }
+
     .info{
         width: 50%;
     }
