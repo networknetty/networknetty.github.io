@@ -190,8 +190,10 @@ select, input, .buttons, .button_toggle{
     color: black;
 }
 
-@media only screen and (max-width: 1024px) {
-
+@media only screen and (max-width: 1280px) {
+    html{
+        font-size: 20px;
+    }
     .info .buttons_block{
         flex-flow: column;
     }
@@ -204,7 +206,7 @@ select, input, .buttons, .button_toggle{
     }
 
     .block_title{
-        font-size: 22px;
+        font-size: 26px;
     }
 
     .rest_model_block{
@@ -223,6 +225,16 @@ select, input, .buttons, .button_toggle{
     .rest_model_block_item_content{
         height: auto;
         max-height: 80vh;
+    }
+    #rest_block{
+        height: auto;
+    }
+    select, input, .buttons, .button_toggle{
+        font-size: 24px;
+    }
+    .buttons, .button_toggle{
+        min-width: 12vw;
+        min-height: 10vw;
     }
 
 }
