@@ -5,6 +5,7 @@ function init_sock(context) {
 
     let socket;
     let sockOpen = function () {
+        _context.sock.init = true;
 
         $('.btn_connect_sock').addClass('hide_view');
         $('.btn_connect_sock').on('click', sockReOpen);
@@ -35,6 +36,8 @@ function init_sock(context) {
             console.log(' << logout socket');
             _context.socket_log(' << logout socket msg:'+msg);
             $('.btn_connect_sock').removeClass('hide_view');
+
+
         });
         _context.socket_log(' ~ listen logout');
         socket.on('login', (msg) => {
@@ -74,12 +77,37 @@ function init_sock(context) {
         _context.socket_log(' >> emit msg: '+msg+' body: '+JSON.stringify(body));
     };
 
+    let externalConnect = function(){
+        if(_context.sock.active === false){
+
+            $('.btn_connect_sock').addClass('hide_view');
+            if(_context.sock.init === true){
+                socket.open();
+            }else{
+                sockOpen();
+            }
+
+        }
+    };
+
     _context.sock = {
+        init : false,
         active : false,
         login : false,
         addEventListener : addEventListener,
         emit : emitMessage
     };
+
+    _context.sock.vo = {
+        contextVO : {
+            dispatchEvent: function (trigger, value) {
+                if(trigger === "start"){
+                    externalConnect();
+                }
+            }
+        }
+    };
+
 }
 
 

@@ -70,26 +70,36 @@ function create_rest(context, name, baseVO, group_id) {
     _baseVO.contextVO.dispatchEvent = function (trigger, value){
         console.log('rest:'+_baseVO.contextVO.name+' handler update key: '+trigger+' value: '+value);
 
-        if(_baseVO.data[trigger] != null){
-            _baseVO.data[trigger] = value;
-            _baseVO.contextVO.updateVO();
+        if(trigger === 'start'){
+            _baseVO.contextVO.onButtonClick();
+        }else{
+            if(_baseVO.data[trigger] != null){
+                _baseVO.data[trigger] = value;
+                _baseVO.contextVO.updateVO();
+            }
+            else{
+                console.log('main_rest_vo handler trigger('+trigger+') error');
+            }
         }
-        else{
-            console.log('main_rest_vo handler trigger('+trigger+') error');
-        }
+
     };
 
     _baseVO.contextVO.respBack = function (body, error) {
         console.log('respBack rest name:'+_baseVO.contextVO.name);
         console.log('respBack body: '+JSON.stringify(body));
 
-        if(body != null && _baseVO.setter != null){
+        if(body != null && body.status === 'ok' && _baseVO.setter != null){
+
             for(let i=0; i<_baseVO.setter.length; i++){
+
+                let bd = _baseVO.setter[i].key == null || _baseVO.setter[i].key.length === 0 ||
+                    _baseVO.setter[i].key.indexOf("full") > -1 ? body.data : body.data[_baseVO.setter[i].key[0]];
+
                 _context[_baseVO.setter[i].type][_baseVO.setter[i].name_vo].contextVO.dispatchEvent(
-                        _baseVO.setter[i].trigger[0],
-                        body.data
-                    );
+                        _baseVO.setter[i].trigger[0], bd );
+
             }
+
         }
 
     };
@@ -97,11 +107,9 @@ function create_rest(context, name, baseVO, group_id) {
     _baseVO.contextVO.onButtonClick = function () {
         console.log('call rest name:'+_baseVO.contextVO.name);
 
-
         let data = {};
 
         for(let field in _baseVO.data){
-
 
             if(_baseVO.data_form != null && _baseVO.data_form[field] != null){
 
@@ -128,13 +136,11 @@ function create_rest(context, name, baseVO, group_id) {
             action : _baseVO.action
         };
 
-
         if(_baseVO.data_form != null){
             console.log('-----debug call form data:'+JSON.stringify(bd));
         }
 
         _context.callRest( _baseVO.endpoint, bd, _baseVO.contextVO.respBack );
-
     };
 
     _baseVO.contextVO.modelCallUpdate = function (data, callBack) {
