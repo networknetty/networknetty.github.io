@@ -14,36 +14,36 @@ function init_console(context) {
 
     function log_sockOut(msg) {
         let div = document.createElement('div');
-        div.className = 'info_sock_console__item';
-        div.innerHTML = "<div class='console_item_sock_out'>"+time()+msg+"</div></br>";
+        div.className = 'console_item_sock_out';
+        div.innerHTML = time()+msg+"</br>";
         info_sock.appendChild(div);
     }
     function log_sockIn(msg) {
         let div = document.createElement('div');
-        div.className = 'info_sock_console__item';
-        div.innerHTML = "<div class='console_item_sock_in'>"+time()+msg+"</div></br>";
+        div.className = 'console_item_sock_out';
+        div.innerHTML = time()+msg+"</br>";
         info_sock.appendChild(div);
     }
     function log_error(msg) {
         let div = document.createElement('div');
-        div.className = 'info_sock_console__item';
-        div.innerHTML = "<div class='console_item_error'>"+time()+msg+"</div></br>";
+        div.className = 'console_item_sock_out';
+        div.innerHTML = time()+msg+"</br>";
         info_sock.appendChild(div);
     }
     function log_debug(msg) {
         let div = document.createElement('div');
-        div.className = 'info_sock_console__item';
+        div.className = 'console_item_sock_out';
 
         let clss = 'console_item_debug';
         if(_debug_hide === true)
             clss += ' hide_view';
-        div.innerHTML = "<div class='"+clss+"'>"+time()+msg+"</div></br>";
+        div.innerHTML = time()+msg+"</br>";
         info_sock.appendChild(div);
     }
     function log_else(msg) {
         let div = document.createElement('div');
-        div.className = 'info_sock_console__item';
-        div.innerHTML = "<div class='console_item_else'>"+time()+msg+"</div></br>";
+        div.className = 'console_item_sock_out';
+        div.innerHTML = time()+msg+"</br>";
         info_sock.appendChild(div);
     }
 

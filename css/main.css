@@ -192,7 +192,7 @@ select, input, .buttons, .button_toggle{
 
 @media only screen and (max-width: 1280px) {
     html{
-        font-size: 20px;
+        font-size: 28px;
     }
     .info .buttons_block{
         flex-flow: column;
@@ -206,7 +206,7 @@ select, input, .buttons, .button_toggle{
     }
 
     .block_title{
-        font-size: 26px;
+        font-size: 36px;
     }
 
     .rest_model_block{
@@ -230,7 +230,7 @@ select, input, .buttons, .button_toggle{
         height: auto;
     }
     select, input, .buttons, .button_toggle{
-        font-size: 24px;
+        font-size: 36px;
     }
     .buttons, .button_toggle{
         min-width: 12vw;
