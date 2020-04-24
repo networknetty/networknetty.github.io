@@ -20,29 +20,28 @@ function init_console(context) {
     }
     function log_sockIn(msg) {
         let div = document.createElement('div');
-        div.className = 'console_item_sock_out';
+        div.className = 'console_item_sock_in';
         div.innerHTML = time()+msg+"</br>";
         info_sock.appendChild(div);
     }
     function log_error(msg) {
         let div = document.createElement('div');
-        div.className = 'console_item_sock_out';
+        div.className = 'console_item_error';
         div.innerHTML = time()+msg+"</br>";
         info_sock.appendChild(div);
     }
     function log_debug(msg) {
         let div = document.createElement('div');
-        div.className = 'console_item_sock_out';
-
         let clss = 'console_item_debug';
         if(_debug_hide === true)
             clss += ' hide_view';
+        div.className = clss;
         div.innerHTML = time()+msg+"</br>";
         info_sock.appendChild(div);
     }
     function log_else(msg) {
         let div = document.createElement('div');
-        div.className = 'console_item_sock_out';
+        div.className = 'console_item_else';
         div.innerHTML = time()+msg+"</br>";
         info_sock.appendChild(div);
     }
