@@ -190,7 +190,7 @@ select, input, .buttons, .button_toggle{
     color: black;
 }
 
-@media only screen and (max-width: 720px) {
+@media only screen and (max-width: 1024px) {
 
     .info .buttons_block{
         flex-flow: column;
