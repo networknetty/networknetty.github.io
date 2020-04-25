@@ -81,8 +81,8 @@ function initListenersBody(context, vo){
     };
 
     let oneItemUpdateBack = function(body, error){
-        _context.log.debug('oneItemUpdateBack rest name:'+_vo.contextVO.name);
-        _context.log.socketIn('oneItemUpdateBack body: '+JSON.stringify(body));
+        // _context.log.debug('oneItemUpdateBack rest name:'+_vo.contextVO.name);
+        _context.log.restIn('oneItemUpdateBack  name: '+_vo.contextVO.name+' body: '+JSON.stringify(body));
 
         if(body != null){
             _vo.contextVO.dispatchEvent('full', body.data)

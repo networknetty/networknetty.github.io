@@ -85,8 +85,7 @@ function create_rest(context, name, baseVO, group_id) {
     };
 
     _baseVO.contextVO.respBack = function (body, error) {
-        _context.log.debug('respBack rest name:'+_baseVO.contextVO.name);
-        _context.log.socketIn('respBack body: '+JSON.stringify(body));
+        _context.log.restIn('respBack name:'+_baseVO.contextVO.name+'body: '+JSON.stringify(body));
 
         if(body != null && body.status === 'ok' && _baseVO.setter != null){
 
@@ -105,8 +104,6 @@ function create_rest(context, name, baseVO, group_id) {
     };
 
     _baseVO.contextVO.onButtonClick = function () {
-        _context.log.socketOut('call rest name:'+_baseVO.contextVO.name);
-
         let data = {};
 
         for(let field in _baseVO.data){
@@ -136,20 +133,28 @@ function create_rest(context, name, baseVO, group_id) {
             action : _baseVO.action
         };
 
+        _context.log.restOut('onButtonClick name:'+_baseVO.contextVO.name+' body: '+bd);
+
         if(_baseVO.data_form != null){
-            _context.log.debug('-----debug call form data:'+JSON.stringify(bd));
+            _context.log.debug('-----debug _baseVO.data_form != null');
         }
 
         _context.callRest( _baseVO.endpoint, bd, _baseVO.contextVO.respBack );
     };
 
     _baseVO.contextVO.modelCallUpdate = function (data, callBack) {
-        _context.log.socketOut('model call update rest name:'+_baseVO.contextVO.name+' data: '+data);
-
         let id_data = {};
         for(let field in _baseVO.data){
             id_data[field] = data != null ? data : _baseVO.data[field];
         }
+
+        let bd = {
+            from : _context.models.base.from,
+            data : id_data,
+            action : _baseVO.action
+        };
+
+        _context.log.restOut('modelCallUpdate rest name:'+_baseVO.contextVO.name+' body: '+bd);
 
         _context.callRest(
             _baseVO.endpoint,
