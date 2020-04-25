@@ -203,7 +203,7 @@ function create_mix_model(context, name, baseVO) {
 
     let oneItemAddBack = function(body, error){
         // _context.log.debug('oneItemAddBack rest name:'+_baseVO.contextVO.name);
-        _context.log.restIn('oneItemAddBack name: '+_baseVO.contextVO.name+' body: '+JSON.stringify(body));
+        _context.log.restIn(' << oneItemAddBack name: '+_baseVO.contextVO.name+' body: '+JSON.stringify(body));
 
         if(body != null){
 
@@ -221,7 +221,7 @@ function create_mix_model(context, name, baseVO) {
     };
     let oneItemUpdateBack = function(body, error){
         // _context.log.debug('oneItemUpdateBack rest name:'+_baseVO.contextVO.name);
-        _context.log.restIn('oneItemUpdateBack name:'+_baseVO.contextVO.name+' body: '+JSON.stringify(body));
+        _context.log.restIn(' << oneItemUpdateBack name:'+_baseVO.contextVO.name+' body: '+JSON.stringify(body));
 
         if(body != null){
 

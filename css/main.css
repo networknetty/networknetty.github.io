@@ -175,16 +175,16 @@ select, input, .buttons, .button_toggle{
 
 }
 .console_item_rest_out{
-    color: blue;
+    color: chocolate;
 }
 .console_item_rest_in{
-    color: blueviolet;
+    color: coral;
 }
 .console_item_sock_out{
-    color: aqua;
+    color: cornflowerblue;
 }
 .console_item_sock_in{
-    color: violet;
+    color: blue;
 }
 .console_item_error{
     color: red;
@@ -193,7 +193,7 @@ select, input, .buttons, .button_toggle{
     color: green;
 }
 .console_item_else{
-    color: black;
+    color: gold;
 }
 
 @media only screen and (max-width: 1280px) {

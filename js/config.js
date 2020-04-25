@@ -83,7 +83,7 @@ function init_config(context) {
         localforage.setItem(key, value)
             .then(function (value) {})
             .catch(function (error) {
-                _context.log.error('localforage.setItem err: '+error);
+                _context.log.error(' // localforage.setItem err: '+error);
             });
     };
 

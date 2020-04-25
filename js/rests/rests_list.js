@@ -50,7 +50,7 @@ function create_rest(context, name, baseVO, group_id) {
         str += "<form class='block_toggle' name='rest_info_"+_baseVO.contextVO.name+"' id='rest_info_"+_baseVO.contextVO.name+"'>";
 
         for(let field in _baseVO){
-            if(field !== 'setter' && field !== 'contextVO' && field !== 'listen' &&  field !== 'data_form'){
+            if(field !== 'setter' && field !== 'contextVO' && field !== 'listen' &&  field !== 'data_form' || _baseVO.onlySetter === true){
                 str += field + ' : '+ util_parse(_baseVO[field], '', field, _baseVO.data_form, 'rest_info_'+_baseVO.contextVO.name) + '<br>';
             }
         }
@@ -78,14 +78,15 @@ function create_rest(context, name, baseVO, group_id) {
                 _baseVO.contextVO.updateVO();
             }
             else{
-                _context.log.debug('main_rest_vo handler trigger('+trigger+') error');
+                _context.log.error(' // main_rest_vo handler trigger('+trigger+') error');
             }
         }
 
     };
 
     _baseVO.contextVO.respBack = function (body, error) {
-        _context.log.restIn('respBack name:'+_baseVO.contextVO.name+'body: '+JSON.stringify(body));
+
+        _context.log.restIn(' << respBack name:'+_baseVO.contextVO.name+'body: '+JSON.stringify(body));
 
         if(body != null && body.status === 'ok' && _baseVO.setter != null){
 
@@ -101,9 +102,14 @@ function create_rest(context, name, baseVO, group_id) {
 
         }
 
+        $('#btn_'+_baseVO.contextVO.name).removeClass('hide_view');
+
     };
 
     _baseVO.contextVO.onButtonClick = function () {
+
+        $('#btn_'+_baseVO.contextVO.name).addClass('hide_view');
+
         let data = {};
 
         for(let field in _baseVO.data){
@@ -133,7 +139,7 @@ function create_rest(context, name, baseVO, group_id) {
             action : _baseVO.action
         };
 
-        _context.log.restOut('onButtonClick name:'+_baseVO.contextVO.name+' body: '+bd);
+        _context.log.restOut(' >> onButtonClick name:'+_baseVO.contextVO.name+' body: '+JSON.stringify(bd));
 
         if(_baseVO.data_form != null){
             _context.log.debug('-----debug _baseVO.data_form != null');
@@ -154,7 +160,7 @@ function create_rest(context, name, baseVO, group_id) {
             action : _baseVO.action
         };
 
-        _context.log.restOut('modelCallUpdate rest name:'+_baseVO.contextVO.name+' body: '+bd);
+        _context.log.restOut(' >> modelCallUpdate rest name:'+_baseVO.contextVO.name+' body: '+JSON.stringify(bd));
 
         _context.callRest(
             _baseVO.endpoint,
@@ -165,6 +171,14 @@ function create_rest(context, name, baseVO, group_id) {
             },
             callBack
         );
+    };
+
+    let _only_setter = function(){
+        _context.log.else(' only_setter name:'+_baseVO.contextVO.name);
+        for(let i=0; i<_baseVO.setter.length; i++){
+            _context[_baseVO.setter[i].type][_baseVO.setter[i].name_vo].contextVO.dispatchEvent(
+                _baseVO.setter[i].trigger[0] );
+        }
     };
 
     /////////////////////////////////////////////////////////////////////////////////////
@@ -181,7 +195,11 @@ function create_rest(context, name, baseVO, group_id) {
         let vo = document.getElementById(_baseVO.contextVO.divID);
         vo.innerHTML = _baseVO.contextVO.stringify();
 
-        $('#btn_'+_baseVO.contextVO.name).on('click', _baseVO.contextVO.onButtonClick);
+        if(_baseVO.onlySetter === true){
+            $('#btn_'+_baseVO.contextVO.name).on('click', _only_setter);
+        }else{
+            $('#btn_'+_baseVO.contextVO.name).on('click', _baseVO.contextVO.onButtonClick);
+        }
 
         $('#btn_rest_info_'+ _baseVO.contextVO.name).on('click', _toggle_info);
 
