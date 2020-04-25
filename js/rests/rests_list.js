@@ -50,7 +50,7 @@ function create_rest(context, name, baseVO, group_id) {
         str += "<form class='block_toggle' name='rest_info_"+_baseVO.contextVO.name+"' id='rest_info_"+_baseVO.contextVO.name+"'>";
 
         for(let field in _baseVO){
-            if(field !== 'setter' && field !== 'contextVO' && field !== 'listen' &&  field !== 'data_form' || _baseVO.onlySetter === true){
+            if((field !== 'setter' || _baseVO.onlySetter === true) && field !== 'contextVO' && field !== 'listen' &&  field !== 'data_form'){
                 str += field + ' : '+ util_parse(_baseVO[field], '', field, _baseVO.data_form, 'rest_info_'+_baseVO.contextVO.name) + '<br>';
             }
         }
