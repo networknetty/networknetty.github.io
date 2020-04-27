@@ -103,7 +103,7 @@ function create_socket_listen_model(context, name, baseVO) {
     };
 
     let socketHandler = function(data){
-        _context.socketIn(' << socket handler('+_baseVO.contextVO.name+') data:'+JSON.stringify(data));
+        _context.log.socketIn(' << socket handler('+_baseVO.contextVO.name+') data:'+JSON.stringify(data));
 
         if(_baseVO.actions[data.action] != null){
 
