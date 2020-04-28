@@ -26,7 +26,7 @@ function create_rest(context, name, baseVO, group_id) {
         stringify : function () {},
 
         respBack : function (body, error) {},
-        onButtonClick : function (callback) {},
+        onButtonClick : function (e, callback) {},
 
         modelCallUpdate : function (data, callBack) {}
     };
@@ -71,7 +71,7 @@ function create_rest(context, name, baseVO, group_id) {
         _context.log.debug('rest:'+_baseVO.contextVO.name+' handler update key: '+trigger+' value: '+value);
 
         if(trigger === 'start'){
-            _baseVO.contextVO.onButtonClick(callback);
+            _baseVO.contextVO.onButtonClick(null, callback);
         }else{
             if(_baseVO.data[trigger] != null){
                 _baseVO.data[trigger] = value;
@@ -144,9 +144,9 @@ function create_rest(context, name, baseVO, group_id) {
         return value;
     };
 
-    _baseVO.contextVO.onButtonClick = function (callback) {
-
-        _external_callback = callback;
+    _baseVO.contextVO.onButtonClick = function (e, callback) {
+        if(callback != null)
+            _external_callback = callback;
 
         $('#btn_'+_baseVO.contextVO.name).addClass('hide_view');
 
