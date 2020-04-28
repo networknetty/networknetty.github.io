@@ -26,7 +26,7 @@ function create_rest(context, name, baseVO, group_id) {
         stringify : function () {},
 
         respBack : function (body, error) {},
-        onButtonClick : function () {},
+        onButtonClick : function (callback) {},
 
         modelCallUpdate : function (data, callBack) {}
     };
@@ -67,11 +67,11 @@ function create_rest(context, name, baseVO, group_id) {
     };
 
 
-    _baseVO.contextVO.dispatchEvent = function (trigger, value){
+    _baseVO.contextVO.dispatchEvent = function (trigger, value, callback){
         _context.log.debug('rest:'+_baseVO.contextVO.name+' handler update key: '+trigger+' value: '+value);
 
         if(trigger === 'start'){
-            _baseVO.contextVO.onButtonClick();
+            _baseVO.contextVO.onButtonClick(callback);
         }else{
             if(_baseVO.data[trigger] != null){
                 _baseVO.data[trigger] = value;
@@ -80,10 +80,13 @@ function create_rest(context, name, baseVO, group_id) {
             else{
                 _context.log.error(' // main_rest_vo handler trigger('+trigger+') error');
             }
+            if(callback != null)
+                callback();
         }
 
     };
 
+    let _external_callback;
     _baseVO.contextVO.respBack = function (body, error) {
 
         _context.log.restIn(' << respBack name:'+_baseVO.contextVO.name+' body: '+JSON.stringify(body));
@@ -104,6 +107,8 @@ function create_rest(context, name, baseVO, group_id) {
 
         $('#btn_'+_baseVO.contextVO.name).removeClass('hide_view');
 
+        if(_external_callback != null)
+            _external_callback();
     };
 
     let getValueForm = function(value, cfg){
@@ -118,7 +123,9 @@ function create_rest(context, name, baseVO, group_id) {
         return value;
     };
 
-    _baseVO.contextVO.onButtonClick = function () {
+    _baseVO.contextVO.onButtonClick = function (callback) {
+
+        _external_callback = callback;
 
         $('#btn_'+_baseVO.contextVO.name).addClass('hide_view');
 
@@ -187,12 +194,20 @@ function create_rest(context, name, baseVO, group_id) {
         );
     };
 
+    let setter_stack = [];
+    let _checkNextSetterStackItem = function(){
+        if(setter_stack.length > 0){
+            let current = setter_stack.splice(0, 1);
+            _context[current.type][current.name_vo].contextVO.dispatchEvent(
+                current.trigger[0], null, _checkNextSetterStackItem );
+        }
+    };
     let _only_setter = function(){
         _context.log.else(' only_setter name:'+_baseVO.contextVO.name);
         for(let i=0; i<_baseVO.setter.length; i++){
-            _context[_baseVO.setter[i].type][_baseVO.setter[i].name_vo].contextVO.dispatchEvent(
-                _baseVO.setter[i].trigger[0] );
+            setter_stack.push(_baseVO.setter[i]);
         }
+        _checkNextSetterStackItem();
     };
 
     /////////////////////////////////////////////////////////////////////////////////////
