@@ -91,7 +91,7 @@ function create_rest(context, name, baseVO, group_id) {
     let stack_value;
     let _checkNextSetterStackItem = function(){
         if(setter_stack.length > 0){
-            let current = setter_stack.splice(0, 1);
+            let current = setter_stack.splice(0, 1)[0];
             let bd;
             if(stack_value != null && current.key != null){
                 bd = current.key.indexOf("full") > -1 ? stack_value : stack_value[current.key[0]];
