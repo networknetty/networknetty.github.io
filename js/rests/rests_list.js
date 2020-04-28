@@ -86,7 +86,7 @@ function create_rest(context, name, baseVO, group_id) {
 
     _baseVO.contextVO.respBack = function (body, error) {
 
-        _context.log.restIn(' << respBack name:'+_baseVO.contextVO.name+'body: '+JSON.stringify(body));
+        _context.log.restIn(' << respBack name:'+_baseVO.contextVO.name+' body: '+JSON.stringify(body));
 
         if(body != null && body.status === 'ok' && _baseVO.setter != null){
 
@@ -106,6 +106,18 @@ function create_rest(context, name, baseVO, group_id) {
 
     };
 
+    let getValueForm = function(value, cfg){
+        if(cfg.format != null){
+            if(cfg.format === "int")
+                return parseInt(value);
+            else if(cfg.format === "number")
+                return parseFloat(value);
+            else if(cfg.format === "bool")
+                return value === "true";
+        }
+        return value;
+    };
+
     _baseVO.contextVO.onButtonClick = function () {
 
         $('#btn_'+_baseVO.contextVO.name).addClass('hide_view');
@@ -120,10 +132,12 @@ function create_rest(context, name, baseVO, group_id) {
 
                 if(Array.isArray(_baseVO.data[field])){
                     data[field] = [];
-                    data[field].push(form.get("rest_info_"+_baseVO.contextVO.name+"_"+field));
+                    data[field].push(getValueForm(form.get("rest_info_"+_baseVO.contextVO.name+"_"+field),
+                        _baseVO.data_form[field]));
                 }
                 else{
-                    data[field] = form.get("rest_info_"+_baseVO.contextVO.name+"_"+field);
+                    data[field] = getValueForm(form.get("rest_info_"+_baseVO.contextVO.name+"_"+field),
+                        _baseVO.data_form[field]);
                 }
 
             }
