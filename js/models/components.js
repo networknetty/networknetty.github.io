@@ -40,7 +40,7 @@ function initListenersBody(context, vo){
     _vo.contextVO.socketEvent = function (trigger, data) {
         _vo.contextVO.dispatchEvent(trigger[0], data);
     };
-
+    let _external_callback;
     _vo.contextVO.dispatchEvent = function (trigger, value, callback){
 
         _context.log.debug('_vo:'+_vo.contextVO.name+' handler update key: '+trigger+' value: '+
@@ -54,9 +54,13 @@ function initListenersBody(context, vo){
                 }
             }
             _vo.contextVO.updateVO();
+            if(callback != null)
+                callback();
         }
         else if(trigger === 'full_self'){
             _context.rest_list[_vo.contextVO.oneItemUpdate].contextVO.modelCallUpdate(_vo.id, oneItemUpdateBack);
+
+            _external_callback = callback;
         }
         else if(_vo[trigger] != null){
 
@@ -74,13 +78,17 @@ function initListenersBody(context, vo){
                 }
 
             }
+
+            if(callback != null)
+                callback();
         }
         else{
             _context.log.debug('main_rest_vo handler trigger('+trigger+') error');
+            if(callback != null)
+                callback();
         }
 
-        if(callback != null)
-            callback();
+        callback = null;
     };
 
     let oneItemUpdateBack = function(body, error){
@@ -88,7 +96,12 @@ function initListenersBody(context, vo){
         _context.log.restIn(' << oneItemUpdateBack  name: '+_vo.contextVO.name+' body: '+JSON.stringify(body));
 
         if(body != null){
-            _vo.contextVO.dispatchEvent('full', body.data);
+            _vo.contextVO.dispatchEvent('full', body.data, _external_callback);
+        }else{
+            if(_external_callback != null){
+                _external_callback();
+                _external_callback = null;
+            }
         }
     };
 }

@@ -86,7 +86,7 @@ function create_rest(context, name, baseVO, group_id) {
 
     };
 
-    let _external_callback = function () {};
+    let _external_callback;
     let setter_stack = [];
     let stack_value;
     let _checkNextSetterStackItem = function(){
@@ -101,9 +101,10 @@ function create_rest(context, name, baseVO, group_id) {
         }
         else{
             stack_value = null;
-
-            _external_callback();
-            _external_callback = function () {};
+            if(_external_callback != null){
+                _external_callback();
+                _external_callback = null;
+            }
         }
     };
     let _only_setter = function(){
@@ -126,9 +127,11 @@ function create_rest(context, name, baseVO, group_id) {
             }
             _checkNextSetterStackItem();
         }
-        else{
-            _external_callback();
-            _external_callback = function () {};
+        else {
+            if (_external_callback != null) {
+                _external_callback();
+                _external_callback = null;
+            }
         }
     };
 
@@ -145,8 +148,7 @@ function create_rest(context, name, baseVO, group_id) {
     };
 
     _baseVO.contextVO.onButtonClick = function (e, callback) {
-        if(callback != null)
-            _external_callback = callback;
+        _external_callback = callback;
 
         $('#btn_'+_baseVO.contextVO.name).addClass('hide_view');
 
