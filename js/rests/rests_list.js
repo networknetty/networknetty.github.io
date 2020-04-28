@@ -19,7 +19,7 @@ function create_rest(context, name, baseVO, group_id) {
         },
 
         updateVO : function () {},
-        dispatchEvent : function (trigger, value) {},
+        dispatchEvent : function (trigger, value, callback) {},
         socketEvent : function (trigger, data) {},
         addEventListener : function (trigger, func) {},
         init : function () {},
@@ -87,28 +87,50 @@ function create_rest(context, name, baseVO, group_id) {
     };
 
     let _external_callback;
+    let setter_stack = [];
+    let stack_value;
+    let _checkNextSetterStackItem = function(){
+        if(setter_stack.length > 0){
+            let current = setter_stack.splice(0, 1);
+            let bd;
+            if(stack_value != null && current.key != null){
+                bd = current.key.indexOf("full") > -1 ? stack_value : stack_value[current.key[0]];
+            }
+            _context[current.type][current.name_vo].contextVO.dispatchEvent(
+                current.trigger[0], bd, _checkNextSetterStackItem );
+        }
+        else{
+            stack_value = null;
+            if(_external_callback != null){
+                _external_callback();
+                _external_callback = function () {}
+            }
+        }
+    };
+    let _only_setter = function(){
+        _context.log.else(' only_setter name:'+_baseVO.contextVO.name);
+        for(let i=0; i<_baseVO.setter.length; i++){
+            setter_stack.push(_baseVO.setter[i]);
+        }
+        _checkNextSetterStackItem();
+    };
+
     _baseVO.contextVO.respBack = function (body, error) {
 
         _context.log.restIn(' << respBack name:'+_baseVO.contextVO.name+' body: '+JSON.stringify(body));
-
-        if(body != null && body.status === 'ok' && _baseVO.setter != null){
-
-            for(let i=0; i<_baseVO.setter.length; i++){
-
-                let bd = _baseVO.setter[i].key == null || _baseVO.setter[i].key.length === 0 ||
-                    _baseVO.setter[i].key.indexOf("full") > -1 ? body.data : body.data[_baseVO.setter[i].key[0]];
-
-                _context[_baseVO.setter[i].type][_baseVO.setter[i].name_vo].contextVO.dispatchEvent(
-                        _baseVO.setter[i].trigger[0], bd );
-
-            }
-
-        }
-
         $('#btn_'+_baseVO.contextVO.name).removeClass('hide_view');
 
-        if(_external_callback != null)
-            _external_callback();
+        if(body != null && body.status === 'ok' && _baseVO.setter != null){
+            for(let i=0; i<_baseVO.setter.length; i++){
+                stack_value = body.data;
+                setter_stack.push(_baseVO.setter[i]);
+            }
+            _checkNextSetterStackItem();
+        }
+        else{
+            if(_external_callback != null)
+                _external_callback();
+        }
     };
 
     let getValueForm = function(value, cfg){
@@ -192,22 +214,6 @@ function create_rest(context, name, baseVO, group_id) {
             },
             callBack
         );
-    };
-
-    let setter_stack = [];
-    let _checkNextSetterStackItem = function(){
-        if(setter_stack.length > 0){
-            let current = setter_stack.splice(0, 1);
-            _context[current.type][current.name_vo].contextVO.dispatchEvent(
-                current.trigger[0], null, _checkNextSetterStackItem );
-        }
-    };
-    let _only_setter = function(){
-        _context.log.else(' only_setter name:'+_baseVO.contextVO.name);
-        for(let i=0; i<_baseVO.setter.length; i++){
-            setter_stack.push(_baseVO.setter[i]);
-        }
-        _checkNextSetterStackItem();
     };
 
     /////////////////////////////////////////////////////////////////////////////////////

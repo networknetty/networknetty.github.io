@@ -41,7 +41,7 @@ function initListenersBody(context, vo){
         _vo.contextVO.dispatchEvent(trigger[0], data);
     };
 
-    _vo.contextVO.dispatchEvent = function (trigger, value){
+    _vo.contextVO.dispatchEvent = function (trigger, value, callback){
 
         _context.log.debug('_vo:'+_vo.contextVO.name+' handler update key: '+trigger+' value: '+
             (typeof value === 'object' ? JSON.stringify(value) : value));
@@ -78,6 +78,9 @@ function initListenersBody(context, vo){
         else{
             _context.log.debug('main_rest_vo handler trigger('+trigger+') error');
         }
+
+        if(callback != null)
+            callback();
     };
 
     let oneItemUpdateBack = function(body, error){
@@ -85,7 +88,7 @@ function initListenersBody(context, vo){
         _context.log.restIn(' << oneItemUpdateBack  name: '+_vo.contextVO.name+' body: '+JSON.stringify(body));
 
         if(body != null){
-            _vo.contextVO.dispatchEvent('full', body.data)
+            _vo.contextVO.dispatchEvent('full', body.data);
         }
     };
 }

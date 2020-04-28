@@ -27,7 +27,7 @@ function create_mix_model(context, name, baseVO) {
         },
 
         updateVO : function () {},
-        dispatchEvent : function (trigger, value) {},
+        dispatchEvent : function (trigger, value, callback) {},
         socketEvent : function (trigger, data) {},
         addEventListener : function (trigger, func) {},
         init : function () {},
@@ -235,7 +235,7 @@ function create_mix_model(context, name, baseVO) {
         }
     };
 
-    _baseVO.contextVO.dispatchEvent = function (trigger, value){
+    _baseVO.contextVO.dispatchEvent = function (trigger, value, callback){
         _context.log.debug('mix vo:'+_baseVO.contextVO.name+' handler update trigger: '+trigger+' value: '+
             (typeof value === 'object' ? JSON.stringify(value) : value));
 
@@ -269,6 +269,8 @@ function create_mix_model(context, name, baseVO) {
             }
         }
 
+        if(callback != null)
+            callback();
     };
     /////////////////////////////////////////////////////////////////////////////////////
     let _toggle_info = function(duration, dontChangeBool){

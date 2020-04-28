@@ -15,7 +15,7 @@ function createMainRestVO(context, vo) {
         },
 
         updateVO : function () {},
-        dispatchEvent : function (trigger, value) {},
+        dispatchEvent : function (trigger, value, callback) {},
         socketEvent : function (trigger, data) {},
         addEventListener : function (trigger, func) {},
         init : function () {},

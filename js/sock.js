@@ -97,10 +97,12 @@ function init_sock(context) {
 
     _context.sock.vo = {
         contextVO : {
-            dispatchEvent: function (trigger, value) {
+            dispatchEvent: function (trigger, value, callback) {
                 if(trigger === "start"){
                     externalConnect();
                 }
+                if(callback != null)
+                    callback();
             }
         }
     };
