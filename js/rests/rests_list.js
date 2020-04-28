@@ -86,7 +86,7 @@ function create_rest(context, name, baseVO, group_id) {
 
     };
 
-    let _external_callback;
+    let _external_callback = function () {};
     let setter_stack = [];
     let stack_value;
     let _checkNextSetterStackItem = function(){
@@ -101,10 +101,9 @@ function create_rest(context, name, baseVO, group_id) {
         }
         else{
             stack_value = null;
-            if(_external_callback != null){
-                _external_callback();
-                _external_callback = function () {}
-            }
+
+            _external_callback();
+            _external_callback = function () {};
         }
     };
     let _only_setter = function(){
@@ -128,8 +127,8 @@ function create_rest(context, name, baseVO, group_id) {
             _checkNextSetterStackItem();
         }
         else{
-            if(_external_callback != null)
-                _external_callback();
+            _external_callback();
+            _external_callback = function () {};
         }
     };
 
