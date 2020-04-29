@@ -43,6 +43,8 @@ function create_model(context, name, baseVO) {
         str += '<span class="item_title">'+_baseVO.contextVO.name+'</span>';
 
         str += '</div>';
+        str += '<span class="id_title"> id: '+_baseVO.id+'</span>';
+
 
         str += "<div class='block_toggle' id='base_model_block_text_"+_baseVO.contextVO.name+"'>";
 
