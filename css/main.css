@@ -176,24 +176,30 @@ select, input, .buttons, .button_toggle{
 }
 .console_item_rest_out{
     color: chocolate;
+    border: 1px solid chocolate;
 }
 .console_item_rest_in{
     color: coral;
+    border: 1px solid coral;
 }
 .console_item_sock_out{
     color: cornflowerblue;
+    border: 1px solid cornflowerblue;
 }
 .console_item_sock_in{
     color: blue;
+    border: 1px solid blue;
 }
 .console_item_error{
     color: red;
+    border: 1px solid red;
 }
 .console_item_debug{
     color: green;
 }
 .console_item_else{
     color: gold;
+    border: 1px solid gold;
 }
 
 @media only screen and (max-width: 1280px) {
