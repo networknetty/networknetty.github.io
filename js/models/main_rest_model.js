@@ -72,8 +72,8 @@ function createMainRestVO(context, vo) {
         str += 'currentMail : ' + _context.models.base.currentMail + '<br>';
         str += 'externalUser : ' + _context.models.base.externalUser + '<br>';
         str += 'currentMessage : ' + _context.models.base.currentMessage + '<br>';
-        str += 'currentStoreItem : ' + _context.models.base.currentStoreItem + '<br>';
-        str += 'userStore : ' + _context.models.base.userStore + '<br>';
+        str += 'currentInventoryItem : ' + _context.models.base.currentInventoryItem + '<br>';
+        str += 'userInventory : ' + _context.models.base.userInventory + '<br>';
 
         str += 'token_fb : ' + _context.models.base.token_fb + '<br>';
         str += 'token_fcm : ' + _context.models.base.token_fcm + '<br>';
