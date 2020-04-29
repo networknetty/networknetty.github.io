@@ -69,6 +69,8 @@ function createMainRestVO(context, vo) {
         str += 'currentTask : ' + _context.models.base.currentTask + '<br>';
         str += 'currentFlow : ' + _context.models.base.currentFlow + '<br>';
         str += 'currentUser : ' + _context.models.base.currentUser + '<br>';
+        str += 'currentMail : ' + _context.models.base.currentMail + '<br>';
+        str += 'externalUser : ' + _context.models.base.externalUser + '<br>';
         str += 'currentMessage : ' + _context.models.base.currentMessage + '<br>';
         str += 'currentStoreItem : ' + _context.models.base.currentStoreItem + '<br>';
         str += 'userStore : ' + _context.models.base.userStore + '<br>';

@@ -10,6 +10,7 @@ window.onload = function () {
     init_fb(_context);
 
     init_models(_context);
+    init_mail_models(_context);
     init_rests_with_group(_context);
 
     init_mix_models(_context);

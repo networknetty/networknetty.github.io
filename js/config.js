@@ -34,6 +34,7 @@ function init_config(context) {
                 if(parseNode.rest_list) _config.rest_list = parseNode.rest_list;
                 if(parseNode.socket_models_listen) _config.socket_models_listen = parseNode.socket_models_listen;
                 if(parseNode.socket_models_emit) _config.socket_models_emit = parseNode.socket_models_emit;
+                if(parseNode.other) _config.other = parseNode.other;
 
                 document.body.removeChild(fileInput);
 
@@ -99,13 +100,13 @@ function init_config(context) {
             list:[{name:"none", url:"none", sock:"none"}], 
             current_list_item:0, 
             jwt:"none", 
-            web:{}, 
-            // listen:[],
+            web:{},
             models:{},
             mix_models:{},
             rest_list:{},
             socket_models_listen:{},
-            socket_models_emit:{}
+            socket_models_emit:{},
+            other:{}
         };
         setLocalObject(_config_key, _config);
         onConfigEdit();
