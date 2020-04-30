@@ -72,15 +72,19 @@ function create_socket_listen_model(context, name, baseVO) {
     };
 
     // initListenersBody(_baseVO);
+    let checkElse = function (node, data) {
+        activate_action(node, data);
+    };
 
     let activate_action = function (node, data){
-
         if(node.if != null){
             for(let field in node.if){
                 if(node.if[field].param === "==="){
                     if(data[field] !== _context.models[node.if[field].type][node.if[field].name_vo]){
                         _context.log.debug('----debug socket activate_action if node: '+JSON.stringify(node.if)+' context: '+
                             _context.models[node.if[field].type][node.if[field].name_vo]);
+                        if(node.else != null )
+                            checkElse(node.else, data);
                         return;
                     }
                 }
@@ -88,13 +92,40 @@ function create_socket_listen_model(context, name, baseVO) {
                     if( data[field].indexOf(_context.models[node.if[field].type][node.if[field].name_vo]) < 0 ){
                         _context.log.debug('----debug socket activate_action if node: '+JSON.stringify(node.if)+' context: '+
                             _context.models[node.if[field].type][node.if[field].name_vo]);
+                        if(node.else != null )
+                            checkElse(node.else, data);
+                        return;
+                    }
+                }
+                else if(node.if[field].param === "!=null"){
+                    if( _context.models[node.if[field].type][node.if[field].name_vo] == null ){
+                        _context.log.debug('----debug socket activate_action if node: '+JSON.stringify(node.if)+' context: '+
+                            _context.models[node.if[field].type][node.if[field].name_vo]);
+                        if(node.else != null )
+                            checkElse(node.else, data);
+                        return;
+                    }
+                }
+                else if(node.if[field].param === "==null"){
+                    if( _context.models[node.if[field].type][node.if[field].name_vo] != null ){
+                        _context.log.debug('----debug socket activate_action if node: '+JSON.stringify(node.if)+' context: '+
+                            _context.models[node.if[field].type][node.if[field].name_vo]);
+                        if(node.else != null )
+                            checkElse(node.else, data);
                         return;
                     }
                 }
             }
         }
 
-        let body = node.key != null ? data[node.key] : data;
+        let body;
+        if(node.key != null){
+            if(node.key !== "null"){
+                body = data[node.key];
+            }
+        }else{
+            body = data;
+        }
         _context[node.type][node.name_vo].contextVO.socketEvent(
                 node.trigger,
                 body,
