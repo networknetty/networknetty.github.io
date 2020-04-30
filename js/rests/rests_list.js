@@ -28,7 +28,7 @@ function create_rest(context, name, baseVO, group_id) {
         respBack : function (body, error) {},
         onButtonClick : function (e, callback) {},
 
-        modelCallUpdate : function (data, callBack) {}
+        modelCallUpdatemodelCallUpdate : function (data, callBack) {}
     };
 
     let block = document.getElementById(group_id);
@@ -92,12 +92,18 @@ function create_rest(context, name, baseVO, group_id) {
     let _checkNextSetterStackItem = function(){
         if(setter_stack.length > 0){
             let current = setter_stack.splice(0, 1)[0];
-            let bd;
-            if(stack_value != null && current.key != null){
-                bd = current.key.indexOf("full") > -1 ? stack_value : stack_value[current.key[0]];
+
+            if(current.transfer === true){
+                _context[current.type][current.name_vo].contextVO.dispatchEvent( current.trigger[0],
+                    _context[current.get_type][current.get_name_vo][current.get_value], _checkNextSetterStackItem );
+            }else{
+                let bd;
+                if(stack_value != null && current.key != null){
+                    bd = current.key.indexOf("full") > -1 ? stack_value : stack_value[current.key[0]];
+                }
+                _context[current.type][current.name_vo].contextVO.dispatchEvent(
+                    current.trigger[0], bd, _checkNextSetterStackItem );
             }
-            _context[current.type][current.name_vo].contextVO.dispatchEvent(
-                current.trigger[0], bd, _checkNextSetterStackItem );
         }
         else{
             stack_value = null;
