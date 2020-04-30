@@ -41,6 +41,7 @@ function init_config(context) {
                 setLocalObject(_config_key, _config);
                 changeList();
                 updateCurrentInfoBlockAboutConfig();
+                location.reload();
             };
             reader.readAsText(file)
         };
