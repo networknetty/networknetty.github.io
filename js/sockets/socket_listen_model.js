@@ -72,9 +72,6 @@ function create_socket_listen_model(context, name, baseVO) {
     };
 
     // initListenersBody(_baseVO);
-    let checkElse = function (node, data) {
-        activate_action(node, data);
-    };
 
     let activate_action = function (node, data){
         if(node.if != null){
@@ -84,7 +81,7 @@ function create_socket_listen_model(context, name, baseVO) {
                         _context.log.debug('----debug socket activate_action if node: '+JSON.stringify(node.if)+' context: '+
                             _context.models[node.if[field].type][node.if[field].name_vo]);
                         if(node.else != null )
-                            checkElse(node.else, data);
+                            activate_action(node.else, data);
                         return;
                     }
                 }
@@ -93,7 +90,7 @@ function create_socket_listen_model(context, name, baseVO) {
                         _context.log.debug('----debug socket activate_action if node: '+JSON.stringify(node.if)+' context: '+
                             _context.models[node.if[field].type][node.if[field].name_vo]);
                         if(node.else != null )
-                            checkElse(node.else, data);
+                            activate_action(node.else, data);
                         return;
                     }
                 }
@@ -102,7 +99,7 @@ function create_socket_listen_model(context, name, baseVO) {
                         _context.log.debug('----debug socket activate_action if node: '+JSON.stringify(node.if)+' context: '+
                             _context.models[node.if[field].type][node.if[field].name_vo]);
                         if(node.else != null )
-                            checkElse(node.else, data);
+                            activate_action(node.else, data);
                         return;
                     }
                 }
@@ -111,7 +108,7 @@ function create_socket_listen_model(context, name, baseVO) {
                         _context.log.debug('----debug socket activate_action if node: '+JSON.stringify(node.if)+' context: '+
                             _context.models[node.if[field].type][node.if[field].name_vo]);
                         if(node.else != null )
-                            checkElse(node.else, data);
+                            activate_action(node.else, data);
                         return;
                     }
                 }
