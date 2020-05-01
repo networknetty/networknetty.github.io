@@ -28,7 +28,7 @@ function create_rest(context, name, baseVO, group_id) {
         respBack : function (body, error) {},
         onButtonClick : function (e, callback) {},
 
-        modelCallUpdatemodelCallUpdate : function (data, callBack) {}
+        modelCallUpdate : function (data, callBack) {}
     };
 
     let block = document.getElementById(group_id);
@@ -61,9 +61,11 @@ function create_rest(context, name, baseVO, group_id) {
 
 
     _baseVO.contextVO.socketEvent = function (trigger, data) {
-
         // if(trigger[0] === "call")
-        _baseVO.contextVO.modelCallUpdate(data, _baseVO.contextVO.respBack);
+        if(_baseVO.onlySetter === true)
+            _only_setter();
+        else
+            _baseVO.contextVO.modelCallUpdate(data, _baseVO.contextVO.respBack);
     };
 
 
