@@ -91,7 +91,17 @@ function create_rest(context, name, baseVO, group_id) {
     let _external_callback;
     let setter_stack = [];
     let stack_value;
-    let _checkNextSetterStackItem = function(){
+    let _checkNextSetterStackItem = function(error){
+
+        if(error != null && setter_stack[0].else != null){
+            _context.log.debug('checkNextSetterStackItem else node error: '+error);
+            let setter_stack_n = [];
+            for(let i=0; i<setter_stack[0].else.length; i++){
+                setter_stack_n.push(setter_stack[0].else[i]);
+            }
+            setter_stack = setter_stack_n;
+        }
+
         if(setter_stack.length > 0){
             let current = setter_stack.splice(0, 1)[0];
 
@@ -106,6 +116,7 @@ function create_rest(context, name, baseVO, group_id) {
                 _context[current.type][current.name_vo].contextVO.dispatchEvent(
                     current.trigger[0], bd, _checkNextSetterStackItem );
             }
+
         }
         else{
             stack_value = null;
@@ -137,7 +148,7 @@ function create_rest(context, name, baseVO, group_id) {
         }
         else {
             if (_external_callback != null) {
-                _external_callback();
+                _external_callback(body.status === 'ok' ? null : body.status);
                 _external_callback = null;
             }
         }
