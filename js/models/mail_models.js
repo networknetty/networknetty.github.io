@@ -107,12 +107,14 @@ function init_mail_models(context) {
         if(body != null){
             let ix = _baseVO.contextVO.arrKeys.indexOf(waitUpdateMail);
             if(ix > -1){
-                _baseVO.contextVO.arrValues[ix] = body.data;
-                if(waitUpdateMail === _baseVO.contextVO.current){
-                    _baseVO.contextVO.currentValue = body.data;
-                    _context.models.base.contextVO.dispatchEvent('externalUser', _baseVO.contextVO.currentValue);
+                if(typeof body.data !== 'object' && body.data.length === 24){
+                    _baseVO.contextVO.arrValues[ix] = body.data;
+                    if(waitUpdateMail === _baseVO.contextVO.current){
+                        _baseVO.contextVO.currentValue = body.data;
+                        _context.models.base.contextVO.dispatchEvent('externalUser', _baseVO.contextVO.currentValue);
+                    }
+                    _baseVO.contextVO.updateVO();
                 }
-                _baseVO.contextVO.updateVO();
             }
         }
     };
