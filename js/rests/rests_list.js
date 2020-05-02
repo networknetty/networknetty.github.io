@@ -73,7 +73,7 @@ function create_rest(context, name, baseVO, group_id) {
         _context.log.debug('rest:'+_baseVO.contextVO.name+' handler update key: '+trigger+' value: '+value);
 
         if(trigger === 'start'){
-            _baseVO.contextVO.onButtonClick(null, callback);
+            _baseVO.contextVO.onButtonClick(null, callback, 'dispatchEvent-start');
         }else{
             if(_baseVO.data[trigger] != null){
                 _baseVO.data[trigger] = value;
@@ -155,7 +155,7 @@ function create_rest(context, name, baseVO, group_id) {
         return value;
     };
 
-    _baseVO.contextVO.onButtonClick = function (e, callback) {
+    _baseVO.contextVO.onButtonClick = function (e, callback, debug_msg) {
         _external_callback = callback;
 
         $('#btn_'+_baseVO.contextVO.name).addClass('hide_view');
@@ -191,7 +191,8 @@ function create_rest(context, name, baseVO, group_id) {
             action : _baseVO.action
         };
 
-        _context.log.restOut(' >> onButtonClick name:'+_baseVO.contextVO.name+' body: '+JSON.stringify(bd));
+        _context.log.restOut(' >> '+(debug_msg != null ? debug_msg : 'onButtonClick')+' name:'+
+            _baseVO.contextVO.name+' body: '+JSON.stringify(bd));
 
         if(_baseVO.data_form != null){
             _context.log.debug('-----debug _baseVO.data_form != null');
