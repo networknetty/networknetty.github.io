@@ -304,7 +304,7 @@ function initRestComponent(context, model) {
             }
         }
 
-        let bd = { from : _context.models.base.from, data : data, action : model.rest.action };
+        let bd = { from : _context.models.base.vo.from, data : data, action : model.rest.action };
 
         _context.log.restOut(' >> '+(debug_msg != null ? debug_msg : 'onButtonClick')+' name:'+
             model.context.name+' body: '+JSON.stringify(bd));
@@ -335,7 +335,7 @@ function initRestComponent(context, model) {
         for(let field in model.vo){
             id_data[field] = data != null ? data : model.vo[field];
         }
-        let bd = { from : _context.models.base.from, data : id_data, action : model.rest.action };
+        let bd = { from : _context.models.base.vo.from, data : id_data, action : model.rest.action };
         _context.log.restOut(' >> modelCallUpdate rest name:'+model.context.name+' body: '+JSON.stringify(bd));
         _context.callRest( model.rest.endpoint, bd, callBack );
     };
