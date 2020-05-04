@@ -5,6 +5,7 @@ function create_model(context, name, baseVO) {
     let _baseVO = initBaseVO(context, baseVO, name, "base_vo_"+name,
         document.getElementById('model_block'));
     _baseVO.context.info_hide = false;
+    initMonoSetParams(context, _baseVO);
 
     _baseVO.context.stringify = function (){
         // _context.log.debug('debug stringify name:'+_baseVO.context.name);
