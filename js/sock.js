@@ -91,11 +91,12 @@ function init_sock(context) {
         init : false,
         active : false,
         login : false,
+        vo : {},
         addEventListener : addEventListener,
         emit : emitMessage
     };
 
-    _context.sock.context = {
+    _context.sock.vo.context = {
         run: function (trigger, callback, value) {
             externalConnect();
             if (callback != null)
