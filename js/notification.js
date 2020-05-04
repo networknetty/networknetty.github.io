@@ -8,7 +8,7 @@ function create_notification(context) {
 
     let _div = document.getElementById("main_notification_block");
 
-    _context.notification.all.context.call = function(data){
+    _context.notification.all.context.call = function(data, clss){
         let ix = Math.random().toString(36).substring(2, 15) +
             Math.random().toString(36).substring(2, 15);
 
@@ -17,7 +17,7 @@ function create_notification(context) {
         function close(){
             let dv = document.getElementById("notification_block_"+ix);
             $('#notification_block_'+ix).fadeOut(2000);
-            setTimeout(dv.remove, 2000);
+            setTimeout(dv.remove, 3000);
         }
 
         div.className = 'notification_block';
@@ -31,7 +31,7 @@ function create_notification(context) {
         $('#btn_ntfc_close_'+ix).on('click', close);
     };
 
-    _context.notification.all.context.callMsg = function(data, msg){
+    _context.notification.all.context.callMsg = function(data, msg, clss){
         let ix = Math.random().toString(36).substring(2, 15) +
             Math.random().toString(36).substring(2, 15);
 
@@ -40,7 +40,7 @@ function create_notification(context) {
         function close(){
             let dv = document.getElementById("notification_block_"+ix);
             $('#notification_block_'+ix).fadeOut(2000);
-            setTimeout(dv.remove, 2000);
+            setTimeout(dv.remove, 3000);
         }
 
         div.className = 'notification_block';

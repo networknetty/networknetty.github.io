@@ -85,20 +85,41 @@ select, input, .buttons, .button_toggle{
 
 .notification_block {
     width: 50vw;
-    height: 50vh;
+    /*height: 50vh;*/
     position: fixed;
-    background-color: bisque;
     border: 1px solid;
-    margin: 25vh 25vw;
     z-index: 100;
     overflow-wrap: break-word;
+    display: flex;
+    flex-flow: column;
+}
+
+.main_notification {
+    margin: 25vh 25vw;
+    background-color: bisque;
+}
+
+.socket_notification {
+    margin: 0 25vw 25vh 48vw;
+    background-color: blue;
+}
+
+.rest_notification {
+    margin: 0 25vw 25vh 48vw;
+    background-color: coral;
 }
 
 .notification_text{
     text-transform: uppercase;
+    margin: 20px;
+    text-align: center;
 }
 
 .notification_text_info{
+    margin: 20px;
+}
+.notification_block .buttons{
+    margin: 30px auto;
 }
 
 .rest_info{
