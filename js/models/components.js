@@ -438,36 +438,36 @@ function initSocketListeners(context, model) {
         if(node.if != null){
             for(let field in node.if){
                 if(node.if[field].param === "==="){
-                    if(data[field] !== _context.models[node.if[field].way[0]][node.if[field].way[1]]){
+                    if(data[field] !== _context.models[node.if[field].way[0]].vo[node.if[field].way[1]]){
                         _context.log.debug('----debug socket activate_action if node: '+JSON.stringify(node.if)+' context: '+
-                            _context.models[node.if[field].way[0]][node.if[field].way[1]]);
+                            _context.models[node.if[field].way[0]].vo[node.if[field].way[1]]);
                         if(node.else != null )
                             _activate_action(node.else, data);
                         return;
                     }
                 }
                 else if(node.if[field].param === "array_exists"){
-                    if( data[field].indexOf(_context.models[node.if[field].way[0]][node.if[field].way[1]]) < 0 ){
+                    if( data[field].indexOf(_context.models[node.if[field].way[0]].vo[node.if[field].way[1]]) < 0 ){
                         _context.log.debug('----debug socket activate_action if node: '+JSON.stringify(node.if)+' context: '+
-                            _context.models[node.if[field].way[0]][node.if[field].way[1]]);
+                            _context.models[node.if[field].way[0]].vo[node.if[field].way[1]]);
                         if(node.else != null )
                             _activate_action(node.else, data);
                         return;
                     }
                 }
                 else if(node.if[field].param === "!=null"){
-                    if( _context.models[node.if[field].way[0]][node.if[field].way[1]] == null ){
+                    if( _context.models[node.if[field].way[0]].vo[node.if[field].way[1]] == null ){
                         _context.log.debug('----debug socket activate_action if node: '+JSON.stringify(node.if)+' context: '+
-                            _context.models[node.if[field].way[0]][node.if[field].way[1]]);
+                            _context.models[node.if[field].way[0]].vo[node.if[field].way[1]]);
                         if(node.else != null )
                             _activate_action(node.else, data);
                         return;
                     }
                 }
                 else if(node.if[field].param === "==null"){
-                    if( _context.models[node.if[field].way[0]][node.if[field].way[1]] != null ){
+                    if( _context.models[node.if[field].way[0]].vo[node.if[field].way[1]] != null ){
                         _context.log.debug('----debug socket activate_action if node: '+JSON.stringify(node.if)+' context: '+
-                            _context.models[node.if[field].way[0]][node.if[field].way[1]]);
+                            _context.models[node.if[field].way[0]].vo[node.if[field].way[1]]);
                         if(node.else != null )
                             _activate_action(node.else, data);
                         return;
