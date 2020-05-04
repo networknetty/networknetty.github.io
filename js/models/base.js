@@ -1,88 +1,50 @@
 
 
 function create_model(context, name, baseVO) {
-
     let _context = context;
-    let _baseVO = baseVO.vo;
+    let _baseVO = initBaseVO(context, baseVO, name, "base_vo_"+name,
+        document.getElementById('model_block'));
+    _baseVO.context.info_hide = false;
 
-    _baseVO.contextVO = {
-        oneItemUpdate : baseVO.oneItemUpdate,
-
-        name : name,
-        block : document.getElementById('model_block'),
-        divID : "base_vo_"+name,
-
-        info_hide : false,
-
-        listen_component : {},
-        list_component : {
-            checkItsListForUpdate : function(trigger, value){}
-        },
-
-        updateVO : function () {},
-        dispatchEvent : function (trigger, value, callback) {},
-        socketEvent : function (trigger, data) {},
-        addEventListener : function (trigger, func) {},
-        init : function () {},
-        stringify : function () {}
-    };
-
-    let div = document.createElement('div');
-    div.className = 'model_item';
-    div.id = _baseVO.contextVO.divID;
-    _baseVO.contextVO.block.appendChild(div);
-
-    _baseVO.contextVO.stringify = function (){
-
-        _context.log.debug('debug stringify name:'+_baseVO.contextVO.name);
-
-
+    _baseVO.context.stringify = function (){
+        // _context.log.debug('debug stringify name:'+_baseVO.context.name);
         let str = "<div class='item_model_header'>";
-
-        str += "<input type='button' value='i' class='button_toggle' id='btn_base_vo_info_"+_baseVO.contextVO.name+"'>";
-        str += '<span class="item_title">'+_baseVO.contextVO.name+'</span>';
-
+        str += "<input type='button' value='i' class='button_toggle' id='btn_base_vo_info_"+_baseVO.context.name+"'>";
+        str += '<span class="item_title">'+_baseVO.context.name+'</span>';
         str += '</div>';
-        str += '<span class="id_title"> id: '+_baseVO.id+'</span>';
 
+        str += '<span class="id_title"> id: '+_baseVO.vo.id+'</span>';
+        str += "<div class='block_toggle' id='base_model_block_text_"+_baseVO.context.name+"'>";
 
-        str += "<div class='block_toggle' id='base_model_block_text_"+_baseVO.contextVO.name+"'>";
-
-        for(let field in _baseVO){
-            if(field !== 'contextVO' && field !== 'listen' ){
-                str += field + ' : '+ util_parse(_baseVO[field]) + '<br>';
-            }
+        for(let field in _baseVO.vo){
+            // if(field !== 'context' && field !== 'listen' ){
+                str += field + ' : '+ util_parse(_baseVO.vo[field]) + '<br>';
+            // }
         }
-
         str += '</div>';
-
-
-
         return str;
     };
     /////////////////////////////////////////////////////////////////////////////////////
     let _toggle_info = function(duration, dontChangeBool){
-        $('#base_model_block_text_'+_baseVO.contextVO.name).animate({ height: 'toggle' }, duration);
+        $('#base_model_block_text_'+_baseVO.context.name).animate({ height: 'toggle' }, duration);
         if(dontChangeBool !== true)
-            _baseVO.contextVO.info_hide = !_baseVO.contextVO.info_hide;
+            _baseVO.context.info_hide = !_baseVO.context.info_hide;
     };
     /////////////////////////////////////////////////////////////////////////////////////
-    _baseVO.contextVO.updateVO = function () {
-        _context.log.debug("debug model updateVO name: "+_baseVO.contextVO.name);
-        let vo = document.getElementById(_baseVO.contextVO.divID);
-        vo.innerHTML = _baseVO.contextVO.stringify();
+    _baseVO.context.updateVO = function () {
+        _context.log.debug("debug model updateVO name: "+_baseVO.context.name);
+        let vo = document.getElementById("base_vo_"+_baseVO.context.name);
+        vo.innerHTML = _baseVO.context.stringify();
 
-        $('#btn_base_vo_info_'+ _baseVO.contextVO.name).on('click', _toggle_info);
-        if(_baseVO.contextVO.info_hide === true){
+        $('#btn_base_vo_info_'+ _baseVO.context.name).on('click', _toggle_info);
+        if(_baseVO.context.info_hide === true){
             _toggle_info(2, true);
         }
     };
 
-    initListenersBody(_context, _baseVO);
-
-    _baseVO.contextVO.init = function () {
-        initEventListeners(_context, _baseVO);
-        _baseVO.contextVO.updateVO();
+    _baseVO.context.init = function () {
+        _baseVO.context.initListeners();
+        _baseVO.context.updateVO();
         _toggle_info(2);
     };
 
@@ -93,7 +55,7 @@ function init_models(context) {
     let _context = context;
     _context.models = {};
 
-    createMainRestVO(_context, _context.config.models.base.vo);
+    createMainRestVO(_context, _context.config.models.base);
 
     for(let name_model in _context.config.models){
         if(name_model !== "base")
@@ -104,7 +66,7 @@ function init_models(context) {
 
 function activated_models(context) {
     for(let name_model in context.models){
-        context.models[name_model].contextVO.init();
+        context.models[name_model].context.init();
     }
 }
 

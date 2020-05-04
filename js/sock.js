@@ -17,7 +17,7 @@ function init_sock(context) {
             $('.socket_buttons').removeClass('hide_view');
             // if(_context.sock.login === true){
                 _context.sock.login = false;
-                _context.socket_models_emit.login.contextVO.onButtonClick();
+                _context.socket_models_emit.login.context.run();
             // }
         });
         _context.log.debug(' ~ listen connect');
@@ -43,7 +43,7 @@ function init_sock(context) {
                 _context.sock.login = true;
             }
             else if(msg === "kick"){
-                _context.socket_models_emit.login.contextVO.onButtonClick();
+                _context.socket_models_emit.login.context.run();
             }
         });
         _context.log.debug(' ~ listen login');
@@ -95,15 +95,11 @@ function init_sock(context) {
         emit : emitMessage
     };
 
-    _context.sock.vo = {
-        contextVO : {
-            dispatchEvent: function (trigger, value, callback) {
-                if(trigger === "start"){
-                    externalConnect();
-                }
-                if(callback != null)
-                    callback();
-            }
+    _context.sock.context = {
+        run: function (trigger, callback, value) {
+            externalConnect();
+            if (callback != null)
+                callback();
         }
     };
 

@@ -1,78 +1,59 @@
 
 
 function create_socket_model(context, name, baseVO) {
-
     let _context = context;
-    let _baseVO = baseVO;
+    let _baseVO = initBaseVO(context, baseVO, name, "socket_vo_"+name,
+        document.getElementById('socket_emit_block'));
 
-    _baseVO.contextVO = {
-
-        name : name,
-        block : document.getElementById('socket_emit_block'),
-        divID : "socket_vo_"+name,
-
-        listen_component : {},
-        list_component : {
-            checkItsListForUpdate : function(trigger, value){}
-        },
-
-        updateVO : function () {},
-        dispatchEvent : function (trigger, value, callback) {},
-        socketEvent : function (trigger, data) {},
-        addEventListener : function (trigger, func) {},
-        init : function () {},
-        stringify : function () {},
-
-        onButtonClick : function () {}
-    };
-
-    let div = document.createElement('div');
-    div.className = 'model_item';
-    div.id = _baseVO.contextVO.divID;
-    _baseVO.contextVO.block.appendChild(div);
-
-    _baseVO.contextVO.stringify = function (){
-
-        _context.log.debug('debug stringify name:'+_baseVO.contextVO.name);
-
+    _baseVO.context.stringify = function (){
+        // _context.log.debug('debug stringify name:'+_baseVO.context.name);
         let str = "<div class='item_model_header'>";
-
-        str += '<span class="item_title">'+_baseVO.contextVO.name+'</span>';
+        str += '<span class="item_title">'+_baseVO.context.name+'</span>';
         str += "<input type='button' value='>>' class='"+ (_context.sock.active !== true ? "hide_view" : "")+
-            " button_toggle socket_buttons' id='btn_sock_"+ _baseVO.contextVO.name+"'>";
+            " button_toggle socket_buttons' id='btn_sock_"+ _baseVO.context.name+"'>";
         str += '</div>';
-
-
-
         str += "<div class='block_toggle'>";
 
-        for(let field in _baseVO){
-            if(field !== 'contextVO' && field !== 'listen' ){
-                str += field + ' : '+ util_parse(_baseVO[field]) + '<br>';
-            }
+        for(let field in _baseVO.vo){
+            // if(field !== 'context' && field !== 'listen' ){
+                str += field + ' : '+ util_parse(_baseVO.vo[field]) + '<br>';
+            // }
         }
 
         str += "</div>";
-
         return str;
     };
 
-    _baseVO.contextVO.updateVO = function () {
-        _context.log.debug("debug model updateVO name: "+_baseVO.contextVO.name);
-        let vo = document.getElementById(_baseVO.contextVO.divID);
-        vo.innerHTML = _baseVO.contextVO.stringify();
-        $('#btn_sock_'+_baseVO.contextVO.name).on('click', _baseVO.contextVO.onButtonClick);
+    _baseVO.context.updateVO = function () {
+        _context.log.debug("debug model updateVO name: "+_baseVO.context.name);
+        let vo = document.getElementById("socket_vo_"+name);
+        vo.innerHTML = _baseVO.context.stringify();
+        $('#btn_sock_'+_baseVO.context.name).on('click', _baseVO.context.run);
     };
 
-    _baseVO.contextVO.onButtonClick = function () {
-        _context.sock.emit(_baseVO.msg, _baseVO.body);
+    _baseVO.context.run = function () {
+        _context.sock.emit(_baseVO.vo.msg, _baseVO.vo.body);
     };
 
-    initListenersBody(_context, _baseVO);
+    _baseVO.context.init = function () {
+        _baseVO.context.initListeners();
+        _baseVO.context.updateVO();
+    };
 
-    _baseVO.contextVO.init = function () {
-        initEventListeners(_context, _baseVO);
-        _baseVO.contextVO.updateVO();
+    _baseVO.context.setParam = function (key, value) {
+        if(_baseVO.vo[key] !== value){
+            _baseVO.vo[key] = value;
+            _baseVO.context.updateVO();
+        }
+    };
+
+    _baseVO.context.setParams = function (vo) {
+        for(let field in vo){
+            if(_baseVO.vo[field] !== vo[field]){
+                _baseVO.vo[field] = vo[field];
+            }
+        }
+        _baseVO.context.updateVO();
     };
 
     return _baseVO;
@@ -91,7 +72,7 @@ function init_socket_models(context) {
 
 function activated_socket_models(context) {
     for(let name_model in context.socket_models_emit){
-        context.socket_models_emit[name_model].contextVO.init();
+        context.socket_models_emit[name_model].context.init();
     }
 }
 

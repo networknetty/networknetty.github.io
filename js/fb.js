@@ -62,8 +62,8 @@ function init_fb(context) {
                         .then(
                             (tok)=>{
                                 tk_fcm = tok;
-                                _context.models.base.contextVO.dispatchEvent('token_fb', tk_fb);
-                                _context.models.base.contextVO.dispatchEvent('token_fcm', tk_fcm);
+                                _context.models.base.context.setParam('token_fb', tk_fb);
+                                _context.models.base.context.setParam('token_fcm', tk_fcm);
                             }
                         );
                 }
