@@ -8,7 +8,7 @@ function create_notification(context) {
 
     let _div = document.getElementById("main_notification_block");
 
-    _context.notification.all.context.call = function(data, clss){
+    _context.notification.all.context.call = function(data, current){
         let ix = Math.random().toString(36).substring(2, 15) +
             Math.random().toString(36).substring(2, 15);
 
@@ -20,7 +20,7 @@ function create_notification(context) {
             setTimeout(dv.remove, 3000);
         }
 
-        div.className = 'notification_block';
+        div.className = 'notification_block '+current.css;
         div.id = 'notification_block_'+ix;
         _div.appendChild(div);
 
@@ -31,7 +31,7 @@ function create_notification(context) {
         $('#btn_ntfc_close_'+ix).on('click', close);
     };
 
-    _context.notification.all.context.callMsg = function(data, msg, clss){
+    _context.notification.all.context.callMsg = function(data, current){
         let ix = Math.random().toString(36).substring(2, 15) +
             Math.random().toString(36).substring(2, 15);
 
@@ -43,11 +43,11 @@ function create_notification(context) {
             setTimeout(dv.remove, 3000);
         }
 
-        div.className = 'notification_block';
+        div.className = 'notification_block '+current.css;
         div.id = 'notification_block_'+ix;
         _div.appendChild(div);
 
-        div.innerHTML = "<div class='notification_text'>"+msg+"</div>"+
+        div.innerHTML = "<div class='notification_text'>"+current.msg+"</div>"+
             "<div class='notification_text_info'>"+JSON.stringify(data)+"</div>";
 
         $('#btn_ntfc_close_'+ix).on('click', close);

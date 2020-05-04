@@ -166,7 +166,30 @@ function initMonoSetParams(context, model) {
         }
     };
 
-    model.context.setParams = function (vo) {
+    model.context.setterParam = function (data, current) {//current.way[3], data
+        if(model.vo[current.way[3]] !== data){
+            model.vo[current.way[3]] = data;
+
+            model.context.updateVO();
+            model.context.listen.checkListener(current.way[3], data);
+
+            model.context.list_component.checkItsListForUpdate(current.way[3], data);
+        }
+    };
+
+    model.context.externalGet = function (data, current) {
+        let value = _context[current.get[0]][current.get[1]].vo[current.get[2]];
+        if(model.vo[current.way[3]] !== value){
+            model.vo[current.way[3]] = value;
+
+            model.context.updateVO();
+            model.context.listen.checkListener(current.way[3], value);
+
+            model.context.list_component.checkItsListForUpdate(current.way[3], value);
+        }
+    };
+
+    model.context.setParams = function (vo, current) {
         for(let field in vo){
             if(model.vo[field] !== vo[field]){
                 model.vo[field] = vo[field];
@@ -180,10 +203,10 @@ function initMonoSetParams(context, model) {
 function initMixSetParams(context, model) {
     let _context = context;
 
-    model.context.setVOParam = function (id, key, value) {
-        let ix = model.context.arrKeys.indexOf(id);
+    model.context.setVOParam = function (data, current) {
+        let ix = model.context.arrKeys.indexOf(data[current.key]);
         if(ix > -1){
-            model.context.arrVO[ix][key] = value;
+            model.context.arrVO[ix][current.way[3]] = data[current.param];
             model.context.updateVO();
         }
     };
@@ -197,7 +220,7 @@ function initMixSetParams(context, model) {
         model.context.updateVO();
     };
 
-    model.context.setFull = function (arr) {
+    model.context.setFull = function (arr, current) {
         model.context.arrVO = [];
         model.context.arrKeys = [];
         for(let i=0; i<arr.length; i++){
@@ -213,7 +236,7 @@ function initMixSetParams(context, model) {
         model.context.updateVO();
     };
 
-    model.context.setVO = function (vo) {
+    model.context.setVO = function (vo, current) {
         let ix = model.context.arrKeys.indexOf(vo.id);
         if(ix > -1){
             model.context.arrVO[ix] = vo;
@@ -390,38 +413,14 @@ function initSetterComponent(context, model) {
 function initRunSetter(context, model) {
     let _context = context;
     model.context.runSetter = function (current, data, callback) {
-        if (current.way[2] === "transfer") {
-            _context[current.way[0]][current.way[1]].context.setParam(current.way[3],
-                _context[current.get[0]][current.get[1]].vo[current.get[2]]);
-            if(callback != null)
-                callback();
-        }
-        else if (current.way[2] === "run") {
+        if (current.way[2] === "run") {
             _context[current.way[0]][current.way[1]].context.run(null, callback, model.context.name);
         }
-        // else if ("setParams" "setFull" "setVO" "call") {}
-        else if (current.way[2] === "setParam") {
-            _context[current.way[0]][current.way[1]].context.setParam(current.way[3], data);
-            if(callback != null)
-                callback();
-        }
-        else if (current.way[2] === "setVOParam") {
-            _context[current.way[0]][current.way[1]].context.setVOParam(
-                data[current.key], current.way[3], data[current.param]);
-            if(callback != null)
-                callback();
-        }
-        else if (current.way[2] === "callMsg") {
-            _context[current.way[0]][current.way[1]].context.callMsg(data, current.msg);
-            if(callback != null)
-                callback();
-        }
         else {
-            _context[current.way[0]][current.way[1]].context[current.way[2]](data);
+            _context[current.way[0]][current.way[1]].context[current.way[2]](data, current);
             if(callback != null)
                 callback();
         }
-
     };
 }
 /////////////////////////////////////////////////////////////////////////////////////
