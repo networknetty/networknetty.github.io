@@ -304,7 +304,7 @@ function initRestComponent(context, model) {
             }
         }
 
-        let bd = { from : model.models.base.from, data : data, action : model.rest.action };
+        let bd = { from : _context.models.base.from, data : data, action : model.rest.action };
 
         _context.log.restOut(' >> '+(debug_msg != null ? debug_msg : 'onButtonClick')+' name:'+
             model.context.name+' body: '+JSON.stringify(bd));
