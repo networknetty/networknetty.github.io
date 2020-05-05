@@ -14,7 +14,7 @@ function util_parse(obj, top_field, form_settings, form_name) {
         let str = '{<input type="button" value=">" class="button_expand_obj"><div class="parse_obj_main" id="">';
 
         for(let field in obj){
-            if( top_field === 'data' && form_settings != null && form_settings[field] != null ){
+            if( top_field === 'vo' && form_settings != null && form_settings[field] != null ){
                 str += '<span class="parse_obj_item">'+ field + ' : ' +
                     _parse_form_obj(obj, field, form_settings, form_name) + ' </span>';
             }else
