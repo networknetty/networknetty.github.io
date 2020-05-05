@@ -14,10 +14,13 @@ function create_notification(context) {
 
         let div = document.createElement('div');
 
+        let _removeParent = function() {
+            $("#notification_block_"+ix).remove();
+        };
+
         function close(){
-            let dv = document.getElementById("notification_block_"+ix);
             $('#notification_block_'+ix).fadeOut(2000);
-            setTimeout(dv.remove, 3000);
+            setTimeout(_removeParent, 3000);
         }
 
         div.className = 'notification_block '+current.css;
@@ -37,10 +40,13 @@ function create_notification(context) {
 
         let div = document.createElement('div');
 
+        let _removeParent = function() {
+            $("#notification_block_"+ix).remove();
+        };
+
         function close(){
-            let dv = document.getElementById("notification_block_"+ix);
             $('#notification_block_'+ix).fadeOut(2000);
-            setTimeout(dv.remove, 3000);
+            setTimeout(_removeParent, 3000);
         }
 
         div.className = 'notification_block '+current.css;
