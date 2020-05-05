@@ -335,10 +335,10 @@ function initRestComponent(context, model) {
         // if(model.data_form != null)
         //     _context.log.debug('-----debug _baseVO.data_form != null');
 
-        _context.callRest( model.rest.endpoint, bd, model.context.rest.resp );
+        _context.callRest( model.rest.endpoint, bd, model.context.resp );
     };
 
-    model.context.rest.resp = function (body, error) {
+    model.context.resp = function (body, error) {
         _context.log.restIn(' << respBack name:'+model.context.name+' body: '+JSON.stringify(body));
         $('#btn_'+model.context.name).removeClass('hide_view');
 
@@ -370,6 +370,7 @@ function initSetterComponent(context, model) {
     let _setter_stack = [];
     let _data;
     let _external_callback;
+    let _current;
     initRunSetter(context, model);
 
     model.context.setter = {};
@@ -385,19 +386,19 @@ function initSetterComponent(context, model) {
 
     let _checkNextSetterStackItem = function(error){
 
-        if(error != null && _setter_stack[0].else != null){
+        if(error != null && _current.else != null){
             _context.log.debug('checkNextSetterStackItem else node error: '+error);
             let setter_stack_n = [];
-            for(let i=0; i<_setter_stack[0].else.length; i++){
-                setter_stack_n.push(_setter_stack[0].else[i]);
+            for(let i=0; i<_current.else.length; i++){
+                setter_stack_n.push(_current.else[i]);
             }
             _setter_stack = setter_stack_n;
         }
 
         if(_setter_stack.length > 0){
-            let current = _setter_stack.splice(0, 1)[0];
+            _current = _setter_stack.splice(0, 1)[0];
             //check if?
-            model.context.runSetter(current, _data, _checkNextSetterStackItem);
+            model.context.runSetter(_current, _data, _checkNextSetterStackItem);
         }
         else{
             _data = null;
