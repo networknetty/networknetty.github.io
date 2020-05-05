@@ -347,8 +347,8 @@ function initRestComponent(context, model) {
         }
         else {
 
-            _context.notification.all.context.callMsg({}, {msg:"error resp name:"+ model.context.name +
-                    " status:"+ (body != null ? body.status : "body==null"), css:"rest_notification"});
+            _context.notification.all.context.callMsg(body, {msg:"error resp name:"+ model.context.name,
+                css:"rest_notification"});
 
             if (_external_callback != null) {
                 _external_callback(body.status === 'ok' ? null : body.status);
@@ -362,8 +362,8 @@ function initRestComponent(context, model) {
 
         let beforeBack = function (body, error) {
             if(body == null || body.status !== 'ok'){
-                _context.notification.all.context.callMsg({}, {msg:"error resp externalRun name:"+
-                    model.context.name+" status:"+ (body != null ? body.status : "body==null"), css:"rest_notification"});
+                _context.notification.all.context.callMsg(body, {msg:"error resp externalRun name:"+
+                    model.context.name, css:"rest_notification"});
             }
             if(callBack != null)
                 callBack(body, error);
