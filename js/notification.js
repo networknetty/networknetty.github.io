@@ -54,7 +54,8 @@ function create_notification(context) {
         _div.appendChild(div);
 
         div.innerHTML = "<div class='notification_text'>"+current.msg+"</div>"+
-            "<div class='notification_text_info'>"+JSON.stringify(data)+"</div>";
+            "<div class='notification_text_info'>"+JSON.stringify(data)+"</div>" +
+            "<input type='button' value='x' class='buttons' id='btn_ntfc_close_"+ix+"'>";
 
         $('#btn_ntfc_close_'+ix).on('click', close);
     };
