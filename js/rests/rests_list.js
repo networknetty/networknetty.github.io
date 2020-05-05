@@ -19,8 +19,8 @@ function create_rest(context, name, baseVO, group_id) {
 
         if(_baseVO.context.onlySetter !== true){
             str += 'endpoint : '+ _baseVO.rest.endpoint + '<br>';
-            str += 'data : '+ util_parse(_baseVO.vo, '', 'vo', _baseVO.data_form,
-                'rest_info_'+_baseVO.context.name) + '<br>';
+            str += 'data : '+ util_parse(_baseVO.vo, 'vo', _baseVO.data_form,
+                'rest_info_'+_baseVO.context.name);
             str += 'action : '+ _baseVO.rest.action + '<br>';
         }
         else
@@ -39,11 +39,11 @@ function create_rest(context, name, baseVO, group_id) {
     /////////////////////////////////////////////////////////////////////////////////////
 
     _baseVO.context.updateVO = function () {
-
         _context.log.debug("debug rest updateVO name: "+_baseVO.context.name);
         let vo = document.getElementById("rest_"+_baseVO.context.name);
         vo.innerHTML = _baseVO.context.stringify();
-
+        $('.button_expand_obj').on('click', expand_reaction_obj);
+        $('.button_expand_arr').on('click', expand_reaction_arr);
         $('#btn_'+_baseVO.context.name).on('click', _baseVO.context.run);
 
         $('#btn_rest_info_'+ _baseVO.context.name).on('click', _toggle_info);

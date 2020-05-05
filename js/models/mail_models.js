@@ -116,6 +116,9 @@ function init_mail_models(context) {
         _context.log.debug("debug mail_model updateVO name: "+_baseVO.context.name);
         let vo = document.getElementById(_baseVO.context.divID);
         vo.innerHTML = _baseVO.context.stringify();
+        // $('.button_expand_obj').on('click', expand_reaction_obj);
+        // $('.button_expand_arr').on('click', expand_reaction_arr);
+
         _baseVO.context.list_component.updateLists();
 
         $('#btn_mail_get').on('click', btnGet);

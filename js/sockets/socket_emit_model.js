@@ -28,6 +28,8 @@ function create_socket_model(context, name, baseVO) {
         _context.log.debug("debug model updateVO name: "+_baseVO.context.name);
         let vo = document.getElementById("socket_vo_"+name);
         vo.innerHTML = _baseVO.context.stringify();
+        // $('.button_expand_obj').on('click', expand_reaction_obj);
+        // $('.button_expand_arr').on('click', expand_reaction_arr);
         $('#btn_sock_'+_baseVO.context.name).on('click', _baseVO.context.run);
     };
 

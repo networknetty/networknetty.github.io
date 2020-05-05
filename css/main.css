@@ -223,6 +223,34 @@ select, input, .buttons, .button_toggle{
     border: 1px solid gold;
 }
 
+.parse_obj_main{
+    display: flex;
+    flex-flow: column;
+    border-left: 1px solid rgba(0,0,255,0.2);
+}
+
+.parse_arr_main{
+    display: flex;
+    flex-flow: column;
+    border-left: 1px solid rgba(255,0,0,0.2);
+}
+
+.parse_arr_item{
+    margin-left: 20px;
+}
+
+.parse_obj_item{
+    margin-left: 20px;
+}
+
+.button_expand_arr, .button_expand_obj{
+    width: 24px;
+    height: 24px;
+    min-width: auto;
+    min-height: auto;
+    font-size: 18px;
+}
+
 @media only screen and (max-width: 1280px) {
     html{
         font-size: 28px;

@@ -79,6 +79,9 @@ function create_mix_model(context, name, baseVO) {
         _context.log.debug("debug mix_model updateVO name: "+_baseVO.context.name);
         let vo = document.getElementById("mix_vo_"+name);
         vo.innerHTML = _baseVO.context.stringify();
+        $('.button_expand_obj').on('click', expand_reaction_obj);
+        $('.button_expand_arr').on('click', expand_reaction_arr);
+
         _baseVO.context.list_component.updateLists();
 
         $('#btn_mix_vo_info_'+ _baseVO.context.name).on('click', _toggle_info);

@@ -36,7 +36,8 @@ function create_model(context, name, baseVO) {
         _context.log.debug("debug model updateVO name: "+_baseVO.context.name);
         let vo = document.getElementById("base_vo_"+_baseVO.context.name);
         vo.innerHTML = _baseVO.context.stringify();
-
+        $('.button_expand_obj').on('click', expand_reaction_obj);
+        $('.button_expand_arr').on('click', expand_reaction_arr);
         $('#btn_base_vo_info_'+ _baseVO.context.name).on('click', _toggle_info);
         if(_baseVO.context.info_hide === true){
             _toggle_info(2, true);

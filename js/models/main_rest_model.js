@@ -60,6 +60,8 @@ function createMainRestVO(context, base) {
         _context.log.debug("debug main updateVO name: "+_context.models.base.context.name);
         let vo = document.getElementById("main_rest_vo");
         vo.innerHTML = _context.models.base.context.stringify();
+        // $('.button_expand_obj').on('click', expand_reaction_obj);
+        // $('.button_expand_arr').on('click', expand_reaction_arr);
         _context.models.base.context.list_component.updateLists();
     };
 

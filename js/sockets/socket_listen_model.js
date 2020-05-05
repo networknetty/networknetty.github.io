@@ -31,6 +31,9 @@ function create_socket_listen_model(context, name, baseVO) {
         let vo = document.getElementById("socket_vo_"+name);
         vo.innerHTML = _baseVO.context.stringify();
 
+        $('.button_expand_obj').on('click', expand_reaction_obj);
+        $('.button_expand_arr').on('click', expand_reaction_arr);
+
         $('#btn_sock_listen_info_'+ _baseVO.context.name).on('click', _toggle_info);
         $('#btn_sock_listen_last_'+ _baseVO.context.name).on('click', _toggle_last);
 

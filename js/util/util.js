@@ -1,35 +1,55 @@
 
-
-function util_parse(obj, tab, top_field, form_settings, form_name) {
-    if(tab == null)
-        tab = '';
+function util_parse(obj, top_field, form_settings, form_name) {
     if (Array.isArray(obj)){
-        let str = '[';
+        let str = '[<input type="button" value=">" class="button_expand_arr"><div class="parse_arr_main">';
+
         for(let i=0; i<obj.length; i++){
-            if(i !== 0)
-                str += ',';
-            str += '<br>'+ tab + '&ensp;&ensp;' + util_parse(obj[i], tab+ '&ensp;&ensp;') + ' ';
+            str += '<div class="parse_arr_item">'+ util_parse(obj[i]) + '</div>';
         }
-        return obj.length > 0 ? str+'<br>'+ tab + ']' : str+']';
+        return obj.length > 0 ?
+            str+'<span class="parse_arr_item_close">]</span></div>' :
+            str+']</div>';
     }
     else if(typeof obj === 'object'){
-        let str = '{ <br>';//tab +
+        let str = '{<input type="button" value=">" class="button_expand_obj"><div class="parse_obj_main" id="">';
 
         for(let field in obj){
-
             if( top_field === 'data' && form_settings != null && form_settings[field] != null ){
-                str += tab + '&ensp;&ensp;' + field + ' : ' + _parse_form_obj(obj, field, form_settings, form_name) + ' <br>';
+                str += '<span class="parse_obj_item">'+ field + ' : ' +
+                    _parse_form_obj(obj, field, form_settings, form_name) + ' </span>';
             }else
-                str += tab + '&ensp;&ensp;' + field + ' : ' + util_parse(obj[field], tab + '&ensp;&ensp;') + ' <br>';
-
+                str += '<span class="parse_obj_item">'+ field + ' : ' + util_parse(obj[field]) + ' </span>';
         }
-
-        return str + tab + '}';
+        return str + '<span class="parse_obj_item_close">}</span></div>';
     }
     else{
-        return ''+obj;
+        return '<span class="parse_item">'+obj+'</span>';
     }
 }
+
+let _parse_toggle_ready = true;
+
+let toggle_activate = function(){
+    _parse_toggle_ready = true;
+};
+
+let expand_reaction_obj = function(){
+    if(_parse_toggle_ready === true){
+        _parse_toggle_ready = false;
+        setTimeout(toggle_activate, 200);
+        $(this).next(".parse_obj_main").toggle();
+        $(this).val($(this).val() === ">" ? "<" : ">");
+    }
+};
+
+let expand_reaction_arr = function(){
+    if(_parse_toggle_ready === true){
+        _parse_toggle_ready = false;
+        setTimeout(toggle_activate, 200);
+        $(this).next(".parse_arr_main").toggle();
+        $(this).val($(this).val() === ">" ? "<" : ">");
+    }
+};
 
 let _parse_form_obj = function (data, field, form_settings, form_name) {
     if(form_settings[field].type === "input_text"){
