@@ -89,7 +89,7 @@ function init_mail_models(context) {
     let btnGet = function(){
         $('#btn_mail_get').addClass('hide_view');
         waitUpdateMail = _baseVO.context.current;
-        _context.rest_list[_baseVO.context.oneItemUpdate].context.rest.externalRun(
+        _context.rest_list[_baseVO.context.oneItemUpdate].context.externalRun(
             _baseVO.context.current, oneItemUpdateBack);
     };
 
