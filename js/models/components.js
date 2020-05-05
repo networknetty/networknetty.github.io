@@ -353,7 +353,7 @@ function initRestComponent(context, model) {
         }
     };
 
-    model.context.rest.externalRun = function (data, callBack) {
+    model.context.externalRun = function (data, callBack) {
         let id_data = {};
         for(let field in model.vo){
             id_data[field] = data != null ? data : model.vo[field];
