@@ -346,6 +346,10 @@ function initRestComponent(context, model) {
             model.context.setter.runSetters(body.data, _external_callback);
         }
         else {
+
+            _context.notification.all.context.callMsg({}, {msg:"error resp status:"+
+                body != null ? body.status : "body==null", css:"rest_notification"});
+
             if (_external_callback != null) {
                 _external_callback(body.status === 'ok' ? null : body.status);
                 _external_callback = null;
@@ -355,12 +359,22 @@ function initRestComponent(context, model) {
 
     model.context.externalRun = function (data, callBack) {
         let id_data = {};
+
+        let beforeBack = function (body, error) {
+            if(body == null || body.status !== 'ok'){
+                _context.notification.all.context.callMsg({}, {msg:"error resp externalRun status:"+
+                    body != null ? body.status : "body==null", css:"rest_notification"});
+            }
+            if(callBack != null)
+                callBack(body, error);
+        };
+
         for(let field in model.vo){
             id_data[field] = data != null ? data : model.vo[field];
         }
         let bd = { from : _context.models.base.vo.from, data : id_data, action : model.rest.action };
         _context.log.restOut(' >> modelCallUpdate rest name:'+model.context.name+' body: '+JSON.stringify(bd));
-        _context.callRest( model.rest.endpoint, bd, callBack );
+        _context.callRest( model.rest.endpoint, bd, beforeBack );
     };
 
 }
