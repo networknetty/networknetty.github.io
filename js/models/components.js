@@ -347,8 +347,9 @@ function initRestComponent(context, model) {
         }
         else {
 
-            _context.notification.all.context.callMsg(body, {msg:"error resp name:"+ model.context.name,
-                css:"rest_notification"});
+            if(body.status !== 'ok')
+                _context.notification.all.context.callMsg(body, {msg:"error resp name:"+ model.context.name,
+                    css:"rest_notification"});
 
             if (_external_callback != null) {
                 _external_callback(body.status === 'ok' ? null : body.status);
