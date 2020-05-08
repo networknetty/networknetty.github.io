@@ -157,6 +157,9 @@ function initBaseVO(context, base, name, id, parent) {
 }
 /////////////////////////////////////////////////////////////////////////////////////
 function initMonoSetParams(context, model) {
+    if(model == null)
+        return;
+
     let _context = context;
 
     model.context.setParam = function (key, value) {
@@ -205,6 +208,9 @@ function initMonoSetParams(context, model) {
 }
 
 function initMixSetParams(context, model) {
+    if(model == null)
+        return;
+
     let _context = context;
 
     model.context.setVOParam = function (data, current) {
@@ -291,6 +297,9 @@ function initMixSetParams(context, model) {
 }
 /////////////////////////////////////////////////////////////////////////////////////
 function initRestComponent(context, model) {
+    if(model == null)
+        return;
+
     let _context = context;
     let _external_callback;
 

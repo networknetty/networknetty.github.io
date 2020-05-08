@@ -1,6 +1,9 @@
 
 
 function create_socket_listen_model(context, name, baseVO) {
+    if(baseVO == null)
+        return null;
+
     let _context = context;
     let _baseVO = initBaseVO(context, baseVO, name, "socket_vo_"+name,
         document.getElementById('socket_emit_block'));
