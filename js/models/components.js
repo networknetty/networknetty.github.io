@@ -50,6 +50,10 @@ function initBaseVO(context, base, name, id, parent) {
     let _context = context;
     let model = {};
 
+    if(base == null){
+        return null;
+    }
+
     model.vo = base.vo;
 
     model.context = {
@@ -262,13 +266,13 @@ function initMixSetParams(context, model) {
         }
     };
 
-    model.context.addItem = function(data){
+    model.context.addItem = function(data, current){
         _context.rest_list[model.context.oneItemUpdate].context.externalRun(data, model.context.respOneItemAdd);
     };
-    model.context.updateItem = function(data){
+    model.context.updateItem = function(data, current){
         _context.rest_list[model.context.oneItemUpdate].context.externalRun(data, model.context.respOneItemUpdate);
     };
-    model.context.removeItem = function(data){
+    model.context.removeItem = function(data, current){
         let ix = model.context.arrKeys.indexOf(data);
         if(ix > -1){
             model.context.arrKeys.splice(ix, 1);
