@@ -5,7 +5,9 @@ function create_rest(context, name, baseVO, group_id) {
     let _baseVO = initBaseVO(context, baseVO, name, "rest_"+name,
         document.getElementById(group_id));
     initMonoSetParams(context, _baseVO);
-    initRestComponent(context, _baseVO);
+
+    if(_baseVO.context.onlySetter !== true)
+        initRestComponent(context, _baseVO);
 
     _baseVO.context.stringify = function () {
         // _context.log.debug('debug stringify name:'+_baseVO.context.name);
