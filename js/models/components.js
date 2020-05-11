@@ -268,7 +268,7 @@ function initMixSetParams(context, model) {
     model.context.respOneItemUpdate = function(body, error){
         _context.log.restIn(' << oneItemUpdateBack name:'+model.context.name+' body: '+JSON.stringify(body));
         if(body != null){
-            model.context.setParams(body.data);
+            model.context.setVO(body.data);
         }
     };
 
