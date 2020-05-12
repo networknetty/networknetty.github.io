@@ -23,6 +23,7 @@ select, input, .buttons, .button_toggle{
     min-width: 5vw;
     min-height: 3vw;
     font-size: 20px;
+    font-family: cursive;
 }
 
 .buttons, .button_toggle{
