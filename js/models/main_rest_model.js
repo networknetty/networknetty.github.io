@@ -2,6 +2,9 @@
 
 function createMainRestVO(context, base) {
     let _context = context;
+    if(base == null)
+        return;
+
     _context.models.base = initBaseVO(context, base, 'main_rest_vo', "main_rest_vo",
         document.getElementById('rest_model_block'));
     initMonoSetParams(context, _context.models.base);

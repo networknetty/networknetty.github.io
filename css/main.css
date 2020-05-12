@@ -5,7 +5,8 @@ html {
     min-width: 320px;
     position: relative;
     margin: 0 auto;
-    font-family: "TT Norms", Impact, Charcoal, sans-serif;
+    background-color: gray;
+    font-family: cursive;
 }
 .hide_view{
     display: none !important;
@@ -26,7 +27,7 @@ select, input, .buttons, .button_toggle{
 
 .buttons, .button_toggle{
     text-transform: uppercase;
-    font-family: "TT Norms Bold";
+    /*font-family: "TT Norms Bold";*/
 }
 
 .rest_model_block{
@@ -37,18 +38,18 @@ select, input, .buttons, .button_toggle{
     text-transform: uppercase;
     font-size: 2.2vw;
     text-align: center;
-    font-family: "TT Norms Bold";
+    /*font-family: "TT Norms Bold";*/
 }
 .rest_model_block_item_content{
-    border: 1px red solid;
+    border: 1px brown solid;
     overflow-y: scroll;
     height: 80vh;
 }
 .main_rest_item{
-    border: 1px red solid;
+    border: 1px brown solid;
     overflow-y: scroll;
     position: absolute;
-    background-color: white;
+    background-color: gray;
     width: 48vw;
     height: 18vh;
     margin: 3.6vw 0 0 8px;
@@ -65,18 +66,18 @@ select, input, .buttons, .button_toggle{
 }
 
 .model_item{
-    border: 1px red solid;
+    border: 1px brown solid;
     margin: 8px;
     padding: 8px;
-    background-color: darkgrey;
+    background-color: gray;
 }
 .model_item_name{
     display: block;
     text-align: center;
-    border-bottom: blue solid;
+    border-bottom: darkblue solid;
     margin: 10px 0;
     text-transform: uppercase;
-    font-family: "TT Norms Bold";
+    /*font-family: "TT Norms Bold";*/
 }
 
 .list_title{
@@ -172,15 +173,15 @@ select, input, .buttons, .button_toggle{
     margin: 10px;
     display: flex;
     justify-content: space-between;
-    border-bottom: blue solid;
+    border-bottom: darkblue solid;
 }
 .item_header{
-    border-bottom: green solid;
+    border-bottom: darkgreen solid;
 }
 .item_title{
     margin: auto;
     text-transform: uppercase;
-    font-family: "TT Norms Bold";
+    /*font-family: "TT Norms Bold";*/
 }
 
 #socket_console_block{
@@ -196,31 +197,31 @@ select, input, .buttons, .button_toggle{
 
 }
 .console_item_rest_out{
-    color: chocolate;
-    border: 1px solid chocolate;
+    color: bisque;
+    border: 1px solid bisque;
 }
 .console_item_rest_in{
-    color: coral;
-    border: 1px solid coral;
+    color: darkorange;
+    border: 1px solid darkorange;
 }
 .console_item_sock_out{
-    color: cornflowerblue;
-    border: 1px solid cornflowerblue;
+    color: darkblue;
+    border: 1px solid darkblue;
 }
 .console_item_sock_in{
-    color: blue;
-    border: 1px solid blue;
+    color: darkblue;
+    border: 1px solid darkblue;
 }
 .console_item_error{
-    color: red;
-    border: 1px solid red;
+    color: brown;
+    border: 1px solid brown;
 }
 .console_item_debug{
-    color: green;
+    color: black;
 }
 .console_item_else{
-    color: gold;
-    border: 1px solid gold;
+    color: darkgrey;
+    border: 1px solid darkgrey;
 }
 
 .parse_obj_main{
