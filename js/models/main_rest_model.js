@@ -33,26 +33,17 @@ function createMainRestVO(context, base) {
 /////////////////////////////////////////////////////
 
     _context.models.base.context.stringify = function () {
-        // _context.log.debug('debug stringify name:'+_context.models.base.context.name);
+
         let str = '<span class="model_item_name">'+_context.models.base.context.name+'</span>';
         str += "<div class='block_toggle' id='model_block_text_"+_context.models.base.context.name+"'>";
-        str += 'from : ' + _context.models.base.vo.from + '<br>';
 
         str += _context.models.base.context.list_component.createListTitle('pets',
-            'main_vo_list_pets', _context.models.base.vo.pets);
+            'main_vo_list_pets', _context.models.base.vo.pets) + '<br>';
 
-        str += '<br>currentPet : ' + _context.models.base.vo.currentPet + '<br>';
-        str += 'currentTask : ' + _context.models.base.vo.currentTask + '<br>';
-        str += 'currentFlow : ' + _context.models.base.vo.currentFlow + '<br>';
-        str += 'currentUser : ' + _context.models.base.vo.currentUser + '<br>';
-        str += 'currentMail : ' + _context.models.base.vo.currentMail + '<br>';
-        str += 'externalUser : ' + _context.models.base.vo.externalUser + '<br>';
-        str += 'currentMessage : ' + _context.models.base.vo.currentMessage + '<br>';
-        str += 'currentInventoryItem : ' + _context.models.base.vo.currentInventoryItem + '<br>';
-        str += 'userInventory : ' + _context.models.base.vo.userInventory + '<br>';
-
-        str += 'token_fb : ' + _context.models.base.vo.token_fb + '<br>';
-        str += 'token_fcm : ' + _context.models.base.vo.token_fcm + '<br>';
+        for(let field in _context.models.base.vo){
+            if(field !== 'pets' && field !== 'token_fb' && field !== 'token_fcm')
+                str += field + ' : ' + _context.models.base.vo[field] + '<br>';
+        }
 
         str += '</div>';
 
