@@ -238,10 +238,8 @@ function initMixSetParams(context, model) {
             model.context.arrKeys.push(arr[i].id);
         }
 
-        if(model.context.arrKeys.length > 0){
-            model.context.current = model.context.arrKeys[0];
-            model.context.listen.checkListener('current', model.context.arrKeys[0]);
-        }
+        model.context.current = model.context.arrKeys.length > 0 ? model.context.arrKeys[0] : "";
+        model.context.listen.checkListener('current', model.context.current);
 
         model.context.updateVO();
     };
