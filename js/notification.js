@@ -19,8 +19,8 @@ function create_notification(context) {
         };
 
         function close(){
-            $('#notification_block_'+ix).fadeOut(2000);
-            setTimeout(_removeParent, 3000);
+            $('#notification_block_'+ix).fadeOut(1000);
+            setTimeout(_removeParent, 1200);
         }
 
         div.className = 'notification_block '+current.css;
