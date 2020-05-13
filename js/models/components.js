@@ -163,44 +163,44 @@ function initMonoSetParams(context, model) {
     let _context = context;
 
     model.context.setParam = function (key, value) {
-        if(model.vo[key] !== value){
-            model.vo[key] = value;
+        if( model.vo[key] !== value ){
+            model.vo[key] = value == null ? "" : value;
 
             model.context.updateVO();
-            model.context.listen.checkListener(key, value);
+            model.context.listen.checkListener(key, model.vo[key]);
 
-            model.context.list_component.checkItsListForUpdate(key, value);
+            model.context.list_component.checkItsListForUpdate(key, model.vo[key]);
         }
     };
 
     model.context.setterParam = function (data, current) {//current.way[3], data
-        if(model.vo[current.way[3]] !== data){
-            model.vo[current.way[3]] = data;
+        if( model.vo[current.way[3]] !== data ){
+            model.vo[current.way[3]] = data == null ? "" : data;
 
             model.context.updateVO();
-            model.context.listen.checkListener(current.way[3], data);
+            model.context.listen.checkListener(current.way[3], model.vo[current.way[3]]);
 
-            model.context.list_component.checkItsListForUpdate(current.way[3], data);
+            model.context.list_component.checkItsListForUpdate(current.way[3], model.vo[current.way[3]]);
         }
     };
 
     model.context.externalGet = function (data, current) {
         let value = _context[current.get[0]][current.get[1]].vo[current.get[2]];
         if(model.vo[current.way[3]] !== value){
-            model.vo[current.way[3]] = value;
+            model.vo[current.way[3]] = value == null ? "" : value;
 
             model.context.updateVO();
-            model.context.listen.checkListener(current.way[3], value);
+            model.context.listen.checkListener(current.way[3], model.vo[current.way[3]]);
 
-            model.context.list_component.checkItsListForUpdate(current.way[3], value);
+            model.context.list_component.checkItsListForUpdate(current.way[3], model.vo[current.way[3]]);
         }
     };
 
     model.context.setParams = function (vo, current) {
         for(let field in vo){
             if(model.vo[field] !== vo[field]){
-                model.vo[field] = vo[field];
-                model.context.listen.checkListener(field, vo[field]);
+                model.vo[field] = vo[field] == null ? "" : vo[field];
+                model.context.listen.checkListener(field, model.vo[field]);
             }
         }
         model.context.updateVO();
