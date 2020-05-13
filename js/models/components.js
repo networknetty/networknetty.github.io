@@ -440,7 +440,10 @@ function initSetterComponent(context, model) {
 function initRunSetter(context, model) {
     let _context = context;
     model.context.runSetter = function (current, data, callback) {
-        if (current.way[2] === "run") {
+        if (current.way[0] === "reload") {
+            location.reload();
+        }
+        else if (current.way[2] === "run") {
             _context[current.way[0]][current.way[1]].context.run(null, callback, model.context.name);
         }
         else {
