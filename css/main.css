@@ -6,7 +6,10 @@ html {
     position: relative;
     margin: 0 auto;
     background-color: gray;
-    font-family: cursive;
+    font-family: cursive, Arial, sans-serif;
+}
+img{
+    width: 100%;
 }
 .hide_view{
     display: none !important;
@@ -23,7 +26,7 @@ select, input, .buttons, .button_toggle{
     min-width: 5vw;
     min-height: 3vw;
     font-size: 20px;
-    font-family: cursive;
+    font-family: cursive, Arial, sans-serif;
 }
 
 .buttons, .button_toggle{

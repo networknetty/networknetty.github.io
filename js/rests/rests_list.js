@@ -28,12 +28,12 @@ function create_rest(context, name, baseVO, group_id) {
         else
             str += 'setter : '+ util_parse(_baseVO.setter) + '<br>';
 
-        str += "</form>";
-
         if(_baseVO.context.file != null && _baseVO.context.file.content != null){
             let img = 'data:image/jpeg;base64,' + btoa(_baseVO.context.file.content);
             str += "<img src='"+img+"' alt='img_alt'>";
         }
+
+        str += "</form>";
 
         return str;
     };
