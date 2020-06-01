@@ -97,7 +97,7 @@ function create_rest(context, name, baseVO, group_id) {
         let vo = document.getElementById("rest_"+_baseVO.context.name);
         vo.innerHTML = _baseVO.context.stringify();
 
-        if(_baseVO.context.rest_type != null && model.context.rest_type === "form-data"){
+        if(_baseVO.context.rest_type != null && _baseVO.context.rest_type === "form-data"){
             $('#btn_load_file_rest_info_'+_baseVO.context.name).on('click', _load_file);
             $('#btn_clear_file_rest_info_'+_baseVO.context.name).on('click', _clear_file);
         }
