@@ -29,6 +29,12 @@ function create_rest(context, name, baseVO, group_id) {
             str += 'setter : '+ util_parse(_baseVO.setter) + '<br>';
 
         str += "</form>";
+
+        if(_baseVO.context.file != null && _baseVO.context.file.content != null){
+            let img = 'data:image/jpeg;base64,' + btoa(_baseVO.context.file.content);
+            str += "<img src='"+img+"' alt='img_alt'>";
+        }
+
         return str;
     };
 
@@ -40,10 +46,49 @@ function create_rest(context, name, baseVO, group_id) {
     };
     /////////////////////////////////////////////////////////////////////////////////////
 
+    let _load_file = function(){
+        let fileInput;
+        fileInput = document.createElement("input");
+        fileInput.type='file';
+        fileInput.style.display='none';
+        fileInput.onchange = function(e) {
+            let file = e.target.files[0];
+            if (!file) { return; }
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                document.body.removeChild(fileInput);
+                if(_baseVO.context.file == null)
+                    _baseVO.context.file = {};
+                _baseVO.context.file.content = e.target.result;
+                _baseVO.context.updateVO();
+            };
+            reader.readAsBinaryString(file);
+        };
+        document.body.appendChild(fileInput);
+        let eventMouse = document.createEvent("MouseEvents");
+        eventMouse.initMouseEvent("click", true, false, window, 0,
+            0, 0, 0, 0, false, false,
+            false, false, 0, null);
+        fileInput.dispatchEvent(eventMouse);
+    };
+
+    let _clear_file = function(){
+        if(_baseVO.context.file != null && _baseVO.context.file.content != null){
+            _baseVO.context.file.content = null;
+            _baseVO.context.updateVO();
+        }
+    };
+
     _baseVO.context.updateVO = function () {
         _context.log.debug("debug rest updateVO name: "+_baseVO.context.name);
         let vo = document.getElementById("rest_"+_baseVO.context.name);
         vo.innerHTML = _baseVO.context.stringify();
+
+        if(_baseVO.context.rest_type != null){
+            $('#btn_load_file_rest_info_'+_baseVO.context.name).on('click', _load_file);
+            $('#btn_clear_file_rest_info_'+_baseVO.context.name).on('click', _clear_file);
+        }
+
         $('.button_expand_obj').on('click', expand_reaction_obj);
         $('.button_expand_arr').on('click', expand_reaction_arr);
         $('#btn_'+_baseVO.context.name).on('click', _baseVO.context.run);

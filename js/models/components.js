@@ -104,6 +104,10 @@ function initBaseVO(context, base, name, id, parent) {
         model.actions = base.actions;
     }
 
+    if(base.rest_type != null){
+        model.context.rest_type = base.rest_type;
+    }
+
     model.context.listen.map = {};
     model.context.listen.checkListener = function(trigger, value) {
         if(model.context.listen.map[trigger] != null){
@@ -320,33 +324,71 @@ function initRestComponent(context, model) {
 
         $('#btn_'+model.context.name).addClass('hide_view');
 
-        let data = {};
+        if(model.context.rest_type == null || model.context.rest_type !== "form-data"){
 
-        for(let field in model.vo){
-            if(model.data_form != null && model.data_form[field] != null){
-                let form = new FormData(  document.getElementById("rest_info_"+model.context.name)  );
-                if(Array.isArray(model.vo[field])){
-                    data[field] = [];
-                    data[field].push(getValueForm(form.get("rest_info_"+model.context.name+"_"+field),
-                        model.data_form[field]));
+            let data = {};
+            for(let field in model.vo){
+                if(model.data_form != null && model.data_form[field] != null){
+
+                    if(model.data_form[field].type !== "input_file"){
+                        let form = new FormData(  document.getElementById("rest_info_"+model.context.name)  );
+                        if(Array.isArray(model.vo[field])){
+                            data[field] = [];
+                            data[field].push(getValueForm(form.get("rest_info_"+model.context.name+"_"+field),
+                                model.data_form[field]));
+                        } else {
+                            data[field] = getValueForm(form.get("rest_info_"+model.context.name+"_"+field),
+                                model.data_form[field]);
+                        }
+                    }else{
+                        data[field] = model.context.file != null ? model.context.file.content : null;
+                    }
+
                 } else {
-                    data[field] = getValueForm(form.get("rest_info_"+model.context.name+"_"+field),
-                        model.data_form[field]);
+                    data[field] = model.vo[field];
                 }
-            } else {
-                data[field] = model.vo[field];
             }
+
+            let bd = { from : _context.models.base.vo.from, data : data, action : model.rest.action };
+
+            _context.log.restOut(' >> '+(debug_msg != null ? debug_msg : 'onButtonClick')+' name:'+
+                model.context.name+' body: '+JSON.stringify(bd));
+
+            // if(model.data_form != null)
+            //     _context.log.debug('-----debug _baseVO.data_form != null');
+
+            _context.callRest( model.rest.endpoint, bd, model.context.resp );
+        }
+        else{
+            let fd = new FormData();
+
+            for(let field in model.vo){
+                if(model.data_form != null && model.data_form[field] != null){
+
+                    if(model.data_form[field].type !== "input_file"){
+                        let form = new FormData(  document.getElementById("rest_info_"+model.context.name)  );
+                        if(Array.isArray(model.vo[field])){
+                            let arr = [];
+                            arr.push(getValueForm(form.get("rest_info_"+model.context.name+"_"+field),
+                                model.data_form[field]));
+                            fd.append(field, arr);
+                        } else {
+                            fd.append(field, getValueForm(form.get("rest_info_"+model.context.name+"_"+field),
+                                model.data_form[field]));
+                        }
+                    }else{
+                        fd.append(field, model.context.file.content, 'content_name');
+                    }
+
+                } else {
+                    fd.append(field, model.vo[field]);
+                }
+            }
+
+            _context.callRest( model.rest.endpoint, fd, model.context.resp );
         }
 
-        let bd = { from : _context.models.base.vo.from, data : data, action : model.rest.action };
 
-        _context.log.restOut(' >> '+(debug_msg != null ? debug_msg : 'onButtonClick')+' name:'+
-            model.context.name+' body: '+JSON.stringify(bd));
-
-        // if(model.data_form != null)
-        //     _context.log.debug('-----debug _baseVO.data_form != null');
-
-        _context.callRest( model.rest.endpoint, bd, model.context.resp );
     };
 
     model.context.resp = function (body, error) {

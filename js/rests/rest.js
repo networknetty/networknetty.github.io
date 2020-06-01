@@ -24,7 +24,29 @@ function init_rest(context) {
             );
     }
 
+    function callFData(endpoint, fd, callback){
+        fetch(
+            _context.config.list[_context.config.current_list_item].url+endpoint,
+            {
+                method: 'POST', headers: { 'Content-Type' : 'multipart/form-data', 'jwt': _context.config.jwt },
+                body: fd
+            }
+        )
+            .then( function (response) {
+                    if (response.ok) {
+                        response.json()
+                            .then( function (body) { callback(body); });
+                    }
+                    else {
+                        // alert("error HTTP: " + response.status);
+                        callback(null, response.status);
+                    }
+                }
+            );
+    }
+
     _context.callRest = call;
+    _context.callRestFData = callFData;
 }
 
 

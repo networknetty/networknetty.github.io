@@ -69,5 +69,11 @@ let _parse_form_obj = function (data, field, form_settings, form_name) {
 
         return str;
     }
+    else if(form_settings[field].type === "input_file"){
+        let stb = '';
+        stb += "<input type='button' value='file' class='buttons' id='btn_load_file_"+form_name+"'>";
+        stb += "<input type='button' value='clear' class='buttons' id='btn_clear_file_"+form_name+"'>";
+        return stb;
+    }
     return '';
 };
