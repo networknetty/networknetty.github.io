@@ -30,7 +30,9 @@ function create_rest(context, name, baseVO, group_id) {
 
         if(_baseVO.context.file != null && _baseVO.context.file.content != null){
             let img = 'data:image/jpeg;base64,' + btoa(_baseVO.context.file.content);
-            str += "<img src='"+img+"' alt='img_alt'>";
+            str += "<br><span class='img_name'>"+_baseVO.context.file.name+
+                "</span><img src='"+img+"' alt='img_alt'>";
+
         }
 
         str += "</form>";
@@ -55,12 +57,23 @@ function create_rest(context, name, baseVO, group_id) {
             let file = e.target.files[0];
             if (!file) { return; }
             let reader = new FileReader();
+
+            // name: "test_img19203.jpg"
+            // size: 428272
+            // type: "image/jpeg"
+
+            if(_baseVO.context.file == null)
+                _baseVO.context.file = {};
+
+            _baseVO.context.file.name = file.name;
+            _baseVO.context.file.type = file.type;
+
             reader.onload = function(e) {
                 document.body.removeChild(fileInput);
-                if(_baseVO.context.file == null)
-                    _baseVO.context.file = {};
-                _baseVO.context.file.content = e.target.result;
-                _baseVO.context.updateVO();
+                if(_baseVO.context.file.type === "image/jpeg"){
+                    _baseVO.context.file.content = e.target.result;
+                    _baseVO.context.updateVO();
+                }
             };
             reader.readAsBinaryString(file);
         };

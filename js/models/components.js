@@ -377,7 +377,7 @@ function initRestComponent(context, model) {
                                 model.data_form[field]));
                         }
                     }else{
-                        fd.append(field, model.context.file.content, 'content_name');
+                        fd.append(field, model.context.file.content, model.context.file.name);
                     }
 
                 } else {
