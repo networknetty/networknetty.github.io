@@ -319,6 +319,10 @@ function initRestComponent(context, model) {
 
     model.context.rest = {};
 
+    if(model.context.rest_type != null && model.context.rest_type === "form-data"){
+        model.context.file = {};
+    }
+
     model.context.run = function (e, callback, debug_msg) {
         _external_callback = callback;
 
