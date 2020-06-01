@@ -385,7 +385,7 @@ function initRestComponent(context, model) {
                 }
             }
 
-            _context.callRest( model.rest.endpoint, fd, model.context.resp );
+            _context.callRestFData( model.rest.endpoint, fd, model.context.resp );
         }
 
 
