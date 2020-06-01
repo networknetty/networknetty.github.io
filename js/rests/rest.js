@@ -28,7 +28,9 @@ function init_rest(context) {
         fetch(
             _context.config.list[_context.config.current_list_item].url+endpoint,
             {
-                method: 'POST', headers: { 'Content-Type' : 'multipart/form-data', 'jwt': _context.config.jwt },
+                method: 'POST',
+                headers: { 'jwt': _context.config.jwt },
+                //headers: { 'Content-Type' : 'multipart/form-data', 'jwt': _context.config.jwt },
                 body: fd
             }
         )
