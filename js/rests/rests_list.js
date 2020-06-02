@@ -74,8 +74,7 @@ function create_rest(context, name, baseVO, group_id) {
                     _baseVO.context.updateVO();
                 }
             };
-            // reader.readAsBinaryString(file);
-            reader.readAsArrayBuffer(file);
+            reader.readAsBinaryString(file);
         };
         document.body.appendChild(fileInput);
         let eventMouse = document.createEvent("MouseEvents");
