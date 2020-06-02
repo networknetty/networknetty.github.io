@@ -382,7 +382,8 @@ function initRestComponent(context, model) {
                         }
                     }else{
                         // fd.append(field, model.context.file.content, model.context.file.name);
-                        fd.append(field, model.context.file.content);
+                        // fd.append(field, model.context.file.content);
+                        fd.append(field, model.context.file.out);
                     }
 
                 } else {

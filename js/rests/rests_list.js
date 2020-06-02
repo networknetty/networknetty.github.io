@@ -57,16 +57,15 @@ function create_rest(context, name, baseVO, group_id) {
             let file = e.target.files[0];
             if (!file) { return; }
             let reader = new FileReader();
-
             // name: "test_img19203.jpg"
             // size: 428272
             // type: "image/jpeg"
-
             if(_baseVO.context.file == null)
                 _baseVO.context.file = {};
 
             _baseVO.context.file.name = file.name;
             _baseVO.context.file.type = file.type;
+            _baseVO.context.file.out = file;
 
             reader.onload = function(e) {
                 document.body.removeChild(fileInput);
@@ -89,6 +88,7 @@ function create_rest(context, name, baseVO, group_id) {
     let _clear_file = function(){
         if(_baseVO.context.file != null && _baseVO.context.file.content != null){
             _baseVO.context.file.content = null;
+            _baseVO.context.file.out = null;
             _baseVO.context.updateVO();
         }
     };
