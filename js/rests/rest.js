@@ -12,11 +12,11 @@ function init_rest(context) {
                 }
             )
             .then( function (response) {
-                _parse(response, callback);
+                _parse(response, body, callback);
             });
     }
 
-    let _parse = function(response, callback){
+    let _parse = function(response, req_body, callback){
         if (response.ok) {
             let type = response.headers.get('content-type');
             if(type.indexOf('application/json') > -1){
@@ -30,9 +30,13 @@ function init_rest(context) {
                     let parent = document.getElementById('images');
                     let img = document.createElement('img');
                     img.src = 'data:image/jpeg;base64,' + btoa(e.target.result);
+                    if(id == null && req_body != null && req_body.id != null)
+                        id = req_body.id;
                     if(id != null){
                         let sp = document.createElement('span');
                         sp.className = 'image_name';
+                        sp.id = id;
+                        _context.global.images[id] = {};
                         parent.appendChild(sp);
                     }
                     parent.appendChild(img);
@@ -63,7 +67,7 @@ function init_rest(context) {
                 }
             )
             .then( function (response) {
-                _parse(response, callback);
+                _parse(response, null, callback);
             });
     }
 

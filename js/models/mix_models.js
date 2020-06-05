@@ -104,6 +104,13 @@ function init_mix_models(context) {
     for(let name_model in context.config.mix_models){
         context.mix_models[name_model] = create_mix_model(context, name_model, context.config.mix_models[name_model]);
     }
+
+    let bl = document.getElementById('model_block');
+    let div = document.createElement('div');
+    div.className = 'model_item';
+    div.id = 'images';
+    bl.appendChild(div);
+
     context.log.debug('init mix_models done');
 }
 

@@ -404,14 +404,14 @@ function initRestComponent(context, model) {
         if (body != null && body.status === 'ok' && model.setter != null) {
             model.context.setter.runSetters(body.data, _external_callback);
         } else {
-            if (body.status !== 'ok')
+            if (body == null || body.status !== 'ok')
                 _context.notification.all.context.callMsg(body, {
                     msg: "error resp name:" + model.context.name,
                     css: "rest_notification"
                 });
 
             if (_external_callback != null) {
-                _external_callback(body.status === 'ok' ? null : body.status);
+                _external_callback(body == null ? 'ko' : (body.status === 'ok' ? null : body.status));
                 _external_callback = null;
             }
         }

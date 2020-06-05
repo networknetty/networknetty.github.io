@@ -1,7 +1,7 @@
 
 
 window.onload = function () {
-    let _context = {};
+    let _context = {global:{images:{}}};
 
     init_console(_context);
     init_config(_context);
