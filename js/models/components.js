@@ -398,28 +398,23 @@ function initRestComponent(context, model) {
     };
 
     model.context.resp = function (body, error) {
-        _context.log.restIn(' << respBack name:'+model.context.name+' body: '+JSON.stringify(body));
-        $('#btn_'+model.context.name).removeClass('hide_view');
+        _context.log.restIn(' << respBack name:' + model.context.name + ' body: ' + JSON.stringify(body));
+        $('#btn_' + model.context.name).removeClass('hide_view');
 
+        if (body != null && body.status === 'ok' && model.setter != null) {
+            model.context.setter.runSetters(body.data, _external_callback);
+        } else {
+            if (body.status !== 'ok')
+                _context.notification.all.context.callMsg(body, {
+                    msg: "error resp name:" + model.context.name,
+                    css: "rest_notification"
+                });
 
-        // if(model.context.wait_file == null){
-            if(body != null && body.status === 'ok' && model.setter != null){
-                model.context.setter.runSetters(body.data, _external_callback);
+            if (_external_callback != null) {
+                _external_callback(body.status === 'ok' ? null : body.status);
+                _external_callback = null;
             }
-            else {
-                if(body.status !== 'ok')
-                    _context.notification.all.context.callMsg(body, {msg:"error resp name:"+ model.context.name,
-                        css:"rest_notification"});
-
-                if (_external_callback != null) {
-                    _external_callback(body.status === 'ok' ? null : body.status);
-                    _external_callback = null;
-                }
-            }
-        // }
-        // else{
-        //
-        // }
+        }
 
     };
 

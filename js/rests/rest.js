@@ -11,25 +11,42 @@ function init_rest(context) {
                     body: JSON.stringify(body)
                 }
             )
-            .then( function (response) {
-                    if (response.ok) {
-                        response.json()
-                            .then( function (body) { callback(body); });
-                    }
-                    else {
-                        // alert("error HTTP: " + response.status);
-                        callback(null, response.status);
-                    }
-                }
-            )
-            .then(function (img) {
-                if (img) {
-                    console.log('img: '+img);
-                } else {
-                    console.log('img???');
-                }
-            });
+            .then( function (response) {_parse(response, callback)});
     }
+
+    let _parse = function(response, callback){
+        if (response.ok) {
+            let type = response.headers.get('content-type');
+            if(type === 'application/json'){
+                response.json()
+                    .then( function (body) { callback(body); });
+            } else if(type === 'image/jpeg'){
+                let id = response.headers.get('id');
+                // console.log('response id: '+id);
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    let parent = document.getElementById('images');
+                    let img = document.createElement('img');
+                    img.src = 'data:image/jpeg;base64,' + btoa(e.target.result);
+                    if(id != null){
+                        let sp = document.createElement('span');
+                        sp.className = 'image_name';
+                        parent.appendChild(sp);
+                    }
+                    parent.appendChild(img);
+
+                    callback({status:'ok'});
+                };
+                response.blob().then(function(blob) {
+                    reader.readAsBinaryString(blob);
+                });
+            }
+        }
+        else {
+            // alert("error HTTP: " + response.status);
+            callback(null, response.status);
+        }
+    };
 
     function callFData(endpoint, fd, callback){
         fetch(
@@ -41,24 +58,7 @@ function init_rest(context) {
                     body: fd
                 }
             )
-            .then( function (response) {
-                    if (response.ok) {
-                        response.json()
-                            .then( function (body) { callback(body); });
-                    }
-                    else {
-                        // alert("error HTTP: " + response.status);
-                        callback(null, response.status);
-                    }
-                }
-            )
-            .then(function (img) {
-                if (img) {
-                    console.log('img: '+img);
-                } else {
-                    console.log('img???');
-                }
-            });
+            .then( function (response) {_parse(response, callback)});
     }
 
     _context.callRest = call;
