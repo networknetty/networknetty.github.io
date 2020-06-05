@@ -63,6 +63,13 @@ function init_models(context) {
         if(name_model !== "base")
             _context.models[name_model] = create_model(_context, name_model, _context.config.models[name_model]);
     }
+
+    let bl = document.getElementById('model_block');
+    let div = document.createElement('div');
+    div.className = 'model_item';
+    div.id = 'images';
+    bl.appendChild(div);
+
     _context.log.debug('init models done');
 }
 

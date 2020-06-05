@@ -44,7 +44,14 @@ function init_rest(context) {
                         callback(null, response.status);
                     }
                 }
-            );
+            )
+            .then(function (img) {
+                if (img) {
+                    console.log('img: '+img);
+                } else {
+                    console.log('img???');
+                }
+            });
     }
 
     _context.callRest = call;
