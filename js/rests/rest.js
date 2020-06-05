@@ -27,8 +27,8 @@ function init_rest(context) {
                 // console.log('response id: '+id);
                 let add_img = false;
                 let parent = document.getElementById('images');
-                if(id == null && req_body != null && req_body.id != null)
-                    id = req_body.id;
+                if(id == null && req_body != null && req_body.data != null && req_body.data.id != null)
+                    id = req_body.data.id;
                 if(id != null){
                     if(_context.global.images[id] == null){
                         let sp = document.createElement('span');
