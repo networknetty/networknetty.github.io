@@ -24,7 +24,7 @@ function init_rest(context) {
                     .then( function (body) { callback(body); });
             } else if(type.indexOf('image/jpeg') > -1){
                 let id = response.headers.get('id');
-                // console.log('response id: '+id);
+                console.log('response id: '+response.headers['id']);
                 let add_img = false;
                 let parent = document.getElementById('images');
                 if(id == null && req_body != null && req_body.data != null && req_body.data.id != null)
@@ -34,6 +34,7 @@ function init_rest(context) {
                         let sp = document.createElement('span');
                         sp.className = 'image_name';
                         sp.id = 'sp_'+id;
+                        sp.innerHTML = id;
                         _context.global.images[id] = {};
                         parent.appendChild(sp);
                         add_img = true;
