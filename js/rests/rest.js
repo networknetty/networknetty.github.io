@@ -11,7 +11,9 @@ function init_rest(context) {
                     body: JSON.stringify(body)
                 }
             )
-            .then( function (response) {_parse(response, callback)});
+            .then( function (response) {
+                _parse(response, callback);
+            });
     }
 
     let _parse = function(response, callback){
@@ -40,6 +42,8 @@ function init_rest(context) {
                 response.blob().then(function(blob) {
                     reader.readAsBinaryString(blob);
                 });
+            } else {
+                callback(null, 'content-type: '+type);
             }
         }
         else {
@@ -58,7 +62,9 @@ function init_rest(context) {
                     body: fd
                 }
             )
-            .then( function (response) {_parse(response, callback)});
+            .then( function (response) {
+                _parse(response, callback);
+            });
     }
 
     _context.callRest = call;
