@@ -19,10 +19,10 @@ function init_rest(context) {
     let _parse = function(response, callback){
         if (response.ok) {
             let type = response.headers.get('content-type');
-            if(type === 'application/json'){
+            if(type.indexOf('application/json') > -1){
                 response.json()
                     .then( function (body) { callback(body); });
-            } else if(type === 'image/jpeg'){
+            } else if(type.indexOf('image/jpeg') > -1){
                 let id = response.headers.get('id');
                 // console.log('response id: '+id);
                 let reader = new FileReader();
