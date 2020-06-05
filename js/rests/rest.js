@@ -25,30 +25,39 @@ function init_rest(context) {
             } else if(type.indexOf('image/jpeg') > -1){
                 let id = response.headers.get('id');
                 // console.log('response id: '+id);
-                let reader = new FileReader();
-                reader.onload = function(e) {
-                    let parent = document.getElementById('images');
-                    let img = document.createElement('img');
-                    img.src = 'data:image/jpeg;base64,' + btoa(e.target.result);
-                    if(id == null && req_body != null && req_body.id != null)
-                        id = req_body.id;
-                    if(id != null){
+                let add_img = false;
+                let parent = document.getElementById('images');
+                if(id == null && req_body != null && req_body.id != null)
+                    id = req_body.id;
+                if(id != null){
+                    if(_context.global.images[id] == null){
                         let sp = document.createElement('span');
                         sp.className = 'image_name';
-                        sp.id = id;
+                        sp.id = 'sp_'+id;
                         _context.global.images[id] = {};
                         parent.appendChild(sp);
+                        add_img = true;
                     }
-                    parent.appendChild(img);
+                }else
+                    add_img = true;
 
+                if(add_img === true){
+                    let reader = new FileReader();
+                    reader.onload = function(e) {
+                        let img = document.createElement('img');
+                        img.src = 'data:image/jpeg;base64,' + btoa(e.target.result);
+                        if(id != null)
+                            img.id = 'img_'+id;
+                        parent.appendChild(img);
+                        callback({status:'ok'});
+                    };
+                    response.blob().then(function(blob) {
+                        reader.readAsBinaryString(blob);
+                    });
+                } else
                     callback({status:'ok'});
-                };
-                response.blob().then(function(blob) {
-                    reader.readAsBinaryString(blob);
-                });
-            } else {
+            } else
                 callback(null, 'content-type: '+type);
-            }
         }
         else {
             // alert("error HTTP: " + response.status);
