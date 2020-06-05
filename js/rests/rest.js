@@ -5,12 +5,12 @@ function init_rest(context) {
 
     function call(endpoint, body, callback){
         fetch(
-            _context.config.list[_context.config.current_list_item].url+endpoint,
-            {
-                method: 'POST', headers: { 'Content-Type' : 'application/json', 'jwt': _context.config.jwt },
-                body: JSON.stringify(body)
-            }
-        )
+                _context.config.list[_context.config.current_list_item].url+endpoint,
+                {
+                    method: 'POST', headers: { 'Content-Type' : 'application/json', 'jwt': _context.config.jwt },
+                    body: JSON.stringify(body)
+                }
+            )
             .then( function (response) {
                     if (response.ok) {
                         response.json()
@@ -21,19 +21,26 @@ function init_rest(context) {
                         callback(null, response.status);
                     }
                 }
-            );
+            )
+            .then(function (img) {
+                if (img) {
+                    console.log('img: '+img);
+                } else {
+                    console.log('img???');
+                }
+            });
     }
 
     function callFData(endpoint, fd, callback){
         fetch(
-            _context.config.list[_context.config.current_list_item].url+endpoint,
-            {
-                method: 'POST',
-                headers: { 'jwt': _context.config.jwt },
-                //headers: { 'Content-Type' : 'multipart/form-data', 'jwt': _context.config.jwt },
-                body: fd
-            }
-        )
+                _context.config.list[_context.config.current_list_item].url+endpoint,
+                {
+                    method: 'POST',
+                    headers: { 'jwt': _context.config.jwt },
+                    //headers: { 'Content-Type' : 'multipart/form-data', 'jwt': _context.config.jwt },
+                    body: fd
+                }
+            )
             .then( function (response) {
                     if (response.ok) {
                         response.json()
