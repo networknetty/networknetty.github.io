@@ -217,10 +217,10 @@ function initMixSetParams(context, model) {
 
     let _context = context;
 
-    model.context.setVOParam = function (data, current) {
+    model.context.setItemFieldByData = function (data, current) {
         let ix = model.context.arrKeys.indexOf(data[current.key]);
         if(ix > -1){
-            model.context.arrVO[ix][current.way[3]] = data[current.param];
+            model.context.arrVO[ix][current.way[3]] = data[current.data_field];
             model.context.updateVO();
         }
     };
@@ -555,7 +555,7 @@ function initSocketListeners(context, model) {
         }
 
         let body;
-        if(node.key != null){
+        if(node.key != null && node.data_field == null){
             if(node.key !== "null"){
                 body = data[node.key];
             }
