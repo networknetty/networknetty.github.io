@@ -159,7 +159,7 @@ function back(cfg){
         function NotifyIncomming(data){
             return self.registration.showNotification(data.notification.title, {
                     body : data.notification.body,
-                    icon : data.notification.icon,
+                    icon : data.notification.image,//data.notification.icon
                     tag: data.notification.tag
                 }
             );
