@@ -164,6 +164,7 @@ function back(cfg){
             return self.registration.showNotification(data.notification.title, {
                     body : data.notification.body,
                     icon : data.notification.image != null ? data.notification.image : data.notification.icon,
+                    image : data.notification.image != null ? data.notification.image : data.notification.icon,
                     tag: data.notification.tag
                 }
             );
