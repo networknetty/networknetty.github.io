@@ -148,6 +148,10 @@ function back(cfg){
             // } else{
             //     myNotifyClose(event.notification.tag);
             // }
+
+            // clients.openWindow();
+
+            // WindowClient.navigate();
         });
 
         //Закрытие окна уведомления
@@ -159,7 +163,7 @@ function back(cfg){
         function NotifyIncomming(data){
             return self.registration.showNotification(data.notification.title, {
                     body : data.notification.body,
-                    icon : data.notification.image,//data.notification.icon
+                    icon : data.notification.image != null ? data.notification.image : data.notification.icon,
                     tag: data.notification.tag
                 }
             );
