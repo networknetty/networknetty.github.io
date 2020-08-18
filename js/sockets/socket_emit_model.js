@@ -43,8 +43,8 @@ function create_socket_model(context, name, baseVO) {
     };
 
     _baseVO.context.setParam = function (key, value) {
-        if(_baseVO.vo[key] !== value){
-            _baseVO.vo[key] = value;
+        if(_baseVO.vo.body[key] !== value){
+            _baseVO.vo.body[key] = value;
             _baseVO.context.updateVO();
         }
     };
