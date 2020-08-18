@@ -50,9 +50,9 @@ function create_socket_model(context, name, baseVO) {
     };
 
     _baseVO.context.setParams = function (vo, current) {
-        for(let field in vo){
-            if(_baseVO.vo[field] !== vo[field]){
-                _baseVO.vo[field] = vo[field];
+        for(let field in vo.body){
+            if(_baseVO.vo.body[field] !== vo[field]){
+                _baseVO.vo.body[field] = vo[field];
             }
         }
         _baseVO.context.updateVO();
