@@ -33,17 +33,18 @@ function init_sock(context) {
         socket.on('logout', (msg) => {
             _context.log.socketIn(' << logout socket msg:'+msg);
             $('.btn_connect_sock').removeClass('hide_view');
-
-
         });
         _context.log.debug(' ~ listen logout');
-        socket.on('login', (msg) => {
-            _context.log.socketIn(' << login socket msg:'+msg);
-            if(msg === "ok"){
+        socket.on('login', (data) => {
+            _context.log.socketIn(' << login socket msg:'+data.key);
+            if(data.key === "ok"){
                 _context.sock.login = true;
             }
-            else if(msg === "kick"){
+            else if(data.key === "kick"){
                 _context.socket_models_emit.login.context.run();
+            }
+            else if(data.key === "ko"){
+                console.error("login socket ko: "+data.message);
             }
         });
         _context.log.debug(' ~ listen login');
