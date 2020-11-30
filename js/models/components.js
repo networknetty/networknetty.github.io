@@ -120,10 +120,22 @@ function initBaseVO(context, base, name, id, parent) {
                     );
                 }
                 else{
-                    model.context.listen.map[trigger][i].func(
-                        model.context.listen.map[trigger][i].key,
-                        value[model.context.listen.map[trigger][i].trigger[1]]
-                    );
+                    if(model.context.listen.map[trigger][i].trigger[1] === "array<sub_id>"){
+                        console.log('parse set array<sub_id>');
+                        let v_arr_ids = [];
+                        for(let i=0; i<value.length; i++)
+                            v_arr_ids.push(value[i].id);
+                        model.context.listen.map[trigger][i].func(
+                            model.context.listen.map[trigger][i].key,
+                            v_arr_ids
+                        );
+                    }else{
+                        console.log('parse set array');
+                        model.context.listen.map[trigger][i].func(
+                            model.context.listen.map[trigger][i].key,
+                            value[model.context.listen.map[trigger][i].trigger[1]]
+                        );
+                    }
                 }
 
             }
