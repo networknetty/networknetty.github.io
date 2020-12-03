@@ -569,6 +569,10 @@ function initSocketListeners(context, model) {
         let body;
         if(node.key != null && node.data_field == null){
             if(node.key !== "null"){
+                if(node.key === "logout"){
+                    location.reload();
+                    return;
+                }
                 body = data[node.key];
             }
         }else
