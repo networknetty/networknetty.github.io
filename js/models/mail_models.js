@@ -100,7 +100,7 @@ function init_mail_models(context) {
         if(body != null){
             let ix = _baseVO.context.arrKeys.indexOf(waitUpdateMail);
             if(ix > -1){
-                if(typeof body.data !== 'object' && body.data.length === 24){
+                if(typeof body.data !== 'object' && body.data.length === 32){
                     _baseVO.context.arrValues[ix] = body.data;
                     if(waitUpdateMail === _baseVO.context.current){
                         _baseVO.context.currentValue = body.data;
