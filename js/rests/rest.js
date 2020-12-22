@@ -59,7 +59,9 @@ function init_rest(context) {
                     callback({status:'ok'});
             } else if(type.indexOf('text/plain') > -1){
                 console.log('content-type: text/plain');
-                callback(response.toString());
+                response.text().then(function (text) {
+                    callback(text);
+                });
             } else
                 callback(null, 'content-type: '+type);
         }
