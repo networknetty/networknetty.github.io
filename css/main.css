@@ -20,6 +20,7 @@ body{
 
 }
 
+/*logs start*/
 .logs_screen{
     background-color: white;
     width: 100%;
@@ -41,8 +42,26 @@ body{
     width: 98%;
     height: 88vh;
     margin: 1%;
+    overflow-y: scroll;
 }
 
+.logs_block{
+    border: 1px solid black;
+}
+.logs_block_header{
+    display: flex;
+}
+.logs_block_title{
+    margin: auto 10px;
+}
+.logs_block_buttons{
+
+}
+.logs_block_content{
+
+}
+
+/*logs end*/
 .hide_view{
     display: none !important;
 }
