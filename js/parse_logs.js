@@ -52,6 +52,12 @@ function createLogsBlock(name) {
     t.innerHTML = name;
     h.appendChild(t);
 
+    let t_i = document.createElement('div');
+    t_i.className = 'logs_block_title_time';
+    let _t_i_d = new Date(Number.parseInt(name));
+    t_i.innerHTML = _t_i_d.toLocaleDateString();
+    h.appendChild(t_i);
+
     let bb = document.createElement('div');
     bb.className = 'logs_block_buttons';
     h.appendChild(bb);
@@ -100,6 +106,11 @@ function createLogsBlock(name) {
 
             if(obj.type){
                 i.className = 'log_item log_'+obj.type.toLowerCase();
+
+                let _type_c = document.createElement('div');
+                _type_c.className = 'log_item_sub log_type';
+                _type_c.innerHTML = " type: <" + obj.type + ">";
+                i.appendChild(_type_c);
             }
 
 
@@ -107,56 +118,59 @@ function createLogsBlock(name) {
                 let _t = new Date(Number.parseInt(obj.time));
                 let _time_c = document.createElement('div');
                 _time_c.className = 'log_item_sub log_time_container';
-                _time_c.innerHTML = _t.toUTCString();
+                // _time_c.innerHTML = _t.toUTCString();
+
+                _time_c.innerHTML = " | time: <" + _t.toLocaleDateString() + ">";
+
                 i.appendChild(_time_c);
             }
 
             if(obj.key){
                 let _k_c = document.createElement('div');
                 _k_c.className = 'log_item_sub log_key';
-                _k_c.innerHTML = obj.key;
+                _k_c.innerHTML = " | key: <" + obj.key + ">";
                 i.appendChild(_k_c);
             }
 
             if(obj.from){
                 let _f_c = document.createElement('div');
                 _f_c.className = 'log_item_sub log_from';
-                _f_c.innerHTML = obj.from;
+                _f_c.innerHTML = " | from: <" + obj.from + ">";
                 i.appendChild(_f_c);
             }
 
             if(obj.action){
                 let _a_c = document.createElement('div');
                 _a_c.className = 'log_item_sub log_action';
-                _a_c.innerHTML = obj.action;
+                _a_c.innerHTML = " | action: <" + obj.action + ">";
                 i.appendChild(_a_c);
             }
 
             if(obj.data){
                 let _d_c = document.createElement('div');
                 _d_c.className = 'log_item_sub log_data';
-                _d_c.innerHTML = JSON.stringify(obj.data);
+                _d_c.innerHTML = " | data: <" + JSON.stringify(obj.data) + ">";
                 i.appendChild(_d_c);
             }
 
             if(obj.msg){
                 let _m_c = document.createElement('div');
                 _m_c.className = 'log_item_sub log_msg';
-                _m_c.innerHTML = obj.msg;
+                _m_c.innerHTML = " | msg: <" + obj.msg + ">";
                 i.appendChild(_m_c);
             }
 
             if(obj.error){
                 let _e_c = document.createElement('div');
                 _e_c.className = 'log_item_sub log_error';
-                _e_c.innerHTML = obj.error;
+                _e_c.innerHTML = " | error: <" + obj.error + ">";
                 i.appendChild(_e_c);
             }
 
             if(obj.code){
                 let _ec_c = document.createElement('div');
                 _ec_c.className = 'log_item_sub log_code';
-                _ec_c.innerHTML = obj.code;
+                _ec_c.innerHTML = " | code: <" + obj.code + ">";
                 i.appendChild(_ec_c);
             }
         }
