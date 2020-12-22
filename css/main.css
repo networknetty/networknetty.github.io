@@ -58,7 +58,39 @@ body{
 
 }
 .logs_block_content{
+    margin: 10px;
+    background-color: aliceblue;
+    height: 0;
+    overflow-y: hidden;
+}
+.logs_block_content.active{
+    height: auto;
+}
 
+
+.log_info{
+    color: brown;
+}
+.log_socket{
+    color: brown;
+}
+.log_request{
+    color: brown;
+}
+.log_response{
+    color: brown;
+}
+.log_response_error{
+    color: brown;
+}
+.log_error{
+    color: brown;
+}
+.log_debug{
+    color: brown;
+}
+.log_response_warning{
+    color: brown;
 }
 
 /*logs end*/

@@ -64,8 +64,11 @@ function createLogsBlock(name) {
     $(createButtonToHead('update', bb)).on('click', () => {
         //todo if last block && not opened
         _context.callRest('/admin', {data:{name:name}, action:'get_log_file_by_name'}, data => {
-            console.log('logs component [get log block data] data: '+JSON.stringify(data));
-            c.innerHTML = JSON.stringify(data);
+            // console.log('logs component [get log block data] data: '+JSON.stringify(data));
+            // c.innerHTML = JSON.stringify(data);
+
+            parseLogs(data);
+
         })
     });
     $(createButtonToHead('open', bb)).on('click', () => {
@@ -76,6 +79,81 @@ function createLogsBlock(name) {
     });
 
 
+    function parseLogs(data) {
+
+        function createLog(str){
+            str = '{'+str+'}';
+            let obj = JSON.parse(str);
+
+            let i = document.createElement('div');
+            c.appendChild(i);
+
+            if(obj.type)
+                i.className = 'log_'+obj.type.toLowerCase();
+
+            if(obj.time){
+                let _t = new Date(obj.time);
+                let _time_c = document.createElement('div');
+                _time_c.className = 'log_time_container';
+                _time_c.innerHTML = _t.toUTCString();
+                i.appendChild(_time_c);
+            }
+
+            if(obj.key){
+                let _k_c = document.createElement('div');
+                _k_c.className = 'log_key';
+                _k_c.innerHTML = obj.key;
+                i.appendChild(_k_c);
+            }
+
+            if(obj.from){
+                let _f_c = document.createElement('div');
+                _f_c.className = 'log_from';
+                _f_c.innerHTML = obj.from;
+                i.appendChild(_f_c);
+            }
+
+            if(obj.action){
+                let _a_c = document.createElement('div');
+                _a_c.className = 'log_action';
+                _a_c.innerHTML = obj.action;
+                i.appendChild(_a_c);
+            }
+
+            if(obj.data){
+                let _d_c = document.createElement('div');
+                _d_c.className = 'log_data';
+                _d_c.innerHTML = obj.data;
+                i.appendChild(_d_c);
+            }
+
+            if(obj.msg){
+                let _m_c = document.createElement('div');
+                _m_c.className = 'log_msg';
+                _m_c.innerHTML = obj.msg;
+                i.appendChild(_m_c);
+            }
+
+            if(obj.error){
+                let _e_c = document.createElement('div');
+                _e_c.className = 'log_error';
+                _e_c.innerHTML = obj.error;
+                i.appendChild(_e_c);
+            }
+
+            if(obj.code){
+                let _ec_c = document.createElement('div');
+                _ec_c.className = 'log_code';
+                _ec_c.innerHTML = obj.code;
+                i.appendChild(_ec_c);
+            }
+        }
+
+        let _split_arr = data.split('/%\n');
+        for(let i=0; i<_split_arr.length; i++){
+            createLog(_split_arr[i]);
+        }
+    }
 }
 
 function updateLogsList(data) {
