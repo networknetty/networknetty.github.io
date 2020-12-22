@@ -83,13 +83,22 @@ function createLogsBlock(name) {
 
         function createLog(str){
             str = '{'+str+'}';
-            let obj = JSON.parse(str);
+            let obj;
+            try {
+                obj = JSON.parse(str);
+            }catch (e) {
+                console.log('catch parse log str: '+str);
+                return;
+            }
+
 
             let i = document.createElement('div');
             c.appendChild(i);
 
-            if(obj.type)
-                i.className = 'log_'+obj.type.toLowerCase();
+            if(obj.type){
+                i.className = 'log_item log_'+obj.type.toLowerCase();
+            }
+
 
             if(obj.time){
                 let _t = new Date(obj.time);
@@ -123,7 +132,7 @@ function createLogsBlock(name) {
             if(obj.data){
                 let _d_c = document.createElement('div');
                 _d_c.className = 'log_data';
-                _d_c.innerHTML = obj.data;
+                _d_c.innerHTML = JSON.parse(obj.data);
                 i.appendChild(_d_c);
             }
 

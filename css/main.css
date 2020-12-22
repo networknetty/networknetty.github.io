@@ -59,7 +59,7 @@ body{
 }
 .logs_block_content{
     margin: 10px;
-    background-color: aliceblue;
+    background-color: darkgrey;
     height: 0;
     overflow-y: hidden;
 }
@@ -67,27 +67,30 @@ body{
     height: auto;
 }
 
+.log_item{
+    display: flex;
+}
 
 .log_info{
-    color: brown;
+    color: blue;
 }
 .log_socket{
-    color: brown;
+    color: darkviolet;
 }
 .log_request{
-    color: brown;
+    color: beige;
 }
 .log_response{
-    color: brown;
+    color: aqua;
 }
 .log_response_error{
     color: brown;
 }
 .log_error{
-    color: brown;
+    color: darkred;
 }
 .log_debug{
-    color: brown;
+    color: yellow;
 }
 .log_response_warning{
     color: brown;
