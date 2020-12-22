@@ -1,9 +1,10 @@
 
-$('.logs_screen').addClass('hide_view');
+$('#logs_screen').addClass('hide_view');
 
 function logsComponentLoginDone() {
     document.getElementById("info_buttons_block").innerHTML = "<input type='button' value='LOGS' id='btn_open_logs_screen'>";
     $('#btn_open_logs_screen').on('click', openLogsScreen);
+    $('#btn_close_logs_screen').on('click', closeLogsScreen);
 }
 
 function openLogsScreen() {
@@ -11,3 +12,10 @@ function openLogsScreen() {
 
 
 }
+
+function closeLogsScreen() {
+    $('#logs_screen').addClass('hide_view');
+
+
+}
+
