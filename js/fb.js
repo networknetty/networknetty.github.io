@@ -66,7 +66,7 @@ function init_fb(context) {
                                 _context.models.base.context.setParam('token_fcm', tk_fcm);
 
                                 //todo logs
-                                logsComponentLoginDone();
+                                logsComponentLoginDone(_context);
 
                             }
                         );

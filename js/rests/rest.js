@@ -21,7 +21,7 @@ function init_rest(context) {
             let type = response.headers.get('content-type');
             if(type.indexOf('application/json') > -1){
                 response.json()
-                    .then( function (body) { callback(body); });
+                    .then( body => { callback(body); });
             } else if(type.indexOf('image/jpeg') > -1){
                 let id = response.headers.get('id');
                 console.log('response id: '+response.headers['id']);
@@ -59,6 +59,7 @@ function init_rest(context) {
                     callback({status:'ok'});
             } else if(type.indexOf('text/plain') > -1){
                 console.log('content-type: text/plain');
+                callback(response.toString());
             } else
                 callback(null, 'content-type: '+type);
         }
