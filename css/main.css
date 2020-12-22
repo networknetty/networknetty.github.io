@@ -69,6 +69,8 @@ body{
 
 .log_item{
     display: flex;
+    flex-wrap: wrap;
+    word-break: break-all;
 }
 
 .log_info{
@@ -95,6 +97,35 @@ body{
 .log_response_warning{
     color: darkorange;
 }
+
+.log_item_sub{
+    margin: 2px;
+}
+.log_time_container{
+
+}
+.log_key{
+
+}
+.log_from{
+
+}
+.log_action{
+
+}
+.log_data{
+
+}
+.log_msg{
+
+}
+.log_error{
+
+}
+.log_code{
+
+}
+
 
 /*logs end*/
 .hide_view{
