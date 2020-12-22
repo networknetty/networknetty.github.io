@@ -55,7 +55,7 @@ function createLogsBlock(name) {
     let t_i = document.createElement('div');
     t_i.className = 'logs_block_title_time';
     let _t_i_d = new Date(Number.parseInt(name));
-    t_i.innerHTML = _t_i_d.toLocaleString();
+    t_i.innerHTML = ' | time: [' + _t_i_d.toLocaleString() + ']';
     h.appendChild(t_i);
 
     let bb = document.createElement('div');
@@ -120,7 +120,7 @@ function createLogsBlock(name) {
                 _time_c.className = 'log_item_sub log_time_container';
                 // _time_c.innerHTML = _t.toUTCString();
 
-                _time_c.innerHTML = " | time: [" + _t.toUTCString() + "]";
+                _time_c.innerHTML = " | time: [" + _t.toLocaleString() + "]";
 
                 i.appendChild(_time_c);
             }
