@@ -6,7 +6,9 @@ html {
     position: relative;
     margin: 0 auto;
     background-color: gray;
-    font-family: 'JetBrains Mono', monospace;
+    /*font-family: 'JetBrains Mono', monospace;*/
+    font-family: 'VT323', monospace;
+    color: greenyellow;
 }
 img{
     width: 100%;
@@ -180,7 +182,8 @@ select, input, .buttons, .button_toggle{
     min-width: 5vw;
     min-height: 3vw;
     font-size: 20px;
-    font-family: 'JetBrains Mono', monospace;
+    /*font-family: 'JetBrains Mono', monospace;*/
+    font-family: 'VT323', monospace;
 }
 
 .buttons, .button_toggle{
@@ -375,7 +378,8 @@ select, input, .buttons, .button_toggle{
     border: 1px solid brown;
 }
 .console_item_debug{
-    color: black;
+    /*color: black;*/
+    color: greenyellow;
 }
 .console_item_else{
     color: darkgrey;
