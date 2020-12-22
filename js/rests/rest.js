@@ -57,6 +57,8 @@ function init_rest(context) {
                     });
                 } else
                     callback({status:'ok'});
+            } else if(type.indexOf('text/plain') > -1){
+                console.log('content-type: text/plain');
             } else
                 callback(null, 'content-type: '+type);
         }

@@ -64,6 +64,10 @@ function init_fb(context) {
                                 tk_fcm = tok;
                                 _context.models.base.context.setParam('token_fb', tk_fb);
                                 _context.models.base.context.setParam('token_fcm', tk_fcm);
+
+                                //todo logs
+                                logsComponentLoginDone();
+
                             }
                         );
                 }
