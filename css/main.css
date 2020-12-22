@@ -10,6 +10,9 @@ html {
     font-family: 'VT323', monospace;
     color: greenyellow;
 }
+select, input{
+    color: greenyellow;
+}
 img{
     width: 100%;
 }
@@ -202,12 +205,12 @@ select, input, .buttons, .button_toggle{
     /*font-family: "TT Norms Bold";*/
 }
 .rest_model_block_item_content{
-    border: 1px brown solid;
+    border: 1px solid darkgreen;
     overflow-y: scroll;
     height: 80vh;
 }
 .main_rest_item{
-    border: 1px brown solid;
+    border: 1px solid darkgreen;
     overflow-y: scroll;
     position: absolute;
     background-color: gray;
@@ -227,7 +230,7 @@ select, input, .buttons, .button_toggle{
 }
 
 .model_item{
-    border: 1px brown solid;
+    border: 1px darkgreen solid;
     margin: 8px;
     padding: 8px;
     background-color: gray;
@@ -235,7 +238,7 @@ select, input, .buttons, .button_toggle{
 .model_item_name{
     display: block;
     text-align: center;
-    border-bottom: darkblue solid;
+    border-bottom: greenyellow solid;
     margin: 10px 0;
     text-transform: uppercase;
     /*font-family: "TT Norms Bold";*/
@@ -291,9 +294,9 @@ select, input, .buttons, .button_toggle{
 }
 .block_toggle{
     overflow-y: hidden;
-    border: 1px solid red;
+    border: 1px solid darkgreen;
     padding: 4px;
-    background-color: white;
+    background-color: dimgrey;
     overflow-wrap: break-word;
 }
 .buttons_block{
