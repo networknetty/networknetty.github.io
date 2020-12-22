@@ -9,10 +9,12 @@ html {
     font-family: 'JetBrains Mono', monospace;
     /*font-family: 'VT323', monospace;*/
     color: greenyellow;
+    background-color: darkgreen;
 }
 select, input{
     color: greenyellow;
-    background-color: gray;
+    background-color: mediumseagreen;
+    border-color: chartreuse;
 }
 img{
     width: 100%;
@@ -286,7 +288,7 @@ select, input, .buttons, .button_toggle{
 
 .main_notification {
     margin: 25vh 25vw;
-    background-color: bisque;
+    background-color: black;
 }
 
 .socket_notification {
@@ -336,7 +338,8 @@ select, input, .buttons, .button_toggle{
     justify-content: space-between;
     width: 100%;
     overflow-wrap: break-word;
-    border: 1px solid green;
+    border: 1px solid chartreuse;
+    background-color: darkgreen;
 }
 .main_form_block_info{
     margin: auto 8px;
@@ -362,10 +365,10 @@ select, input, .buttons, .button_toggle{
     margin: 10px;
     display: flex;
     justify-content: space-between;
-    border-bottom: greenyellow solid;
+    border-bottom: 2px greenyellow solid;
 }
 .item_header{
-    border-bottom: darkgreen solid;
+    /*border-bottom: darkgreen solid;*/
 }
 .item_title{
     margin: auto;
@@ -375,6 +378,7 @@ select, input, .buttons, .button_toggle{
 
 #socket_console_block{
     overflow-wrap: break-word;
+    background-color: green;
 }
 
 
@@ -477,6 +481,7 @@ select, input, .buttons, .button_toggle{
     .rest_model_block_item_content{
         height: auto;
         max-height: 80vh;
+        overflow-x: hidden;
     }
     #rest_block{
         height: auto;
@@ -534,7 +539,7 @@ select, input, .buttons, .button_toggle{
     select, input, .buttons, .button_toggle{
         min-width: 3vw;
         min-height: 2vw;
-        font-size: 20px;
+        font-size: 16px;
     }
 }
 
