@@ -12,6 +12,7 @@ html {
 }
 select, input{
     color: greenyellow;
+    background-color: gray;
 }
 img{
     width: 100%;
@@ -24,6 +25,28 @@ body{
 .main_screen{
 
 }
+/*-------------------- scrollbar -------------------*/
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: green;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: greenyellow;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: grey;
+}
+
 
 /*logs start*/
 .logs_screen{
@@ -337,7 +360,7 @@ select, input, .buttons, .button_toggle{
     margin: 10px;
     display: flex;
     justify-content: space-between;
-    border-bottom: darkblue solid;
+    border-bottom: greenyellow solid;
 }
 .item_header{
     border-bottom: darkgreen solid;
