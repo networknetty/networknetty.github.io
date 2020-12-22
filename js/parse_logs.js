@@ -132,7 +132,7 @@ function createLogsBlock(name) {
             if(obj.data){
                 let _d_c = document.createElement('div');
                 _d_c.className = 'log_data';
-                _d_c.innerHTML = JSON.parse(obj.data);
+                _d_c.innerHTML = JSON.stringify(obj.data);
                 i.appendChild(_d_c);
             }
 

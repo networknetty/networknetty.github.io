@@ -84,7 +84,7 @@ body{
     color: aqua;
 }
 .log_response_error{
-    color: brown;
+    color: darkred;
 }
 .log_error{
     color: darkred;
@@ -93,7 +93,7 @@ body{
     color: yellow;
 }
 .log_response_warning{
-    color: brown;
+    color: darkorange;
 }
 
 /*logs end*/
