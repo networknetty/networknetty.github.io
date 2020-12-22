@@ -5,17 +5,29 @@ html {
     min-width: 320px;
     position: relative;
     margin: 0 auto;
-    background-color: gray;
     font-family: 'JetBrains Mono', monospace;
     /*font-family: 'VT323', monospace;*/
     color: greenyellow;
     background-color: darkgreen;
 }
 select, input{
-    color: greenyellow;
-    background-color: mediumseagreen;
+    /*color: greenyellow;*/
+    color: darkolivegreen;
+    font-weight: 900;
+    /*background-color: darkolivegreen;*/
+    background-color: greenyellow;
     border-color: chartreuse;
+    transition: all 0.3s;
 }
+select:focus, input:focus{
+    background-color: cornsilk;
+    transition: all 0.3s;
+}
+select::selection, input::selection{
+    background-color: blue;
+    transition: all 0.3s;
+}
+
 img{
     width: 100%;
 }
@@ -232,15 +244,15 @@ select, input, .buttons, .button_toggle{
     /*font-family: "TT Norms Bold";*/
 }
 .rest_model_block_item_content{
-    border: 1px solid darkgreen;
+    border: 1px solid chartreuse;
     overflow-y: scroll;
     height: 80vh;
 }
 .main_rest_item{
-    border: 1px solid darkgreen;
+    border: 1px solid chartreuse;
     overflow-y: scroll;
     position: absolute;
-    background-color: gray;
+    background-color: green;
     width: 48vw;
     height: 18vh;
     margin: 3.6vw 0 0 8px;
@@ -257,10 +269,10 @@ select, input, .buttons, .button_toggle{
 }
 
 .model_item{
-    border: 1px darkgreen solid;
+    border: 1px chartreuse solid;
     margin: 8px;
     padding: 8px;
-    background-color: gray;
+    background-color: darkgreen;
 }
 .model_item_name{
     display: block;
@@ -321,9 +333,9 @@ select, input, .buttons, .button_toggle{
 }
 .block_toggle{
     overflow-y: hidden;
-    border: 1px solid darkgreen;
+    border: 1px solid chartreuse;
     padding: 4px;
-    background-color: dimgrey;
+    background-color: green;
     overflow-wrap: break-word;
 }
 .buttons_block{
@@ -339,7 +351,7 @@ select, input, .buttons, .button_toggle{
     width: 100%;
     overflow-wrap: break-word;
     border: 1px solid chartreuse;
-    background-color: darkgreen;
+    background-color: green;
 }
 .main_form_block_info{
     margin: auto 8px;
@@ -379,6 +391,7 @@ select, input, .buttons, .button_toggle{
 #socket_console_block{
     overflow-wrap: break-word;
     background-color: green;
+    border: 1px solid chartreuse;
 }
 
 
