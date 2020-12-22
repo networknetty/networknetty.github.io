@@ -6,7 +6,7 @@ html {
     position: relative;
     margin: 0 auto;
     background-color: gray;
-    font-family: cursive, Arial, sans-serif, 'Source Sans Pro' ;
+    font-family: 'JetBrains Mono', monospace;
 }
 img{
     width: 100%;
@@ -180,7 +180,7 @@ select, input, .buttons, .button_toggle{
     min-width: 5vw;
     min-height: 3vw;
     font-size: 20px;
-    font-family: cursive, Arial, sans-serif;
+    font-family: 'JetBrains Mono', monospace;
 }
 
 .buttons, .button_toggle{
