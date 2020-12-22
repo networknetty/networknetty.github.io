@@ -33,27 +33,27 @@ function createLogsBlock(name) {
         let b_up = document.createElement('input');
         b_up.type = 'button';
         b_up.value = btn_name;
-        b_up.class = 'buttons';
+        b_up.className = 'buttons';
         b_up.id = 'btn_'+btn_name+'_'+name;
         parent.appendChild(b_up);
     }
 
     let e = document.createElement('div');
-    e.class = 'logs_block';
+    e.className = 'logs_block';
     _logs_area.appendChild(e);
 
     let h = document.createElement('div');
-    h.class = '';
+    h.className = '';
     e.appendChild(h);
 
     let t = document.createElement('div');
-    t.class = 'logs_block_title';
+    t.className = 'logs_block_title';
     t.innerHTML = name;
     h.appendChild(t);
     // e.innerHTML = '<span class="logs_block_title">'+name+'</span>';
 
     let bb = document.createElement('div');
-    bb.class = 'logs_block_buttons';
+    bb.className = 'logs_block_buttons';
     h.appendChild(bb);
 
     createButtonToHead('update', bb);
@@ -61,7 +61,7 @@ function createLogsBlock(name) {
     createButtonToHead('close', bb);
 
     let c = document.createElement('div');
-    c.class = 'logs_block_content';
+    c.className = 'logs_block_content';
     c.id = 'content_'+name;
     e.appendChild(c);
 }
