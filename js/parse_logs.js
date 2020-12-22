@@ -171,7 +171,7 @@ function createLogsBlock(name) {
                 let _t = new Date(_t_int);
                 let _time_c = document.createElement('div');
                 _time_c.className = 'log_item_sub log_time_container';
-                _time_c.innerHTML = " | time: [" + obj.time + " | " + Math.abs(_t_int/60000) + " | " + _t.toLocaleString() + "]";
+                _time_c.innerHTML = " | time: [" + obj.time + " | " + Math.trunc(_t_int/60000) + " | " + _t.toLocaleString() + "]";
 
                 i.appendChild(_time_c);
             }
