@@ -1,17 +1,64 @@
 
 $('#logs_screen').addClass('hide_view');
 let _context;
+
+let _list_logs = [];
+let _btn_filter_info = document.getElementById("btn_filter_info");
+let _btn_filter_socket = document.getElementById("btn_filter_socket");
+let _btn_filter_request = document.getElementById("btn_filter_request");
+let _btn_filter_response = document.getElementById("btn_filter_response");
+let _btn_filter_response_error = document.getElementById("btn_filter_response_error");
+let _btn_filter_error = document.getElementById("btn_filter_error");
+let _btn_filter_debug = document.getElementById("btn_filter_debug");
+let _btn_filter_warning = document.getElementById("btn_filter_warning");
+
+let _filters_states = {};
+
 function logsComponentLoginDone(context) {
     _context = context;
+
     document.getElementById("info_buttons_block").innerHTML = "<input type='button' value='LOGS' id='btn_open_logs_screen'>";
+
     $('#btn_open_logs_screen').on('click', openLogsScreen);
     $('#btn_close_logs_screen').on('click', closeLogsScreen);
     $('#btn_get_all_logs').on('click', () => {
-        _context.callRest('/admin', {data:{}, action:'get_logs_list'}, data => {
-            // console.log('logs component [get logs list] data: '+JSON.parse(data));
-            updateLogsList(data.data);
-        })
+
+        //todo after first -> update lasts
+        if(_list_logs.length === 0)
+            _context.callRest('/admin', {data:{}, action:'get_logs_list'}, data => {
+                // console.log('logs component [get logs list] data: '+JSON.parse(data));
+                updateLogsList(data.data);
+            });
+        else{
+            console.log('need update last logs!!! last file: '+_list_logs[_list_logs.length-1]);
+        }
+
     });
+
+    function filterButtonToggle(element, key){
+        _filters_states[key] = true;
+        $(element).on('click', () => {
+            if(element.classList.contains('active')){
+                _filters_states[key] = false;
+                $(element).removeClass('active');
+                $('.'+key).addClass('hide_view');
+            } else{
+                _filters_states[key] = true;
+                $(element).addClass('active');
+                $('.'+key).removeClass('hide_view');
+            }
+        });
+    }
+
+    filterButtonToggle(_btn_filter_info, 'log_info');
+    filterButtonToggle(_btn_filter_socket, 'log_socket');
+    filterButtonToggle(_btn_filter_request, 'log_request');
+    filterButtonToggle(_btn_filter_response, 'log_response');
+    filterButtonToggle(_btn_filter_response_error, 'log_response_error');
+    filterButtonToggle(_btn_filter_error, 'log_error');
+    filterButtonToggle(_btn_filter_debug, 'log_debug');
+    filterButtonToggle(_btn_filter_warning, 'log_response_warning');
+
 }
 
 function openLogsScreen() {
@@ -28,6 +75,8 @@ function closeLogsScreen() {
 
 let _logs_area = document.getElementById("logs_work_area");
 function createLogsBlock(name) {
+
+    _list_logs.push(name);
 
     function createButtonToHead(btn_name, parent) {
         let b_up = document.createElement('input');
@@ -107,6 +156,9 @@ function createLogsBlock(name) {
             if(obj.type){
                 i.className = 'log_item log_'+obj.type.toLowerCase();
 
+                if(_filters_states['log_'+obj.type.toLowerCase()] === false)
+                    i.className += ' hide_view';
+
                 let _type_c = document.createElement('div');
                 _type_c.className = 'log_item_sub log_type';
                 _type_c.innerHTML = " type: [" + obj.type + "]";
@@ -115,12 +167,11 @@ function createLogsBlock(name) {
 
 
             if(obj.time){
-                let _t = new Date(Number.parseInt(obj.time));
+                let _t_int = Number.parseInt(obj.time);
+                let _t = new Date(_t_int);
                 let _time_c = document.createElement('div');
                 _time_c.className = 'log_item_sub log_time_container';
-                // _time_c.innerHTML = _t.toUTCString();
-
-                _time_c.innerHTML = " | time: [" + _t.toLocaleString() + "]";
+                _time_c.innerHTML = " | time: [" + obj.time + " | " + Math.abs(_t_int/60000) + " | " + _t.toLocaleString() + "]";
 
                 i.appendChild(_time_c);
             }

@@ -37,6 +37,9 @@ body{
     background-color: gray;
     margin: 1%;
 }
+.logs_header_filter_buttons{
+
+}
 .logs_work_area{
     background-color: gray;
     width: 98%;
@@ -52,6 +55,9 @@ body{
     display: flex;
 }
 .logs_block_title{
+    margin: auto 10px;
+}
+.logs_block_title_time{
     margin: auto 10px;
 }
 .logs_block_buttons{
@@ -73,26 +79,54 @@ body{
     word-break: break-all;
 }
 
+
+.log_btn_filter{
+    background-color: gray;
+}
+#btn_filter_info.active{
+    background-color: blue;
+}
 .log_info{
     color: blue;
+}
+#btn_filter_socket.active{
+    background-color: darkviolet;
 }
 .log_socket{
     color: darkviolet;
 }
+#btn_filter_request.active{
+    background-color: beige;
+}
 .log_request{
     color: beige;
+}
+#btn_filter_response.active{
+    background-color: aqua;
 }
 .log_response{
     color: aqua;
 }
+#btn_filter_response_error.active{
+    background-color: darkred;
+}
 .log_response_error{
     color: darkred;
+}
+#btn_filter_error.active{
+    background-color: darkred;
 }
 .log_error{
     color: darkred;
 }
+#btn_filter_debug.active{
+    background-color: yellow;
+}
 .log_debug{
     color: yellow;
+}
+#btn_filter_warning.active{
+    background-color: darkorange;
 }
 .log_response_warning{
     color: darkorange;
