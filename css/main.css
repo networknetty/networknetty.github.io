@@ -6,7 +6,7 @@ html {
     position: relative;
     margin: 0 auto;
     background-color: gray;
-    font-family: cursive, Arial, sans-serif;
+    font-family: cursive, Arial, sans-serif, 'Source Sans Pro' ;
 }
 img{
     width: 100%;
