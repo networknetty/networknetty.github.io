@@ -16,6 +16,7 @@ select, input{
     font-weight: 900;
     /*background-color: darkolivegreen;*/
     background-color: greenyellow;
+    /*border-color: darkolivegreen;*/
     border-color: chartreuse;
     transition: all 0.3s;
 }
@@ -261,11 +262,18 @@ select, input, .buttons, .button_toggle{
     height: 18vh;
     margin: 3.6vw 0 0 8px;
 }
+
 #rest_block{
     margin-top: 20vh;
     height: 60vh;
+    background-color: green;
 }
-
+#model_block{
+    background-color: green;
+}
+#socket_emit_block{
+    background-color: green;
+}
 
 .rest_model_block_item{
     width: 50%;
@@ -384,7 +392,7 @@ select, input, .buttons, .button_toggle{
     border-bottom: 2px greenyellow solid;
 }
 .item_header{
-    /*border-bottom: darkgreen solid;*/
+    border-bottom: 3px solid lime;
 }
 .item_title{
     margin: auto;
