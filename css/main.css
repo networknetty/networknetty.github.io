@@ -20,11 +20,15 @@ select, input{
     transition: all 0.3s;
 }
 select:focus, input:focus{
-    background-color: cornsilk;
+    background-color: darkgreen;
     transition: all 0.3s;
 }
 select::selection, input::selection{
-    background-color: blue;
+    background-color: red;
+    transition: all 0.3s;
+}
+select:hover, input:hover{
+    background-color: cornsilk;
     transition: all 0.3s;
 }
 
