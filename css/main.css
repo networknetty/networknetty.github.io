@@ -19,20 +19,30 @@ select, input{
     /*border-color: darkolivegreen;*/
     border-color: chartreuse;
     transition: all 0.5s;
+    outline: none;
 }
-select:focus, input:focus{
-    background-color: khaki;
-    border-radius: 0;
-    border-color: darkkhaki;
-    transition: all 0.5s;
+/*select:focus, input:focus{*/
+/*    background-color: khaki;*/
+/*    border-radius: 0;*/
+/*    border-color: darkkhaki;*/
+/*    transition: all 0.5s;*/
+/*}*/
+/*select::selection, input::selection{*/
+/*    background-color: red;*/
+/*    transition: all 0.5s;*/
+/*}*/
+/*select:hover, input:hover{*/
+/*    background-color: khaki;*/
+/*    transition: all 0.5s;*/
+/*}*/
+
+select:active, select:hover {
+    outline: none
 }
-select::selection, input::selection{
-    background-color: red;
-    transition: all 0.5s;
-}
-select:hover, input:hover{
-    background-color: cornsilk;
-    transition: all 0.5s;
+
+option:active{
+    background-color: green;
+    color: chartreuse;
 }
 
 img{
