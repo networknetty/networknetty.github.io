@@ -88,7 +88,7 @@ body{
     position: absolute;
 }
 .logs_screen .buttons{
-    margin: 10px;
+    margin: 6px;
 }
 .logs_header{
     width: 98%;
@@ -114,6 +114,7 @@ body{
 }
 .logs_block_header{
     display: flex;
+    font-size: 14px;
 }
 .logs_block_title{
     margin: auto 10px;
@@ -125,7 +126,7 @@ body{
 
 }
 .logs_block_content{
-    margin: 10px;
+    margin: 0 10px 6px 10px;
     background-color: darkgreen;
     height: 0;
     overflow-y: hidden;
