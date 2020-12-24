@@ -74,9 +74,11 @@ function closeLogsScreen() {
 }
 
 let _logs_area = document.getElementById("logs_work_area");
-function createLogsBlock(name) {
+function createLogsBlock(name, last) {
 
     _list_logs.push(name);
+
+    let _buttons = {};
 
     function createButtonToHead(btn_name, parent) {
         let b_up = document.createElement('input');
@@ -85,6 +87,7 @@ function createLogsBlock(name) {
         b_up.className = 'buttons';
         b_up.id = 'btn_'+btn_name+'_'+name;
         parent.appendChild(b_up);
+        _buttons[btn_name] = b_up;
         return b_up;
     }
 
@@ -127,15 +130,39 @@ function createLogsBlock(name) {
             if(!c.classList.contains('active'))
                 $(c).addClass('active');
 
+            if(!_buttons.open.classList.contains('hide_view'))
+                _buttons.open.addClass('hide_view');
+            if(_buttons.close.classList.contains('hide_view'))
+                _buttons.close.removeClass('hide_view');
+
         })
     });
     $(createButtonToHead('open', bb)).on('click', () => {
         $(c).addClass('active');
+        if(!_buttons.open.classList.contains('hide_view'))
+            _buttons.open.addClass('hide_view');
+        if(_buttons.close.classList.contains('hide_view'))
+            _buttons.close.removeClass('hide_view');
     });
+    _buttons.open.addClass('hide_view');
+
     $(createButtonToHead('close', bb)).on('click', () => {
         $(c).removeClass('active');
+        if(!_buttons.close.classList.contains('hide_view'))
+            _buttons.close.addClass('hide_view');
+        if(_buttons.open.classList.contains('hide_view'))
+            _buttons.open.removeClass('hide_view');
     });
+    _buttons.close.addClass('hide_view');
 
+    if(last === true){
+        $(createButtonToHead('next', c)).on('click', () => {
+            //todo if last block
+            // _context.callRest('/admin', {data:{name:name}, action:'get_log_file_by_name'}, data => {
+            //     // console.log('logs component [get log block data] data: '+JSON.stringify(data));
+            // })
+        });
+    }
 
     function parseLogs(data) {
 
@@ -236,7 +263,7 @@ function createLogsBlock(name) {
 function updateLogsList(data) {
 
     for(let i=0; i<data.length; i++)
-        createLogsBlock(data[i]);
+        createLogsBlock(data[i], i===data.length-1);
 
 }
 
