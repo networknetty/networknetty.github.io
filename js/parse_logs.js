@@ -79,6 +79,7 @@ function createLogsBlock(name, last) {
     _list_logs.push(name);
 
     let _buttons = {};
+    let _logs_obj_arr = [];
 
     function createButtonToHead(btn_name, parent) {
         let b_up = document.createElement('input');
@@ -131,32 +132,34 @@ function createLogsBlock(name, last) {
                 $(c).addClass('active');
 
             if(!_buttons.open.classList.contains('hide_view'))
-                _buttons.open.addClass('hide_view');
+                $(_buttons.open).addClass('hide_view');
             if(_buttons.close.classList.contains('hide_view'))
-                _buttons.close.removeClass('hide_view');
+                $(_buttons.close).removeClass('hide_view');
 
         })
     });
     $(createButtonToHead('open', bb)).on('click', () => {
         $(c).addClass('active');
         if(!_buttons.open.classList.contains('hide_view'))
-            _buttons.open.addClass('hide_view');
+            $(_buttons.open).addClass('hide_view');
         if(_buttons.close.classList.contains('hide_view'))
-            _buttons.close.removeClass('hide_view');
+            $(_buttons.close).removeClass('hide_view');
     });
-    _buttons.open.addClass('hide_view');
+    $(_buttons.open).addClass('hide_view');
 
     $(createButtonToHead('close', bb)).on('click', () => {
         $(c).removeClass('active');
         if(!_buttons.close.classList.contains('hide_view'))
-            _buttons.close.addClass('hide_view');
+            $(_buttons.close).addClass('hide_view');
         if(_buttons.open.classList.contains('hide_view'))
-            _buttons.open.removeClass('hide_view');
+            $(_buttons.open).removeClass('hide_view');
     });
-    _buttons.close.addClass('hide_view');
+    $(_buttons.close).addClass('hide_view');
 
     if(last === true){
         $(createButtonToHead('next', c)).on('click', () => {
+
+            console.log('check next | current file: '+name+' | last time: '+_logs_obj_arr[_logs_obj_arr.length-1].time);
             //todo if last block
             // _context.callRest('/admin', {data:{name:name}, action:'get_log_file_by_name'}, data => {
             //     // console.log('logs component [get log block data] data: '+JSON.stringify(data));
@@ -171,6 +174,7 @@ function createLogsBlock(name, last) {
             let obj;
             try {
                 obj = JSON.parse(str);
+                _logs_obj_arr.push(obj);
             }catch (e) {
                 console.log('catch parse log str: '+str);
                 return;
