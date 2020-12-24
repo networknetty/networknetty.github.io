@@ -130,6 +130,13 @@ body{
     background-color: darkgreen;
     height: 0;
     overflow-y: hidden;
+    /*position: relative;*/
+}
+.logs_next_button{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-right: 50%;
 }
 .logs_block_content.active{
     height: auto;

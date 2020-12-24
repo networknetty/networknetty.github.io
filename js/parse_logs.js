@@ -131,6 +131,8 @@ function createLogsBlock(name, last) {
             if(!c.classList.contains('active'))
                 $(c).addClass('active');
 
+            if(!_buttons.update.classList.contains('hide_view'))
+                $(_buttons.update).addClass('hide_view');
             if(!_buttons.open.classList.contains('hide_view'))
                 $(_buttons.open).addClass('hide_view');
             if(_buttons.close.classList.contains('hide_view'))
@@ -165,11 +167,15 @@ function createLogsBlock(name, last) {
             //     // console.log('logs component [get log block data] data: '+JSON.stringify(data));
             // })
         });
+        $(_buttons.next).addClass('logs_next_button');
     }
 
     function parseLogs(data) {
 
         function createLog(str){
+            if(str.length === 0)
+                return;
+
             str = '{'+str+'}';
             let obj;
             try {
