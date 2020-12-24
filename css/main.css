@@ -139,8 +139,10 @@ body{
     margin-right: 50%;
 }
 .logs_block_content.active{
-    height: auto;
+    /*height: auto;*/
     border: 1px solid chartreuse;
+    height: 50vh;
+    overflow-y: scroll;
 }
 
 .log_item{
