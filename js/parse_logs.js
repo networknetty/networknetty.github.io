@@ -79,6 +79,41 @@ function logsComponentLoginDone(context) {
 
 }
 
+function utilCreateDom(className, parentElement, tag){
+    if(!className || !parentElement)
+        return;
+    if(!tag)
+        tag = 'div';
+
+    let proto = {
+        element : document.createElement(tag),
+        html : (html) => {
+            proto.element.innerHTML = html;
+            return proto;
+        },
+        id : (id) => {
+            proto.element.id = id;
+            return proto;
+        }
+    };
+
+    proto.element.className = className;
+
+    // proto.html = (html) => {
+    //     proto.element.innerHTML = html;
+    //     return proto;
+    // };
+
+    // proto.id = (id) => {
+    //     proto.element.id = id;
+    //     return proto;
+    // };
+
+    parentElement.appendChild(proto.element);
+
+    return proto;
+}
+
 let _logs_area = document.getElementById("logs_work_area");
 function createLogsBlock(name) {
 
@@ -100,43 +135,23 @@ function createLogsBlock(name) {
         return b_up;
     }
 
-    let e = document.createElement('div');
-    e.className = 'logs_block';
-    _logs_area.appendChild(e);
-
-    let h = document.createElement('div');
-    h.className = 'logs_block_header';
-    e.appendChild(h);
-
-    let t = document.createElement('div');
-    t.className = 'logs_block_title';
-    t.innerHTML = name;
-    h.appendChild(t);
-
-    let t_i = document.createElement('div');
-    t_i.className = 'logs_block_title_time';
-    t_i.innerHTML = ' | time: [' + new Date(Number.parseInt(name)).toLocaleString() + ']';
-    h.appendChild(t_i);
-
-    let bb = document.createElement('div');
-    bb.className = 'logs_block_buttons';
-    h.appendChild(bb);
-
-    let c = document.createElement('div');
-    c.className = 'logs_block_content';
-    c.id = 'content_'+name;
-    e.appendChild(c);
+    let _main = utilCreateDom('logs_block', _logs_area).element;
+    let _header = utilCreateDom('logs_block_header', _main).element;
+    let _title = utilCreateDom('logs_block_title', _header).html(name).element;
+    utilCreateDom('logs_block_title_time', _header).html(' | time: [' + new Date(Number.parseInt(name)).toLocaleString() + ']');
+    let _buttons = utilCreateDom('logs_block_buttons', _header).element;
+    let _content = utilCreateDom('logs_block_content', _main).id('content_'+name).element;
 
     _proto.update = () => {
         //todo if last block && not opened
         _context.callRest('/admin', {data:{name:name}, action:'get_log_file_by_name'}, data => {
             // console.log('logs component [get log block data] data: '+JSON.stringify(data));
-            // c.innerHTML = JSON.stringify(data);
+            // _content.innerHTML = JSON.stringify(data);
 
             parseLogs(data);
 
-            if(!c.classList.contains('active'))
-                $(c).addClass('active');
+            if(!_content.classList.contains('active'))
+                $(_content).addClass('active');
 
             if(!_proto.buttons.update.classList.contains('hide_view'))
                 $(_proto.buttons.update).addClass('hide_view');
@@ -146,7 +161,7 @@ function createLogsBlock(name) {
                 $(_proto.buttons.close).removeClass('hide_view');
 
             if(_list_logs[_list_logs.length - 1].name === name){
-                $(createButtonToHead('next', c)).on('click', () => {
+                $(createButtonToHead('next', _content)).on('click', () => {
 
                     console.log('check next | current file: '+name+' | last time: '+
                         _proto.parsed_logs_objs[_proto.parsed_logs_objs.length-1].time);
@@ -162,26 +177,26 @@ function createLogsBlock(name) {
         })
     };
 
-    $(createButtonToHead('update', bb)).on('click', _proto.update);
+    $(createButtonToHead('update', _buttons)).on('click', _proto.update);
 
     _proto.open = () => {
-        $(c).addClass('active');
+        $(_content).addClass('active');
         if(!_proto.buttons.open.classList.contains('hide_view'))
             $(_proto.buttons.open).addClass('hide_view');
         if(_proto.buttons.close.classList.contains('hide_view'))
             $(_proto.buttons.close).removeClass('hide_view');
     };
-    $(createButtonToHead('open', bb)).on('click', _proto.open);
+    $(createButtonToHead('open', _buttons)).on('click', _proto.open);
     $(_proto.buttons.open).addClass('hide_view');
 
     _proto.close = () => {
-        $(c).removeClass('active');
+        $(_content).removeClass('active');
         if(!_proto.buttons.close.classList.contains('hide_view'))
             $(_proto.buttons.close).addClass('hide_view');
         if(_proto.buttons.open.classList.contains('hide_view'))
             $(_proto.buttons.open).removeClass('hide_view');
     };
-    $(createButtonToHead('close', bb)).on('click', _proto.close);
+    $(createButtonToHead('close', _buttons)).on('click', _proto.close);
     $(_proto.buttons.close).addClass('hide_view');
 
     function parseLogs(data) {
@@ -202,7 +217,7 @@ function createLogsBlock(name) {
 
 
             let i = document.createElement('div');
-            c.appendChild(i);
+            _content.appendChild(i);
             _proto.parsed_logs_elems.push(i);
 
             if(obj.type){
