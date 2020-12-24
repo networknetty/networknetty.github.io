@@ -27,7 +27,8 @@ function logsComponentLoginDone(context) {
         if(_list_logs.length === 0)
             _context.callRest('/admin', {data:{}, action:'get_logs_list'}, data => {
                 // console.log('logs component [get logs list] data: '+JSON.parse(data));
-                updateLogsList(data.data);
+                for(let i=0; i<data.data.length; i++)
+                    createLogsBlock(data.data[i], i===data.data.length-1);
             });
         else{
             console.log('need update last logs!!! last file: '+_list_logs[_list_logs.length-1]);
@@ -138,6 +139,18 @@ function createLogsBlock(name, last) {
             if(_buttons.close.classList.contains('hide_view'))
                 $(_buttons.close).removeClass('hide_view');
 
+            if(last === true){
+                $(createButtonToHead('next', c)).on('click', () => {
+
+                    console.log('check next | current file: '+name+' | last time: '+_logs_obj_arr[_logs_obj_arr.length-1].time);
+                    //todo if last block
+                    // _context.callRest('/admin', {data:{name:name}, action:'get_log_file_by_name'}, data => {
+                    //     // console.log('logs component [get log block data] data: '+JSON.stringify(data));
+                    // })
+                });
+                $(_buttons.next).addClass('logs_next_button');
+            }
+
         })
     });
     $(createButtonToHead('open', bb)).on('click', () => {
@@ -157,18 +170,6 @@ function createLogsBlock(name, last) {
             $(_buttons.open).removeClass('hide_view');
     });
     $(_buttons.close).addClass('hide_view');
-
-    if(last === true){
-        $(createButtonToHead('next', c)).on('click', () => {
-
-            console.log('check next | current file: '+name+' | last time: '+_logs_obj_arr[_logs_obj_arr.length-1].time);
-            //todo if last block
-            // _context.callRest('/admin', {data:{name:name}, action:'get_log_file_by_name'}, data => {
-            //     // console.log('logs component [get log block data] data: '+JSON.stringify(data));
-            // })
-        });
-        $(_buttons.next).addClass('logs_next_button');
-    }
 
     function parseLogs(data) {
 
@@ -268,13 +269,6 @@ function createLogsBlock(name, last) {
             createLog(_split_arr[i]);
         }
     }
-}
-
-function updateLogsList(data) {
-
-    for(let i=0; i<data.length; i++)
-        createLogsBlock(data[i], i===data.length-1);
-
 }
 
 function updateFullLogs(data) {
